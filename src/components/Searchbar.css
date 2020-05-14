@@ -1,0 +1,15 @@
+.bar{
+    margin: 0 auto;
+    width: 50%;
+    border-radius: 0;
+    border:1px solid #dcdcdc;
+    background-color: white;
+}
+
+.searchbar {
+    height:45px;
+    border:none;
+    width: 48%;
+    font-size:16px;
+    outline: none;
+}

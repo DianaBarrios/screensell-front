@@ -1,6 +1,22 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import logo from './logo-ss.png';
 import './App.css';
+import {
+  Route,
+  BrowserRouter,
+  Switch,
+  NavLink,
+  HashRouter
+} from "react-router-dom";
+import Topbar from './components/Topbar';
+import Home from "./components/Home";
+import Store from './components/Store'
+import Contact from "./components/Contact";
+import Profile from "./components/Profile";
+import Cart from './components/Cart';
+import Orders from './components/Orders'
+import Products from './components/Products'
+import Footer from './components/Footer';
 
 class App extends Component {
   constructor(props) {
@@ -20,20 +36,25 @@ class App extends Component {
 
   render(){
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p className="App-intro">{this.state.apiResponse}</p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <BrowserRouter>
+        <div className="App">
+          <Topbar />
+          <div className="content">
+            <Switch>
+              <Route exact path="/" component={Home}/>
+              <Route path="/tienda" component={Store}/>
+              <Route path="/contacto" component={Contact}/>
+              <Route path="/perfil" component={Profile}/>
+              <Route path="/carrito" component={Cart}/>
+              <Route path="/ordenes" component={Orders}/>
+              <Route path="/productos" component={Products}/>
+            </Switch>
+          </div>
+
+          <Footer/>
+          </div>
+          
+      </BrowserRouter>
     );
   }
   

@@ -1,0 +1,11 @@
+.sidebar {
+    background-color: #edf2f4;
+    text-align: left;
+    padding: 5px;
+    width: 200px;
+    height: 100%;
+}
+
+.sidebar a {
+    color: hsl(0, 0%, 0%);
+}
