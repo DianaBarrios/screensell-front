@@ -25,7 +25,7 @@ class App extends Component {
   }
 
   callAPI() {
-      fetch("http://localhost:9000/testAPI")
+      fetch("https://screensell-back.herokuapp.com/testAPI")
           .then(res => res.text())
           .then(res => this.setState({ apiResponse: res }));
   }
@@ -40,6 +40,7 @@ class App extends Component {
         <div className="App">
           <Topbar />
           <div className="content">
+          <p>API response: {this.state.apiResponse}</p>
             <Switch>
               <Route exact path="/" component={Home}/>
               <Route path="/tienda" component={Store}/>
