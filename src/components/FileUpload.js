@@ -5,7 +5,7 @@ class FileUpload extends Component {
   constructor() {
     super();
     this.state = {
-      file: null,
+      file: null
     };
   }
 
@@ -14,7 +14,7 @@ class FileUpload extends Component {
     const formData = new FormData();
     formData.append('file', this.state.file[0]);
     axios
-      .post(`http://localhost:9000/aws/upload`, formData, {
+      .post('http://localhost:9000/aws/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
