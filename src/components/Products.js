@@ -1,47 +1,85 @@
 import React, { Component } from 'react';
 import Sidebar from './Sidebar';
+import axios from 'axios';
 
 class Product extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            products: []
+            products: [],
+            isLoading: false,
+            error: null
     };
     }
 
-    componentWillMount() {
-        fetch("https://screensell-back.herokuapp.com/product/")
-            .then(res => {
-                return res.json();
-            })
-            .then(data => {
-                this.setState({products: data.products}) 
-        })
+    async componentWillMount() {
+        this.setState({isLoading: true})
+
+        try {
+            const result = await axios.get('https://screensell-back.herokuapp.com/product/')
+            this.setState({
+                products: result.data, 
+                isLoading: false
+            }); 
+        } catch(error) {
+            this.setState({
+                error, 
+                isLoading: false})
+        }
     }
   
     render(){
-        const {products} = this.state;
+        const {products, isLoading, error} = this.state;
+
+        if(error){
+            return(<p>{error.message}</p>)
+        }
+
+        if(isLoading){
+            return(<p>Cargando productos...</p>)
+        }
 
         return(
             <div className="page-division">
                 <Sidebar/>
                 <div className="page-content">
                     <h2>PRODUCTOS</h2>
+                    <a href="/producto/nuevo">Agregar producto</a>
                     <div>
-                        <ul>
-                            {
-                                products.map(product =>
-                                    <li>
-                                        <h3>{product.name}</h3>
-                                    </li>
-                                    )
-                            }
-
-                        </ul>
+                        <table className="table table-striped">
+                            <thead>
+                                <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Inventario</th>
+                                <th scope="col">Modelo</th>
+                                <th scope="col">Precio</th>
+                                <th scope="col">Tipo</th>
+                                <th scope="col">Descripcion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {products.map(product => 
+                                <tr key={product.id}>
+                                    <th scope="row">{product.id}</th>
+                                    <td key="p">
+                                        {product.name}
+                                    </td>
+                                    <td>{product.stock}</td>
+                                    <td>{product.model}</td>
+                                    <td>{product.price}</td>
+                                    <td>{product.type}</td>
+                                    <td>{product.description}</td>
+                                </tr>
+                                )}
+                            
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         )
+
         
     }
 }

@@ -17,6 +17,7 @@ import Cart from './components/Cart';
 import Orders from './components/Orders'
 import Products from './components/Products'
 import Footer from './components/Footer';
+import CreateProduct from './components/CreateProduct'
 
 class App extends Component {
   constructor(props) {
@@ -40,7 +41,6 @@ class App extends Component {
         <div className="App">
           <Topbar />
           <div className="content">
-          <p>API response: {this.state.apiResponse}</p>
             <Switch>
               <Route exact path="/" component={Home}/>
               <Route path="/tienda" component={Store}/>
@@ -49,6 +49,7 @@ class App extends Component {
               <Route path="/carrito" component={Cart}/>
               <Route path="/ordenes" component={Orders}/>
               <Route path="/productos" component={Products}/>
+              <Route path="/producto/nuevo" component={CreateProduct}/>
             </Switch>
           </div>
 
