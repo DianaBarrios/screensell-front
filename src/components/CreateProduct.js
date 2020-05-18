@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Sidebar from './Sidebar';
 import axios from 'axios';
+import Sidebar from './Sidebar';
+import FileUpload from './FileUpload';
 
 class CreateProduct extends Component {
     constructor(props) {
@@ -9,6 +10,7 @@ class CreateProduct extends Component {
         this.onChangeDescription = this.onChangeDescription.bind(this);
         this.onChangeModel = this.onChangeModel.bind(this);
         this.onChangeType= this.onChangeType.bind(this);
+        this.onChangePrice = this.onChangePrice.bind(this);
         this.onChangeStock = this.onChangeStock.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         
@@ -17,6 +19,7 @@ class CreateProduct extends Component {
             description: '',
             model: '',
             type: '',
+            price: '',
             stock: ''
         }
     }
@@ -78,55 +81,58 @@ class CreateProduct extends Component {
         return(
             <div className="page-division">
                 <Sidebar/>
-                <div>
+                <div className="container">
                     <h2>AGREGAR PRODUCTO</h2>
-                    <button>Agregar producto</button>
-                    <div>
-                    <form onSubmit={this.onSubmit} className="create-product-form">
-                        <div className="form-group">
-                            <label>
-                            Nombre:
-                            </label>
-                            <input id="nombre" type="text" className="form-control" value={this.state.name} onChange={this.onChangeName}/>
+                    <div classsName="row">
+                        <div className="col-8 mx-2">
+                            <form onSubmit={this.onSubmit} className="create-product-form">
+                                <div className="form-group row">
+                                    <label className="col-sm-2">
+                                    Nombre:
+                                    </label>
+                                    <input id="nombre" type="text" className="form-control col-sm-10" value={this.state.name} onChange={this.onChangeName}/>
+                                </div>
+                        
+                                <div className="form-group row">
+                                    <label>
+                                    Descripcion:
+                                    </label>
+                                    <input id="descripcion" type="text" className="form-control" value={this.state.description} onChange={this.onChangeDescription}/>
+                                </div>
+                        
+                                <div className="form-group row">
+                                    <label>
+                                    Modelo:
+                                    </label>
+                                    <input id="modelo" type="text" className="form-control" value={this.state.model} onChange={this.onChangeModel}/>
+                                </div>
+                        
+                                <div className="form-group row">
+                                    <label>
+                                    Tipo:
+                                    </label>
+                                    <input id="tipo" type="text" className="form-control" value={this.state.type} onChange={this.onChangeType}/>
+                                </div>
+                                <div className="form-group row">
+                                    <label>
+                                    Precio:
+                                    </label>
+                                    <input id="precio" type="text" className="form-control" value={this.state.price} onChange={this.onChangePrice}/>
+                                </div>
+                        
+                                <div className="form-group row">
+                                    <label>
+                                    Inventario:
+                                    </label>
+                                    <input id="inventario" type="text" className="form-control" value={this.state.stock} onChange={this.onChangeStock}/>
+                                </div>
+                                <FileUpload />
+                                <button type="submit" value="Create Product" className="btn btn-primary">
+                                    Guardar
+                                </button>
+                            </form>
                         </div>
-                
-                        <div className="form-group">
-                            <label>
-                            Descripcion:
-                            </label>
-                            <input id="descripcion" type="text" className="form-control" value={this.state.description} onChange={this.onChangeDescription}/>
-                        </div>
-                
-                        <div className="form-group">
-                            <label>
-                            Modelo:
-                            </label>
-                            <input id="modelo" type="text" className="form-control" value={this.state.model} onChange={this.onChangeModel}/>
-                        </div>
-                
-                        <div className="form-group">
-                            <label>
-                            Tipo:
-                            </label>
-                            <input id="tipo" type="text" className="form-control" value={this.state.type} onChange={this.onChangeType}/>
-                        </div>
-                        <div className="form-group">
-                            <label>
-                            Precio:
-                            </label>
-                            <input id="precio" type="text" className="form-control" value={this.state.price} onChange={this.onChangePrice}/>
-                        </div>
-                
-                        <div className="form-group">
-                            <label>
-                            Inventario:
-                            </label>
-                            <input id="inventario" type="text" className="form-control" value={this.state.stock} onChange={this.onChangeStock}/>
-                        </div>
-                        <button type="submit" value="Create Product">
-                            Guardar
-                        </button>
-                    </form>
+                        
                     </div>
                 </div>
             </div>

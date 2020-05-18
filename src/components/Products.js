@@ -44,8 +44,11 @@ class Product extends Component {
                 <Sidebar/>
                 <div className="page-content">
                     <h2>PRODUCTOS</h2>
-                    <a href="/producto/nuevo">Agregar producto</a>
-                    <div>
+                    <div className="row d-flex justify-content-end">
+                        <a href="/producto/nuevo" className="btn btn-primary mr-5">Agregar producto</a>
+                    </div>
+                    
+                    <div className="container">
                         <table className="table table-striped">
                             <thead>
                                 <tr>

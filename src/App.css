@@ -14,12 +14,11 @@
 }
 
 .App-link {
-  color: #61dafb;
+  color: #ffc400;
 }
 
 .content {
   background-color: white;
-  height: 500px;
   padding: 10px;
 }
 
@@ -38,4 +37,11 @@
 
 .page-content {
   flex-grow: 5;
+  padding: 10px;
+}
+
+.container {
+  margin-top: 5%;
+  margin-bottom: 5%;
+  paddding: 5%;
 }
