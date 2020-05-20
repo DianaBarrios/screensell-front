@@ -64,7 +64,6 @@ class Product extends Component {
             <table className="table table-hover px-3">
               <thead>
                 <tr>
-                  <th scope="col"></th>
                   <th scope="col">ID</th>
                   <th scope="col">Nombre</th>
                   <th scope="col">Inventario</th>
