@@ -37,11 +37,13 @@
 
 .page-content {
   flex-grow: 5;
-  padding: 10px;
 }
 
-.container {
-  margin-top: 5%;
-  margin-bottom: 5%;
-  paddding: 5%;
+#create-product-form {
+  text-align: left;
+}
+
+.page-title {
+  margin-top: 8px;
+  margin-bottom: 10px;
 }

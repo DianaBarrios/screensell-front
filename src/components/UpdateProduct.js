@@ -1,19 +1,20 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Sidebar from "./Sidebar";
-import FileUpload from "./FileUpload";
 
-class CreateProduct extends Component {
+class UpdateProduct extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
+      id: "",
       name: "",
       description: "",
       model: "",
       type: "",
       price: "",
-      stock: ""
+      stock: "",
+      isLoading: false,
+      error: null
     };
     this.onChangeName = this.onChangeName.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
@@ -21,7 +22,34 @@ class CreateProduct extends Component {
     this.onChangeType = this.onChangeType.bind(this);
     this.onChangePrice = this.onChangePrice.bind(this);
     this.onChangeStock = this.onChangeStock.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
+  }
+
+  async componentWillMount() {
+    const id = this.props.match.params.productId;
+
+    this.setState({ isLoading: true });
+
+    try {
+      const result = await axios.get(
+        `https://screensell-back.herokuapp.com/product/getid/${id}`
+      );
+      this.setState({
+        id: result.data.id,
+        name: result.data.name,
+        description: result.data.description,
+        model: result.data.model,
+        type: result.data.type,
+        price: result.data.price,
+        stock: result.data.stock,
+        isLoading: false
+      });
+    } catch (error) {
+      this.setState({
+        error,
+        isLoading: false
+      });
+    }
   }
 
   onChangeName(e) {
@@ -48,10 +76,14 @@ class CreateProduct extends Component {
     this.setState({ stock: e.target.value });
   }
 
-  onSubmit(e) {
+  handleUpdate(e) {
     e.preventDefault();
 
+    const id = this.props.match.params.productId;
+    //console.log(id)
+
     const productObj = {
+      id: this.state.id,
       name: this.state.name,
       description: this.state.description,
       model: this.state.model,
@@ -61,30 +93,31 @@ class CreateProduct extends Component {
     };
 
     axios
-      .post("https://screensell-back.herokuapp.com/product/new", productObj)
+      .patch(`https://screensell-back.herokuapp.com/product/${id}`, productObj)
       .then(res => {
         console.log(res.data);
       })
       .catch(error => {
         console.log(error);
       });
-
-    this.setState({
-      name: "",
-      description: "",
-      model: "",
-      type: "",
-      stock: "",
-      price: ""
-    });
   }
 
   render() {
+    const { isLoading, error } = this.state;
+
+    if (error) {
+      return <p>{error.message}</p>;
+    }
+
+    if (isLoading) {
+      return <p>Cargando productos...</p>;
+    }
+
     return (
       <div className="page-division">
         <Sidebar />
         <div className="page-content mt-3">
-          <h2 className="page-title">NUEVO PRODUCTO</h2>
+          <h2 className="page-title">PRODUCTO</h2>
 
           <div className="row d-flex justify-content-end">
             <a href="/productos" className="btn btn-outline-primary mr-5">
@@ -93,15 +126,17 @@ class CreateProduct extends Component {
           </div>
 
           <div className="container">
-            <form onSubmit={this.onSubmit} id="create-product-form">
+            <form onSubmit={this.handleUpdate} id="create-product-form">
               <div className="row">
                 <div className="col-lg-8">
                   <div className="form-group">
                     <label>Nombre:</label>
                     <input
-                      id="nombre"
+                      id="productName"
+                      name="nombre"
                       type="text"
                       className="form-control"
+                      placeholder=""
                       value={this.state.name}
                       onChange={this.onChangeName}
                     />
@@ -110,23 +145,22 @@ class CreateProduct extends Component {
                   <div className="form-group">
                     <label>Descripcion:</label>
                     <textarea
-                      id="descripcion"
+                      id="productDescription"
+                      name="descripcion"
                       className="form-control"
+                      placeholder=""
                       rows="4"
                       value={this.state.description}
                       onChange={this.onChangeDescription}
                     />
                   </div>
 
-                  <div className="container p-3">
-                    <FileUpload />
-                  </div>
-
                   <div className="row">
                     <div className="form-group col-lg-6">
                       <label>Precio:</label>
                       <input
-                        id="precio"
+                        id="productPrice"
+                        name="precio"
                         type="text"
                         placeholder="$ 0.00"
                         className="form-control"
@@ -138,7 +172,8 @@ class CreateProduct extends Component {
                     <div className="form-group col-lg-6">
                       <label>Inventario:</label>
                       <input
-                        id="inventario"
+                        id="productStock"
+                        name="inventario"
                         type="text"
                         placeholder="Cantidad"
                         className="form-control"
@@ -153,7 +188,8 @@ class CreateProduct extends Component {
                   <div className="form-group">
                     <label>Modelo:</label>
                     <input
-                      id="modelo"
+                      id="productModel"
+                      name="modelo"
                       type="text"
                       placeholder="por ej: IP7"
                       className="form-control"
@@ -165,7 +201,8 @@ class CreateProduct extends Component {
                   <div className="form-group">
                     <label>Tipo:</label>
                     <input
-                      id="tipo"
+                      id="productType"
+                      name="tipo"
                       type="text"
                       placeholder="por ej. LCD"
                       className="form-control"
@@ -192,4 +229,4 @@ class CreateProduct extends Component {
   }
 }
 
-export default CreateProduct;
+export default UpdateProduct;
