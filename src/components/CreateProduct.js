@@ -60,7 +60,7 @@ class CreateProduct extends Component {
             price: Number(this.state.price)
         };
 
-        axios.post('https://screensell-back.herokuapp.com/product/newProduct', productObj)
+        axios.post('https://screensell-back.herokuapp.com/product/new', productObj)
             .then((res) => {
                 console.log(res.data)
             }).catch((error) => {
@@ -81,9 +81,9 @@ class CreateProduct extends Component {
         return(
             <div className="page-division">
                 <Sidebar/>
-                <div className="container">
+                <div classnname="container">
                     <h2>AGREGAR PRODUCTO</h2>
-                    <div classsName="row">
+                    <div classsname="row">
                         <div className="col-8 mx-2">
                             <form onSubmit={this.onSubmit} className="create-product-form">
                                 <div className="form-group row">
