@@ -13,23 +13,16 @@ import Home from "./components/Home";
 import Store from "./components/Store";
 import Contact from "./components/Contact";
 import Profile from "./components/Profile";
-<<<<<<< Updated upstream
-import Cart from "./components/Cart";
-import Orders from "./components/Orders";
-import Products from "./components/Products";
-import Footer from "./components/Footer";
-import CreateProduct from "./components/CreateProduct";
-import FileUpload from "./components/FileUpload";
-import UpdateProduct from "./components/UpdateProduct";
-=======
 import Cart from './components/Cart';
 import Orders from './components/Orders'
 import Products from './components/Products'
 import Footer from './components/Footer';
-import CreateProduct from './components/CreateProduct'
-import CreateUser from './components/CreateUser'
-import Login from './components/Login'
->>>>>>> Stashed changes
+import CreateProduct from './components/CreateProduct';
+import CreateUser from './components/CreateUser';
+import Login from './components/Login';
+import UpdateProduct from './components/UpdateProduct';
+import FileUpload from './components/FileUpload';
+import User from './components/User';
 
 class App extends Component {
   constructor(props) {
@@ -66,6 +59,7 @@ class App extends Component {
               <Route path="/files" component={FileUpload} />
               <Route path="/usuario/nuevo" component={CreateUser} />
               <Route path="/usuario/login" component={Login} />
+              <Route path="/usuario" component={User} />
             </Switch>
           </div>
 
