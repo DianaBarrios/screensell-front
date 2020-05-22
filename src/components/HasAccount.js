@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import axios from 'axios';
-import LinkButton from './LinkButton';
+import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+import axios from "axios";
+import LinkButton from "./LinkButton";
+import Login from "./Login";
 class HasAccount extends Component {
   constructor(props) {
     super(props);

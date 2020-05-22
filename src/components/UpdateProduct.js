@@ -76,7 +76,7 @@ class UpdateProduct extends Component {
     this.setState({ stock: e.target.value });
   }
 
-  handleUpdate(e) {
+  async handleUpdate(e) {
     e.preventDefault();
 
     const id = this.props.match.params.productId;
@@ -92,13 +92,30 @@ class UpdateProduct extends Component {
       price: Number(this.state.price)
     };
 
-    axios
-      .patch(`https://screensell-back.herokuapp.com/product/${id}`, productObj)
-      .then(res => {
-        console.log(res.data);
+    this.setState({ isLoading: true });
+    await axios
+      .get("http://localhost:9000/user/validate", {
+        headers: { sessiontoken: localStorage.getItem("sessiontoken") }
       })
-      .catch(error => {
-        console.log(error);
+      .then(async result => {
+        await axios
+          .patch(`http://localhost:9000/product/${id}`, productObj, {
+            headers: { sessiontoken: localStorage.getItem("sessiontoken") }
+          })
+          .then(res => {
+            console.log(res.data);
+            this.setState({
+              isLoading: false
+            });
+            this.props.history.push("/productos");
+          })
+          .catch(error => {
+            console.log(error);
+            this.setState({
+              error,
+              isLoading: false
+            });
+          });
       });
   }
 
@@ -120,7 +137,7 @@ class UpdateProduct extends Component {
           <h2 className="page-title">PRODUCTO</h2>
 
           <div className="row d-flex justify-content-end">
-            <a href="/productos" className="btn btn-outline-primary mr-5">
+            <a href="/productos" className="btn btn-outline-dark mr-5">
               Regresar
             </a>
           </div>

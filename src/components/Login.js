@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import axios from 'axios';
+import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+import axios from "axios";
+import "./Login.css";
+import { withRouter } from "react-router";
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -10,9 +12,9 @@ class Login extends Component {
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
-      email: '',
-      password: '',
-      type: '',
+      email: "",
+      password: "",
+      type: ""
     };
   }
 
@@ -34,87 +36,80 @@ class Login extends Component {
 
     const newSession = {
       email: this.state.email,
-      password: this.state.password,
+      password: this.state.password
     };
+
+    console.log(newSession);
+
     axios
-      .post('http://localhost:9000/' + this.state.type + '/login', newSession)
-      .then((res) => {
+      .post("http://localhost:9000/" + this.state.type + "/login", newSession)
+      .then(res => {
         console.log(res.data.token);
-        localStorage.setItem('sessiontoken', res.data.token);
-        this.props.history.push('/');
+        localStorage.setItem("sessiontoken", res.data.token);
+        //console.log(this.props.history);
+        //this.props.history.push("/");
+        this.props.history.push("/");
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
 
     this.setState({
-      email: '',
-      password: '',
+      email: "",
+      password: ""
     });
   }
 
   render() {
     return (
-      <div className="page-division">
-        <div>
-          <h2>¿Tienes cuenta?</h2>
-          <div>
-            <form onSubmit={this.onSubmit} className="login-user-form">
-              <div className="form-group">
-                <label>Email:</label>
-                <input
-                  id="email"
-                  type="text"
-                  className="form-control"
-                  value={this.state.email}
-                  onChange={this.onChangeEmail}
-                />
-              </div>
+      <div className="login-page">
+        <h2>Iniciar sesión</h2>
+        <div className="user-form" id="login-user-form">
+          <form onSubmit={this.onSubmit.bind(this)} class="login-form">
+            <input
+              id="email"
+              type="text"
+              value={this.state.email}
+              onChange={this.onChangeEmail}
+              placeholder="Email"
+            />
+            <input
+              id="password"
+              type="password"
+              value={this.state.password}
+              onChange={this.onChangePassword}
+              placeholder="Contraseña"
+            />
+            <label>Tipo de usuario</label>
+            <br />
 
-              <div className="form-group">
-                <label>Contraseña:</label>
-                <input
-                  id="password"
-                  type="password"
-                  className="form-control"
-                  value={this.state.password}
-                  onChange={this.onChangePassword}
-                />
-              </div>
-              <div className="form-group">
-                <label>Tipo de usuario: </label>
-                <div>
-                  <label>
-                    <input
-                      type="radio"
-                      name="type-user"
-                      value="user"
-                      onChange={this.onChangeType}
-                    ></input>
-                    Cliente
-                  </label>
-                </div>
-                <div>
-                  <label>
-                    <input
-                      type="radio"
-                      name="type-user"
-                      value="admin"
-                      onChange={this.onChangeType}
-                    ></input>
-                    Encargado de tienda
-                  </label>
-                </div>
-              </div>
-              <button type="submit" value="Ingresar a cuenta" href="/tienda">
-                Ingresar a cuenta
-              </button>
-            </form>
-          </div>
+            <input
+              type="radio"
+              name="type-user"
+              value="user"
+              onChange={this.onChangeType}
+            />
+            <label> Cliente</label>
+            <br />
+
+            <input
+              type="radio"
+              name="type-user"
+              value="admin"
+              onChange={this.onChangeType}
+            />
+            <label> Encargado de tienda</label>
+            <br />
+
+            <button>login</button>
+            <p class="message">
+              No tienes cuenta? <a href="/usuario/nuevo">Crear una cuenta</a>
+            </p>
+          </form>
         </div>
       </div>
     );
   }
 }
 
-export default Login;
+export default withRouter(Login);

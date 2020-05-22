@@ -12,17 +12,16 @@ import Topbar from "./components/Topbar";
 import Home from "./components/Home";
 import Store from "./components/Store";
 import Contact from "./components/Contact";
-import Profile from "./components/Profile";
-import Cart from './components/Cart';
-import Orders from './components/Orders'
-import Products from './components/Products'
-import Footer from './components/Footer';
-import CreateProduct from './components/CreateProduct';
-import CreateUser from './components/CreateUser';
-import Login from './components/Login';
-import UpdateProduct from './components/UpdateProduct';
-import FileUpload from './components/FileUpload';
-import User from './components/User';
+import Cart from "./components/Cart";
+import Orders from "./components/Orders";
+import Products from "./components/Products";
+import Footer from "./components/Footer";
+import CreateProduct from "./components/CreateProduct";
+import CreateUser from "./components/CreateUser";
+import Login from "./components/Login";
+import UpdateProduct from "./components/UpdateProduct";
+import FileUpload from "./components/FileUpload";
+import User from "./components/User";
 
 class App extends Component {
   constructor(props) {
@@ -50,7 +49,6 @@ class App extends Component {
               <Route exact path="/" component={Home} />
               <Route path="/tienda" component={Store} />
               <Route path="/contacto" component={Contact} />
-              <Route path="/perfil" component={Profile} />
               <Route path="/carrito" component={Cart} />
               <Route path="/ordenes" component={Orders} />
               <Route path="/productos" component={Products} />
@@ -65,11 +63,9 @@ class App extends Component {
 
           <Footer />
         </div>
-
       </BrowserRouter>
     );
   }
-
 }
 
 export default App;

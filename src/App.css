@@ -47,3 +47,48 @@
   margin-top: 8px;
   margin-bottom: 10px;
 }
+
+.btn {
+  border-radius: 0;
+}
+
+.btn-primary {
+  background-color: #ffc400;
+  border-color: #ffc400;
+}
+
+.btn-primary:hover {
+  background-color: #ffc400;
+  border-color: #ffc400;
+  font-weight: bolder;
+}
+
+.btn-lg {
+  background-color: #ffc400;
+  border-color: #ffc400;
+}
+
+.btn-lg:hover {
+  background-color: #ffc400;
+  border-color: #ffc400;
+  font-weight: bolder;
+}
+
+.form-control {
+  border-radius: 0;
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+#user-profile-form {
+  padding: 10px 10%;
+  padding-bottom: 20px;
+  text-align: left;
+}
