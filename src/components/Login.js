@@ -39,8 +39,6 @@ class Login extends Component {
       password: this.state.password,
     };
 
-    console.log(newSession);
-
     axios
       .post('http://localhost:9000/' + this.state.type + '/login', newSession)
       .then((res) => {

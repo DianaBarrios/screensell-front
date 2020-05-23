@@ -1,38 +1,39 @@
-import React, { Component } from "react";
-import logo from "./logo-ss.png";
-import "./App.css";
+import React, { Component } from 'react';
+import logo from './logo-ss.png';
+import './App.css';
 import {
   Route,
   BrowserRouter,
   Switch,
   NavLink,
-  HashRouter
-} from "react-router-dom";
-import Topbar from "./components/Topbar";
-import Home from "./components/Home";
-import Store from "./components/Store";
-import Contact from "./components/Contact";
-import Cart from "./components/Cart";
-import Orders from "./components/Orders";
-import Products from "./components/Products";
-import Footer from "./components/Footer";
-import CreateProduct from "./components/CreateProduct";
-import CreateUser from "./components/CreateUser";
-import Login from "./components/Login";
-import UpdateProduct from "./components/UpdateProduct";
-import FileUpload from "./components/FileUpload";
-import User from "./components/User";
+  HashRouter,
+} from 'react-router-dom';
+import Topbar from './components/Topbar';
+import Home from './components/Home';
+import Store from './components/Store';
+import Contact from './components/Contact';
+import Cart from './components/Cart';
+import Orders from './components/Orders';
+import Products from './components/Products';
+import Footer from './components/Footer';
+import CreateProduct from './components/CreateProduct';
+import CreateUser from './components/CreateUser';
+import Login from './components/Login';
+import UpdateProduct from './components/UpdateProduct';
+import AddProductCart from './components/AddProductCart';
+import FileUpload from './components/FileUpload';
+import User from './components/User';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { apiResponse: "" };
+    this.state = { apiResponse: '' };
   }
 
   callAPI() {
-    fetch("https://screensell-back.herokuapp.com/testAPI")
-      .then(res => res.text())
-      .then(res => this.setState({ apiResponse: res }));
+    fetch('https://screensell-back.herokuapp.com/testAPI')
+      .then((res) => res.text())
+      .then((res) => this.setState({ apiResponse: res }));
   }
 
   componentWillMount() {
@@ -48,6 +49,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/tienda" component={Store} />
+              <Route path="/ver/:productId" component={AddProductCart} />
               <Route path="/contacto" component={Contact} />
               <Route path="/carrito" component={Cart} />
               <Route path="/ordenes" component={Orders} />

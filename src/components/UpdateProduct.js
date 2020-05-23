@@ -3,11 +3,11 @@ import axios from 'axios';
 import Sidebar from './Sidebar';
 import FileUpload from './FileUpload';
 
-class CreateProduct extends Component {
+class UpdateProduct extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
+      id: '',
       name: '',
       description: '',
       model: '',
@@ -15,6 +15,8 @@ class CreateProduct extends Component {
       price: '',
       stock: '',
       img: '',
+      isLoading: false,
+      error: null,
     };
     this.onChangeName = this.onChangeName.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
@@ -22,8 +24,36 @@ class CreateProduct extends Component {
     this.onChangeType = this.onChangeType.bind(this);
     this.onChangePrice = this.onChangePrice.bind(this);
     this.onChangeStock = this.onChangeStock.bind(this);
-    this.handleImg = this.handleImg.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  async componentWillMount() {
+    const id = this.props.match.params.productId;
+
+    this.setState({ isLoading: true });
+
+    try {
+      const result = await axios.get(
+        `https://screensell-back.herokuapp.com/product/getid/${id}`
+      );
+      this.setState({
+        id: result.data.id,
+        name: result.data.name,
+        description: result.data.description,
+        model: result.data.model,
+        type: result.data.type,
+        price: result.data.price,
+        stock: result.data.stock,
+        img: result.data.img,
+        isLoading: false,
+      });
+    } catch (error) {
+      this.setState({
+        error,
+        isLoading: false,
+      });
+    }
   }
 
   onChangeName(e) {
@@ -50,73 +80,113 @@ class CreateProduct extends Component {
     this.setState({ stock: e.target.value });
   }
 
-  handleImg = (imgLink) => {
-    console.log('inside parent', imgLink);
-    this.setState({
-      img: imgLink,
-    });
-  };
-
-  onSubmit(e) {
+  async handleUpdate(e) {
     e.preventDefault();
 
+    const id = this.props.match.params.productId;
+    //console.log(id)
+
     const productObj = {
+      id: this.state.id,
       name: this.state.name,
       description: this.state.description,
       model: this.state.model,
       type: this.state.type,
       stock: Number(this.state.stock),
       price: Number(this.state.price),
-      img: this.state.img,
     };
 
-    axios
-      .post('https://screensell-back.herokuapp.com/product/new', productObj, {
+    this.setState({ isLoading: true });
+    await axios
+      .get('http://localhost:9000/user/validate', {
         headers: { sessiontoken: localStorage.getItem('sessiontoken') },
       })
-      .then((res) => {
-        console.log(res.data);
-        this.props.history.push('/productos');
-      })
-      .catch((error) => {
-        console.log(productObj);
-        console.log(error);
+      .then(async (result) => {
+        await axios
+          .patch(`http://localhost:9000/product/${id}`, productObj, {
+            headers: { sessiontoken: localStorage.getItem('sessiontoken') },
+          })
+          .then((res) => {
+            console.log(res.data);
+            this.setState({
+              isLoading: false,
+            });
+            this.props.history.push('/productos');
+          })
+          .catch((error) => {
+            console.log(error);
+            this.setState({
+              error,
+              isLoading: false,
+            });
+          });
       });
+  }
 
-    this.setState({
-      name: '',
-      description: '',
-      model: '',
-      type: '',
-      stock: '',
-      price: '',
-      img: '',
-    });
+  async handleDelete(e) {
+    const id = this.props.match.params.productId;
+    this.setState({ isLoading: true });
+    await axios
+      .get('http://localhost:9000/user/validate', {
+        headers: { sessiontoken: localStorage.getItem('sessiontoken') },
+      })
+      .then(async (result) => {
+        await axios
+          .delete(`http://localhost:9000/product/${id}`, {
+            headers: { sessiontoken: localStorage.getItem('sessiontoken') },
+          })
+          .then((res) => {
+            console.log(res.data);
+            this.setState({
+              isLoading: false,
+            });
+            this.props.history.push('/productos');
+          })
+          .catch((error) => {
+            console.log(error);
+            this.setState({
+              error,
+              isLoading: false,
+            });
+          });
+      });
   }
 
   render() {
+    const { isLoading, error } = this.state;
+
+    if (error) {
+      return <p>{error.message}</p>;
+    }
+
+    if (isLoading) {
+      return <p>Cargando productos...</p>;
+    }
+
     return (
       <div className="page-division">
         <Sidebar />
-        <div className="page-content mt-3 px-4">
-          <h2 className="page-title">NUEVO PRODUCTO</h2>
+        <div className="page-content mt-3">
+          <h2 className="page-title">PRODUCTO</h2>
 
           <div className="row d-flex justify-content-end">
-            <a href="/productos" className="btn btn-outline-dark mr-4">
+            <a href="/productos" className="btn btn-outline-dark mr-5">
               Regresar
             </a>
           </div>
 
           <div className="container">
-            <form id="create-product-form">
+            <form onSubmit={this.handleUpdate} id="create-product-form">
               <div className="row">
                 <div className="col-lg-8">
                   <div className="form-group">
                     <label>Nombre:</label>
                     <input
-                      id="nombre"
+                      id="productName"
+                      name="nombre"
                       type="text"
                       className="form-control"
+                      placeholder=""
                       value={this.state.name}
                       onChange={this.onChangeName}
                     />
@@ -125,16 +195,14 @@ class CreateProduct extends Component {
                   <div className="form-group">
                     <label>Descripcion:</label>
                     <textarea
-                      id="descripcion"
+                      id="productDescription"
+                      name="descripcion"
                       className="form-control"
+                      placeholder=""
                       rows="4"
                       value={this.state.description}
                       onChange={this.onChangeDescription}
                     />
-                  </div>
-
-                  <div className="container p-3">
-                    <FileUpload onImgLink={this.handleImg} />
                   </div>
                 </div>
 
@@ -142,7 +210,8 @@ class CreateProduct extends Component {
                   <div className="form-group">
                     <label>Modelo:</label>
                     <input
-                      id="modelo"
+                      id="productModel"
+                      name="modelo"
                       type="text"
                       placeholder="por ej: IP7"
                       className="form-control"
@@ -154,7 +223,8 @@ class CreateProduct extends Component {
                   <div className="form-group">
                     <label>Tipo:</label>
                     <input
-                      id="tipo"
+                      id="productType"
+                      name="tipo"
                       type="text"
                       placeholder="por ej. LCD"
                       className="form-control"
@@ -163,10 +233,11 @@ class CreateProduct extends Component {
                     />
                   </div>
 
-                  <div className="form-group ">
+                  <div className="form-group">
                     <label>Precio:</label>
                     <input
-                      id="precio"
+                      id="productPrice"
+                      name="precio"
                       type="text"
                       placeholder="$ 0.00"
                       className="form-control"
@@ -175,10 +246,11 @@ class CreateProduct extends Component {
                     />
                   </div>
 
-                  <div className="form-group ">
+                  <div className="form-group">
                     <label>Inventario:</label>
                     <input
-                      id="inventario"
+                      id="productStock"
+                      name="inventario"
                       type="text"
                       placeholder="Cantidad"
                       className="form-control"
@@ -188,12 +260,18 @@ class CreateProduct extends Component {
                   </div>
                 </div>
               </div>
-              <div className="d-flex justify-content-end">
+              <div className="d-flex justify-content-between">
+                <button
+                  value="Delete Product"
+                  className="btn btn-danger mr-3"
+                  onClick={this.handleDelete}
+                >
+                  Eliminar
+                </button>
                 <button
                   type="submit"
-                  value="Create Product"
-                  className="btn btn-primary btn-lg"
-                  onClick={this.onSubmit}
+                  value="Update Product"
+                  className="btn btn-primary"
                 >
                   Guardar
                 </button>
@@ -206,4 +284,4 @@ class CreateProduct extends Component {
   }
 }
 
-export default CreateProduct;
+export default UpdateProduct;
