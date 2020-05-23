@@ -24,7 +24,7 @@ class Cart extends Component {
     productos.forEach(async (producto) => {
       try {
         const result = await axios.get(
-          `http://localhost:9000/product/getid/${producto.product}`
+          `https://screensell-back.herokuapp.com/product/getid/${producto.product}`
         );
         let resultado = {
           name: result.data.name,

@@ -20,7 +20,9 @@ class Store extends Component {
     this.setState({ isLoading: true });
 
     try {
-      const result = await axios.get('http://localhost:9000/product/');
+      const result = await axios.get(
+        'https://screensell-back.herokuapp.com/product/'
+      );
       this.setState({
         products: result.data,
         isLoading: false,

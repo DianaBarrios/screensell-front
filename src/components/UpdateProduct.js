@@ -98,14 +98,18 @@ class UpdateProduct extends Component {
 
     this.setState({ isLoading: true });
     await axios
-      .get('http://localhost:9000/user/validate', {
+      .get('https://screensell-back.herokuapp.com/user/validate', {
         headers: { sessiontoken: localStorage.getItem('sessiontoken') },
       })
       .then(async (result) => {
         await axios
-          .patch(`http://localhost:9000/product/${id}`, productObj, {
-            headers: { sessiontoken: localStorage.getItem('sessiontoken') },
-          })
+          .patch(
+            `https://screensell-back.herokuapp.com/product/${id}`,
+            productObj,
+            {
+              headers: { sessiontoken: localStorage.getItem('sessiontoken') },
+            }
+          )
           .then((res) => {
             console.log(res.data);
             this.setState({
@@ -127,12 +131,12 @@ class UpdateProduct extends Component {
     const id = this.props.match.params.productId;
     this.setState({ isLoading: true });
     await axios
-      .get('http://localhost:9000/user/validate', {
+      .get('https://screensell-back.herokuapp.com/user/validate', {
         headers: { sessiontoken: localStorage.getItem('sessiontoken') },
       })
       .then(async (result) => {
         await axios
-          .delete(`http://localhost:9000/product/${id}`, {
+          .delete(`https://screensell-back.herokuapp.com/product/${id}`, {
             headers: { sessiontoken: localStorage.getItem('sessiontoken') },
           })
           .then((res) => {

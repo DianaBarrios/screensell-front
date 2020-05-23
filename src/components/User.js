@@ -1,24 +1,24 @@
-import React, { Component } from "react";
-import Sidebar from "./Sidebar";
-import HasAccount from "./HasAccount";
-import Login from "./Login";
+import React, { Component } from 'react';
+import Sidebar from './Sidebar';
+import HasAccount from './HasAccount';
+import Login from './Login';
 
-import axios from "axios";
+import axios from 'axios';
 
 class User extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: "",
-      firstName: "",
-      lastName: "",
-      email: "",
-      cellphone: "",
-      address: "",
-      password: "",
+      id: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      cellphone: '',
+      address: '',
+      password: '',
       isLoading: false,
       error: null,
-      login: false
+      login: false,
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.onChangeFirstName = this.onChangeFirstName.bind(this);
@@ -35,47 +35,47 @@ class User extends Component {
     const value = target.value;
     const name = target.name;
     this.setState({
-      [name]: value
+      [name]: value,
     });
   }
 
   onChangeFirstName(e) {
     this.setState({
       user: {
-        firstName: e.target.value
-      }
+        firstName: e.target.value,
+      },
     });
   }
 
   onChangeLastName(e) {
     this.setState({
       user: {
-        lastName: e.target.value
-      }
+        lastName: e.target.value,
+      },
     });
   }
 
   onChangeEmail(e) {
     this.setState({
       user: {
-        email: e.target.value
-      }
+        email: e.target.value,
+      },
     });
   }
 
   onChangeCellphone(e) {
     this.setState({
       user: {
-        cellphone: e.target.value
-      }
+        cellphone: e.target.value,
+      },
     });
   }
 
   onChangeAddress(e) {
     this.setState({
       user: {
-        address: e.target.value
-      }
+        address: e.target.value,
+      },
     });
   }
 
@@ -88,59 +88,65 @@ class User extends Component {
       lastName: this.state.lastName,
       email: this.state.email,
       cellphone: this.state.cellphone,
-      address: this.state.address
+      address: this.state.address,
     };
 
     this.setState({ isLoading: true });
     await axios
-      .get("http://localhost:9000/user/validate", {
-        headers: { sessiontoken: localStorage.getItem("sessiontoken") }
+      .get('https://screensell-back.herokuapp.com/user/validate', {
+        headers: { sessiontoken: localStorage.getItem('sessiontoken') },
       })
-      .then(async result => {
+      .then(async (result) => {
         await axios
           .patch(
-            "http://localhost:9000/" + result.data.type + "/" + result.data.id,
+            'https://screensell-back.herokuapp.com/' +
+              result.data.type +
+              '/' +
+              result.data.id,
             userObj,
             {
-              headers: { sessiontoken: localStorage.getItem("sessiontoken") }
+              headers: { sessiontoken: localStorage.getItem('sessiontoken') },
             }
           )
-          .then(user => {
+          .then((user) => {
             this.setState({
-              isLoading: false
+              isLoading: false,
             });
           });
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({
           error,
           isLoading: false,
-          login: true
+          login: true,
         });
       });
   }
 
   onClickLogout(e) {
-    localStorage.removeItem("sessiontoken");
-    this.props.history.push("/");
+    localStorage.removeItem('sessiontoken');
+    this.props.history.push('/');
   }
 
   async componentWillMount() {
     this.setState({ isLoading: true });
 
     await axios
-      .get("http://localhost:9000/user/validate", {
-        headers: { sessiontoken: localStorage.getItem("sessiontoken") }
+      .get('https://screensell-back.herokuapp.com/user/validate', {
+        headers: { sessiontoken: localStorage.getItem('sessiontoken') },
       })
-      .then(async result => {
+      .then(async (result) => {
         await axios
           .get(
-            "http://localhost:9000/" + result.data.type + "/" + result.data.id,
+            'https://screensell-back.herokuapp.com/' +
+              result.data.type +
+              '/' +
+              result.data.id,
             {
-              headers: { sessiontoken: localStorage.getItem("sessiontoken") }
+              headers: { sessiontoken: localStorage.getItem('sessiontoken') },
             }
           )
-          .then(user => {
+          .then((user) => {
             this.setState({
               id: user.data.id,
               firstName: user.data.firstName,
@@ -149,15 +155,15 @@ class User extends Component {
               cellphone: user.data.cellphone,
               address: user.data.address,
               password: user.data.password,
-              isLoading: false
+              isLoading: false,
             });
           });
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({
           error,
           isLoading: false,
-          login: true
+          login: true,
         });
       });
   }

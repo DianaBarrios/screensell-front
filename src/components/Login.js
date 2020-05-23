@@ -40,7 +40,10 @@ class Login extends Component {
     };
 
     axios
-      .post('http://localhost:9000/' + this.state.type + '/login', newSession)
+      .post(
+        'https://screensell-back.herokuapp.com/' + this.state.type + '/login',
+        newSession
+      )
       .then((res) => {
         console.log(res.data.token);
         localStorage.setItem('sessiontoken', res.data.token);

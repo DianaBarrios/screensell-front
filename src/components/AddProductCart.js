@@ -28,7 +28,7 @@ class AddProductCart extends Component {
 
     try {
       const result = await axios.get(
-        `http://localhost:9000/product/getid/${id}`
+        `https://screensell-back.herokuapp.com/product/getid/${id}`
       );
       this.setState({
         id: result.data.id,
