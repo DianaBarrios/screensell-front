@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
-import axios from "axios";
-import "./Login.css";
-import { withRouter } from "react-router";
+import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import axios from 'axios';
+import './Login.css';
+import { withRouter } from 'react-router';
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -12,9 +12,9 @@ class Login extends Component {
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
-      email: "",
-      password: "",
-      type: ""
+      email: '',
+      password: '',
+      type: '',
     };
   }
 
@@ -36,27 +36,27 @@ class Login extends Component {
 
     const newSession = {
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
     };
 
     console.log(newSession);
 
     axios
-      .post("http://localhost:9000/" + this.state.type + "/login", newSession)
-      .then(res => {
+      .post('http://localhost:9000/' + this.state.type + '/login', newSession)
+      .then((res) => {
         console.log(res.data.token);
-        localStorage.setItem("sessiontoken", res.data.token);
+        localStorage.setItem('sessiontoken', res.data.token);
         //console.log(this.props.history);
         //this.props.history.push("/");
-        this.props.history.push("/");
+        this.props.history.push('/');
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
 
     this.setState({
-      email: "",
-      password: ""
+      email: '',
+      password: '',
     });
   }
 

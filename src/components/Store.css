@@ -1,0 +1,47 @@
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+
+.price {
+  color: grey;
+  font-size: 22px;
+}
+
+.card button {
+  border: none;
+  outline: 0;
+  padding: 12px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+.card img {
+  width: 300px;
+  height: 200px;
+}
+
+.card button:hover {
+  opacity: 0.7;
+}
+
+.qty {
+  width: 30%;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+
+.showModal {
+  display: block;
+}
+.hideModal {
+  display: none;
+}
