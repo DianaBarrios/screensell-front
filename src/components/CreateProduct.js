@@ -1,20 +1,20 @@
-import React, { Component } from "react";
-import axios from "axios";
-import Sidebar from "./Sidebar";
-import FileUpload from "./FileUpload";
+import React, { Component } from 'react';
+import axios from 'axios';
+import Sidebar from './Sidebar';
+import FileUpload from './FileUpload';
 
 class CreateProduct extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      name: "",
-      description: "",
-      model: "",
-      type: "",
-      price: "",
-      stock: "",
-      img: ""
+      name: '',
+      description: '',
+      model: '',
+      type: '',
+      price: '',
+      stock: '',
+      img: '',
     };
     this.onChangeName = this.onChangeName.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
@@ -51,11 +51,11 @@ class CreateProduct extends Component {
   }
 
   handleImg = (imgLink) => {
-    console.log("inside parent",imgLink)
+    console.log('inside parent', imgLink);
     this.setState({
-      img: imgLink
-    })
-  }
+      img: imgLink,
+    });
+  };
 
   onSubmit(e) {
     e.preventDefault();
@@ -67,30 +67,30 @@ class CreateProduct extends Component {
       type: this.state.type,
       stock: Number(this.state.stock),
       price: Number(this.state.price),
-      img: this.state.img
+      img: this.state.img,
     };
 
     axios
-      .post("https://screensell-back.herokuapp.com/product/new", productObj, {
-        headers: { sessiontoken: localStorage.getItem("sessiontoken") }
+      .post('https://screensell-back.herokuapp.com/product/new', productObj, {
+        headers: { sessiontoken: localStorage.getItem('sessiontoken') },
       })
-      .then(res => {
+      .then((res) => {
         console.log(res.data);
-        this.props.history.push("/productos");
+        this.props.history.push('/productos');
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(productObj);
         console.log(error);
       });
 
     this.setState({
-      name: "",
-      description: "",
-      model: "",
-      type: "",
-      stock: "",
-      price: "",
-      img: ""
+      name: '',
+      description: '',
+      model: '',
+      type: '',
+      stock: '',
+      price: '',
+      img: '',
     });
   }
 
