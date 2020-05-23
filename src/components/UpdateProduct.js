@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Sidebar from "./Sidebar";
+import FileUpload from "./FileUpload";
 
 class UpdateProduct extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class UpdateProduct extends Component {
       type: "",
       price: "",
       stock: "",
+      img: "",
       isLoading: false,
       error: null
     };
@@ -23,6 +25,7 @@ class UpdateProduct extends Component {
     this.onChangePrice = this.onChangePrice.bind(this);
     this.onChangeStock = this.onChangeStock.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   async componentWillMount() {
@@ -42,6 +45,7 @@ class UpdateProduct extends Component {
         type: result.data.type,
         price: result.data.price,
         stock: result.data.stock,
+        img: result.data.img,
         isLoading: false
       });
     } catch (error) {
@@ -119,6 +123,35 @@ class UpdateProduct extends Component {
       });
   }
 
+  async handleDelete(e) {
+    const id = this.props.match.params.productId;
+    this.setState({ isLoading: true });
+    await axios
+      .get("http://localhost:9000/user/validate", {
+        headers: { sessiontoken: localStorage.getItem("sessiontoken") }
+      })
+      .then(async result => {
+        await axios
+          .delete(`http://localhost:9000/product/${id}`, {
+            headers: { sessiontoken: localStorage.getItem("sessiontoken") }
+          })
+          .then(res => {
+            console.log(res.data);
+            this.setState({
+              isLoading: false
+            });
+            this.props.history.push("/productos");
+          })
+          .catch(error => {
+            console.log(error);
+            this.setState({
+              error,
+              isLoading: false
+            });
+          });
+      });
+  }
+
   render() {
     const { isLoading, error } = this.state;
 
@@ -172,33 +205,6 @@ class UpdateProduct extends Component {
                     />
                   </div>
 
-                  <div className="row">
-                    <div className="form-group col-lg-6">
-                      <label>Precio:</label>
-                      <input
-                        id="productPrice"
-                        name="precio"
-                        type="text"
-                        placeholder="$ 0.00"
-                        className="form-control"
-                        value={this.state.price}
-                        onChange={this.onChangePrice}
-                      />
-                    </div>
-
-                    <div className="form-group col-lg-6">
-                      <label>Inventario:</label>
-                      <input
-                        id="productStock"
-                        name="inventario"
-                        type="text"
-                        placeholder="Cantidad"
-                        className="form-control"
-                        value={this.state.stock}
-                        onChange={this.onChangeStock}
-                      />
-                    </div>
-                  </div>
                 </div>
 
                 <div className="col-lg-4">
@@ -227,13 +233,46 @@ class UpdateProduct extends Component {
                       onChange={this.onChangeType}
                     />
                   </div>
+
+                  <div className="form-group">
+                    <label>Precio:</label>
+                    <input
+                      id="productPrice"
+                      name="precio"
+                      type="text"
+                      placeholder="$ 0.00"
+                      className="form-control"
+                      value={this.state.price}
+                      onChange={this.onChangePrice}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Inventario:</label>
+                    <input
+                      id="productStock"
+                      name="inventario"
+                      type="text"
+                      placeholder="Cantidad"
+                      className="form-control"
+                      value={this.state.stock}
+                      onChange={this.onChangeStock}
+                    />
+                  </div>
                 </div>
               </div>
-              <div className="d-flex justify-content-end">
+              <div className="d-flex justify-content-between">
+                <button
+                  value="Delete Product"
+                  className="btn btn-danger mr-3"
+                  onClick={this.handleDelete}
+                >
+                  Eliminar
+                </button>
                 <button
                   type="submit"
-                  value="Create Product"
-                  className="btn btn-primary btn-lg"
+                  value="Update Product"
+                  className="btn btn-primary"
                 >
                   Guardar
                 </button>

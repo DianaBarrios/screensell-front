@@ -55,24 +55,20 @@
 .btn-primary {
   background-color: #ffc400;
   border-color: #ffc400;
+  color: #000000;
 }
 
 .btn-primary:hover {
   background-color: #ffc400;
   border-color: #ffc400;
   font-weight: bolder;
+  color: #000000;
 }
 
-.btn-lg {
-  background-color: #ffc400;
-  border-color: #ffc400;
-}
-
-.btn-lg:hover {
-  background-color: #ffc400;
-  border-color: #ffc400;
+.btn-danger:hover {
   font-weight: bolder;
 }
+
 
 .form-control {
   border-radius: 0;
@@ -91,4 +87,52 @@
   padding: 10px 10%;
   padding-bottom: 20px;
   text-align: left;
+}
+
+.fileContainer {
+  overflow: hidden;
+  position: relative;
+}
+
+.fileContainer [type=file] {
+  cursor: inherit;
+  display: block;
+  font-size: 999px;
+  filter: alpha(opacity=0);
+  min-height: 100%;
+  min-width: 100%;
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  text-align: right;
+  top: 0;
+}
+
+.fileContainer {
+  color: #5a5c69;
+  border: 1px solid #d6d6d6;
+  background-color: #ffffff;
+  float: left;
+  padding: .5em;
+  margin-bottom: 15px;
+  margin-right: 15px;
+}
+
+.fileContainer:hover {
+  color: #ffffff;
+  background-color: #5a5c69;
+  border: 1px solid #ffffff;
+}
+
+.fileContainer [type=file] {
+  cursor: pointer;
+}
+
+.img-preview {
+  padding: 12px;
+}
+
+.img-preview img {
+ width: 220px;
+ height: auto;
 }

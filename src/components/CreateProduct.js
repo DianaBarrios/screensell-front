@@ -13,7 +13,8 @@ class CreateProduct extends Component {
       model: "",
       type: "",
       price: "",
-      stock: ""
+      stock: "",
+      img: ""
     };
     this.onChangeName = this.onChangeName.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
@@ -21,6 +22,7 @@ class CreateProduct extends Component {
     this.onChangeType = this.onChangeType.bind(this);
     this.onChangePrice = this.onChangePrice.bind(this);
     this.onChangeStock = this.onChangeStock.bind(this);
+    this.handleImg = this.handleImg.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
@@ -48,6 +50,13 @@ class CreateProduct extends Component {
     this.setState({ stock: e.target.value });
   }
 
+  handleImg = (imgLink) => {
+    console.log("inside parent",imgLink)
+    this.setState({
+      img: imgLink
+    })
+  }
+
   onSubmit(e) {
     e.preventDefault();
 
@@ -57,15 +66,20 @@ class CreateProduct extends Component {
       model: this.state.model,
       type: this.state.type,
       stock: Number(this.state.stock),
-      price: Number(this.state.price)
+      price: Number(this.state.price),
+      img: this.state.img
     };
 
     axios
-      .post("https://screensell-back.herokuapp.com/product/new", productObj)
+      .post("https://screensell-back.herokuapp.com/product/new", productObj, {
+        headers: { sessiontoken: localStorage.getItem("sessiontoken") }
+      })
       .then(res => {
         console.log(res.data);
+        this.props.history.push("/productos");
       })
       .catch(error => {
+        console.log(productObj);
         console.log(error);
       });
 
@@ -75,7 +89,8 @@ class CreateProduct extends Component {
       model: "",
       type: "",
       stock: "",
-      price: ""
+      price: "",
+      img: ""
     });
   }
 
@@ -83,17 +98,17 @@ class CreateProduct extends Component {
     return (
       <div className="page-division">
         <Sidebar />
-        <div className="page-content mt-3">
+        <div className="page-content mt-3 px-4">
           <h2 className="page-title">NUEVO PRODUCTO</h2>
 
           <div className="row d-flex justify-content-end">
-            <a href="/productos" className="btn btn-outline-primary mr-5">
+            <a href="/productos" className="btn btn-outline-dark mr-4">
               Regresar
             </a>
           </div>
 
           <div className="container">
-            <form onSubmit={this.onSubmit} id="create-product-form">
+            <form id="create-product-form">
               <div className="row">
                 <div className="col-lg-8">
                   <div className="form-group">
@@ -119,33 +134,7 @@ class CreateProduct extends Component {
                   </div>
 
                   <div className="container p-3">
-                    <FileUpload />
-                  </div>
-
-                  <div className="row">
-                    <div className="form-group col-lg-6">
-                      <label>Precio:</label>
-                      <input
-                        id="precio"
-                        type="text"
-                        placeholder="$ 0.00"
-                        className="form-control"
-                        value={this.state.price}
-                        onChange={this.onChangePrice}
-                      />
-                    </div>
-
-                    <div className="form-group col-lg-6">
-                      <label>Inventario:</label>
-                      <input
-                        id="inventario"
-                        type="text"
-                        placeholder="Cantidad"
-                        className="form-control"
-                        value={this.state.stock}
-                        onChange={this.onChangeStock}
-                      />
-                    </div>
+                    <FileUpload onImgLink={this.handleImg} />
                   </div>
                 </div>
 
@@ -173,6 +162,30 @@ class CreateProduct extends Component {
                       onChange={this.onChangeType}
                     />
                   </div>
+
+                  <div className="form-group ">
+                    <label>Precio:</label>
+                    <input
+                      id="precio"
+                      type="text"
+                      placeholder="$ 0.00"
+                      className="form-control"
+                      value={this.state.price}
+                      onChange={this.onChangePrice}
+                    />
+                  </div>
+
+                  <div className="form-group ">
+                    <label>Inventario:</label>
+                    <input
+                      id="inventario"
+                      type="text"
+                      placeholder="Cantidad"
+                      className="form-control"
+                      value={this.state.stock}
+                      onChange={this.onChangeStock}
+                    />
+                  </div>
                 </div>
               </div>
               <div className="d-flex justify-content-end">
@@ -180,6 +193,7 @@ class CreateProduct extends Component {
                   type="submit"
                   value="Create Product"
                   className="btn btn-primary btn-lg"
+                  onClick={this.onSubmit}
                 >
                   Guardar
                 </button>

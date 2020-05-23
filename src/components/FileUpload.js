@@ -2,17 +2,19 @@ import React, { Component } from "react";
 import axios from "axios";
 
 class FileUpload extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      file: null
+      file: null,
+      fileURL: "../placeholder.png"
     };
+    this.handleFileUpload = this.handleFileUpload.bind(this);
   }
 
-  submitFile = event => {
-    event.preventDefault();
+  submitFile(aux) {
+    //event.preventDefault();
     const formData = new FormData();
-    formData.append("file", this.state.file[0]);
+    formData.append("file", aux);
     axios
       .post("https://screensell-back.herokuapp.com/aws/upload", formData, {
         headers: {
@@ -20,29 +22,58 @@ class FileUpload extends Component {
         }
       })
       .then(response => {
-        console.log(response);
+        console.log(response.data.data.Location);
+        this.props.onImgLink(response.data.data.Location);
       })
       .catch(error => {
         console.log(error);
       });
-  };
+  }
 
   handleFileUpload = event => {
-    this.setState({ file: event.target.files });
+    document.getElementById("ningun-archivo").hidden = true;
+    this.setState({
+      file: event.target.files,
+      fileURL: URL.createObjectURL(event.target.files[0])
+    });
+
+    let aux = event.target.files[0];
+
+    this.submitFile(aux);
   };
 
   render() {
     return (
       <form onSubmit={this.submitFile}>
-        <input
-          label="Imagen"
-          type="file"
-          onChange={this.handleFileUpload}
-        />
-        <button type="submit" className="btn btn-outline-secondary">Agregar</button>
+        <div className="row">
+          <div className="form-group">
+            <p>Imagen del producto:</p>
+            <label className="fileContainer">
+              Seleccionar archivo
+              <input
+                type="file"
+                name="imagen"
+                className="inputfile"
+                value={this.props.img}
+                onChange={this.handleFileUpload}
+              />
+            </label>
+            <small id="ningun-archivo">Ningún archivo seleccionado</small>
+          </div>
+
+          <div className="img-preview">
+            <img src={this.state.fileURL} />
+          </div>
+        </div>
       </form>
     );
   }
 }
 
 export default FileUpload;
+
+/*
+<button type="submit" className="btn btn-outline-secondary">
+  Agregar
+</button>
+*/
