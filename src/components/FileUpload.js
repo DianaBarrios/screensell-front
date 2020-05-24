@@ -45,7 +45,6 @@ class FileUpload extends Component {
   render() {
     return (
       <form onSubmit={this.submitFile}>
-        <div className="row">
           <div className="form-group">
             <p>Imagen del producto:</p>
             <label className="fileContainer">
@@ -60,11 +59,6 @@ class FileUpload extends Component {
             </label>
             <small id="ningun-archivo">Ningún archivo seleccionado</small>
           </div>
-
-          <div className="img-preview">
-            <img src={this.state.fileURL} />
-          </div>
-        </div>
       </form>
     );
   }

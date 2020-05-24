@@ -24,6 +24,7 @@ class UpdateProduct extends Component {
     this.onChangeType = this.onChangeType.bind(this);
     this.onChangePrice = this.onChangePrice.bind(this);
     this.onChangeStock = this.onChangeStock.bind(this);
+    this.handleImg = this.handleImg.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
@@ -80,6 +81,13 @@ class UpdateProduct extends Component {
     this.setState({ stock: e.target.value });
   }
 
+  handleImg = (imgLink) => {
+    console.log('inside parent', imgLink);
+    this.setState({
+      img: imgLink,
+    });
+  };
+
   async handleUpdate(e) {
     e.preventDefault();
 
@@ -92,6 +100,7 @@ class UpdateProduct extends Component {
       description: this.state.description,
       model: this.state.model,
       type: this.state.type,
+      img: this.state.img,
       stock: Number(this.state.stock),
       price: Number(this.state.price),
     };
@@ -207,6 +216,14 @@ class UpdateProduct extends Component {
                       value={this.state.description}
                       onChange={this.onChangeDescription}
                     />
+                  </div>
+                  <div className="row">
+                    <div className="col-lg-5">
+                      <FileUpload  onImgLink={this.handleImg}/>
+                    </div>
+                    <div className="col-lg-5 img-preview">
+                      <img src={this.state.img} />
+                    </div>
                   </div>
                 </div>
 

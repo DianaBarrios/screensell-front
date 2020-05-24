@@ -129,10 +129,10 @@
 }
 
 .img-preview {
-  padding: 12px;
+  padding: 5px;
 }
 
 .img-preview img {
- width: 220px;
- height: auto;
+ width: auto;
+ height: 250px;
 }
