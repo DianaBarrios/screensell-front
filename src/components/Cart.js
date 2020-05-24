@@ -2,72 +2,89 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './AddProductCart.css';
 import { FaTrashAlt } from 'react-icons/fa';
+import { connect } from 'react-redux';
+import {
+  types,
+  changeQty,
+  removeItem,
+  clearCart,
+} from '../scripts/cartReducer';
 
 class Cart extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       products: [],
+      verifyUpdate: false,
     };
+
+    this.getProducts = this.getProducts.bind(this);
     this.deleteElement = this.deleteElement.bind(this);
     this.editElement = this.editElement.bind(this);
     this.onChangeQty = this.onChangeQty.bind(this);
     this.gotoCheckout = this.gotoCheckout.bind(this);
   }
+  //8ae245d5-55b0-4526-90d2-9354515a5b49'
 
-  async componentWillMount() {
-    this.setState({
-      isLoading: true,
-    });
-    let productos = JSON.parse(localStorage.getItem('cart'));
-
-    productos.forEach(async (producto) => {
-      try {
-        const result = await axios.get(
-          `https://screensell-back.herokuapp.com/product/getid/${producto.product}`
+  getProducts() {
+    let components = [];
+    for (let index in this.props.products) {
+      let product = this.props.products[index];
+      if (this.props.addedItems.hasOwnProperty(product.id)) {
+        product.qty = this.props.addedItems[product.id].quantity;
+        components.push(
+          <tr key={product.id} id={product.id}>
+            <td key="p">{product.name}</td>
+            <td>{product.description}</td>
+            <td>{product.price}</td>
+            <td>
+              <select
+                id={product.id}
+                value={product.qty}
+                onChange={this.onChangeQty}
+              >
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </td>
+            <td>
+              <button onClick={() => this.deleteElement(product.id)}>
+                <FaTrashAlt />
+              </button>
+            </td>
+          </tr>
         );
-        let resultado = {
-          name: result.data.name,
-          qty: producto.qty,
-          description: result.data.description,
-          price: result.data.price,
-          img: result.data.img,
-        };
-        this.state.products.push(resultado);
-      } catch (error) {
-        this.setState({
-          error,
-          isLoading: false,
-        });
       }
-    });
-    this.setState({
-      isLoading: false,
-    });
+    }
+    return components;
   }
 
   onChangeQty(e) {
-    console.log(e.target.value);
-    this.componentWillMount();
+    this.props.changeQty(e.target.id, e.target.value);
+    this.setState({ verifyUpdate: !this.state.verifyUpdate });
   }
+
   gotoCheckout() {
     this.props.history.push('/checkout');
   }
+
   editElement(id) {
     let productos = JSON.parse(localStorage.getItem('cart'));
     const index = productos.findIndex((x) => x.product === id);
     console.log(index);
   }
+
   deleteElement(id) {
-    let productos = JSON.parse(localStorage.getItem('cart'));
-    const index = productos.findIndex((x) => x.product === id);
-    if (index !== undefined) productos.splice(index, 1);
-    window.localStorage.setItem('cart', JSON.stringify(productos));
-    window.location.reload();
+    this.props.removeItem(id);
+    this.setState({ verifyUpdate: !this.state.verifyUpdate });
   }
 
   render() {
-    const { isLoading, error, products } = this.state;
+    const { isLoading, error } = this.state;
 
     if (error) {
       return <p>{error.message}</p>;
@@ -89,33 +106,7 @@ class Cart extends Component {
               <th scope="col">Eliminar</th>
             </tr>
           </thead>
-          <tbody>
-            {products.map((product) => (
-              <tr key={product.id} id={product.id}>
-                <td key="p">{product.name}</td>
-                <td>{product.description}</td>
-                <td>{product.price}</td>
-                <td>
-                  <select
-                    id="qty"
-                    value={product.qty}
-                    onChange={this.onChangeQty}
-                  >
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                  </select>
-                </td>
-                <td>
-                  <button onClick={() => this.deleteElement(product.id)}>
-                    <FaTrashAlt />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
+          <tbody>{this.getProducts()}</tbody>
         </table>
         <button className="btn" onClick={this.gotoCheckout}>
           Go to checkout
@@ -125,4 +116,25 @@ class Cart extends Component {
   }
 }
 
-export default Cart;
+const mapStateToProps = (state) => {
+  return {
+    products: state.products,
+    addedItems: state.addedItems,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    changeQty: (id, quantity) => {
+      dispatch(changeQty(id, quantity));
+    },
+    removeItem: (id) => {
+      dispatch(removeItem(id));
+    },
+    clearCart: () => {
+      dispatch(clearCart());
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

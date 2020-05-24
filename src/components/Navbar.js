@@ -1,13 +1,14 @@
-import React, { Component } from "react";
-import "./Navbar.css";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import './Navbar.css';
 
 class Navbar extends Component {
   myFunction() {
-    var x = document.getElementById("myTopnav");
-    if (x.className === "topnav") {
-      x.className += " responsive";
+    var x = document.getElementById('myTopnav');
+    if (x.className === 'topnav') {
+      x.className += ' responsive';
     } else {
-      x.className = "topnav";
+      x.className = 'topnav';
     }
   }
   render() {
@@ -18,24 +19,24 @@ class Navbar extends Component {
         </a>
 
         <div className="nav-collapsable">
-          <a id="inicio-link" href="/">
-            Inicio
-          </a>
-          <a id="tienda" href="/tienda">
-            Tienda
-          </a>
-          <a id="contacto" href="/contacto">
-            Contacto
-          </a>
+          <Link key={1} className={'navbar-btn'} as={Link} to={'/'}>
+            <div className="navbar-btn-legend">Inicio</div>
+          </Link>
+          <Link key={2} className={'navbar-btn'} as={Link} to={'/tienda'}>
+            <div className="navbar-btn-legend">Tienda</div>
+          </Link>
+          <Link key={1} className={'navbar-btn'} as={Link} to={'/contacto'}>
+            <div className="navbar-btn-legend">contacto</div>
+          </Link>
         </div>
 
         <div className="nav-right">
-          <a id="cuenta" href="/usuario">
+          <Link key={1} className={'navbar-btn'} as={Link} to={'/usuario'}>
             Cuenta
-          </a>
-          <a id="carrito" href="/carrito">
+          </Link>
+          <Link key={1} className={'navbar-btn'} as={Link} to={'/carrito'}>
             <i class="fa fa-shopping-cart"></i> Carrito
-          </a>
+          </Link>
         </div>
       </div>
     );

@@ -1,16 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
-// Put any other imports below so that CSS from your
-// components takes precedence over default styles.
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import cartReducer, { saveState } from './scripts/cartReducer';
 import './index.css';
 import App from './App';
+import throttle from 'lodash.throttle';
 import * as serviceWorker from './serviceWorker';
 
+const store = createStore(cartReducer);
+
+store.subscribe(
+  throttle(() => {
+    saveState(store.getState().addedItems);
+  }, 1000)
+);
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </Provider>,
   document.getElementById('root')
 );
 

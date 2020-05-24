@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Sidebar from './Sidebar';
+import { Link } from 'react-router-dom';
 import './Store.css';
+import { connect } from 'react-redux';
 import axios from 'axios';
 
 class Store extends Component {
@@ -65,11 +67,14 @@ class Store extends Component {
                   <h1>{product.name}</h1>
                   <p className="price">${product.price}</p>
                   <p>
-                    <button
-                      onClick={() => this.handleClickOnProduct(product.id)}
+                    <Link
+                      key={product.id}
+                      className={'navbar-btn'}
+                      as={Link}
+                      to={'/ver/' + product.id}
                     >
-                      Ver más
-                    </button>
+                      <button>Ver más</button>
+                    </Link>
                   </p>
                 </div>
               ))}

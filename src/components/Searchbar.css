@@ -1,14 +1,14 @@
-.bar{
-    border-radius: 0;
-    border:1px solid #dcdcdc;
-    background-color: white;
+.bar {
+  border-radius: 0;
+  border: 1px solid #dcdcdc;
+  background-color: white;
 }
 
 .searchbar {
-    height: 45px;
-    font-size: 16px;
-    outline: none;
-    border:1px solid #dcdcdc;
-    background-color: white;
-    border-radius: 0;
+  height: 45px;
+  font-size: 16px;
+  outline: none;
+  border: 1px solid #dcdcdc;
+  background-color: white;
+  border-radius: 0;
 }

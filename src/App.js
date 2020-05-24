@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo-ss.png';
 import './App.css';
+import axios from 'axios';
 import {
   Route,
   BrowserRouter,
@@ -23,21 +24,23 @@ import UpdateProduct from './components/UpdateProduct';
 import AddProductCart from './components/AddProductCart';
 import FileUpload from './components/FileUpload';
 import User from './components/User';
+import { connect } from 'react-redux';
+import { initProducts } from './scripts/cartReducer';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { apiResponse: '' };
   }
 
-  callAPI() {
-    fetch('https://screensell-back.herokuapp.com/testAPI')
-      .then((res) => res.text())
-      .then((res) => this.setState({ apiResponse: res }));
-  }
+  async componentDidMount() {
+    let products_ = [];
 
-  componentWillMount() {
-    this.callAPI();
+    try {
+      products_ = await axios.get(
+        `https://screensell-back.herokuapp.com/product`
+      );
+      this.props.initProducts(products_.data);
+    } catch (error) {}
   }
 
   render() {
@@ -46,21 +49,23 @@ class App extends Component {
         <div className="App">
           <Topbar />
           <div className="content">
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route path="/tienda" component={Store} />
-              <Route path="/ver/:productId" component={AddProductCart} />
-              <Route path="/contacto" component={Contact} />
-              <Route path="/carrito" component={Cart} />
-              <Route path="/ordenes" component={Orders} />
-              <Route path="/productos" component={Products} />
-              <Route path="/producto/nuevo" component={CreateProduct} />
-              <Route path="/producto/:productId" component={UpdateProduct} />
-              <Route path="/files" component={FileUpload} />
-              <Route path="/usuario/nuevo" component={CreateUser} />
-              <Route path="/usuario/login" component={Login} />
-              <Route path="/usuario" component={User} />
-            </Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/tienda" component={Store} />
+            <Route exact path="/ver/:productId" component={AddProductCart} />
+            <Route exact path="/contacto" component={Contact} />
+            <Route exact path="/carrito" component={Cart} />
+            <Route exact path="/ordenes" component={Orders} />
+            <Route exact path="/productos" component={Products} />
+            <Route exact path="/producto/nuevo" component={CreateProduct} />
+            <Route
+              exact
+              path="/producto/:productId"
+              component={UpdateProduct}
+            />
+            <Route exact path="/files" component={FileUpload} />
+            <Route exact path="/usuario/nuevo" component={CreateUser} />
+            <Route exact path="/usuario/login" component={Login} />
+            <Route exact path="/usuario" component={User} />
           </div>
 
           <Footer />
@@ -70,4 +75,12 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    initProducts: (products) => {
+      dispatch(initProducts(products));
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(App);

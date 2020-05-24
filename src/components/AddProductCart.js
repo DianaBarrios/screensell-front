@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { addToCart } from './../scripts/cartReducer';
 import './AddProductCart.css';
 
 class AddProductCart extends Component {
@@ -21,7 +23,7 @@ class AddProductCart extends Component {
     this.onChangeQty = this.onChangeQty.bind(this);
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     const id = this.props.match.params.productId;
 
     this.setState({ isLoading: true });
@@ -50,16 +52,10 @@ class AddProductCart extends Component {
   }
 
   onClickSaveCart() {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    console.log(cart);
-    let producto = {
-      qty: this.state.qty,
-      product: this.state.id,
-    };
-    cart.push(producto);
-    window.localStorage.setItem('cart', JSON.stringify(cart));
-    this.props.history.push('/tienda');
+    this.props.addToCart(this.state.id, this.state.qty);
+    alert('Agregado Existosamente!');
   }
+
   onChangeQty(e) {
     this.setState({
       qty: e.target.value,
@@ -105,4 +101,12 @@ class AddProductCart extends Component {
   }
 }
 
-export default AddProductCart;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addToCart: (id, quantity) => {
+      dispatch(addToCart(id, quantity));
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(AddProductCart);
