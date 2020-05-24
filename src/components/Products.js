@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Sidebar from "./Sidebar";
 import axios from "axios";
+import Searchbar from "./Searchbar";
 
 class Product extends Component {
   constructor(props) {
@@ -51,13 +52,17 @@ class Product extends Component {
     return (
       <div className="page-division">
         <Sidebar />
-        <div className="page-content mt-3">
+        <div className="page-content mt-3 px-4">
           <h2 className="page-title">PRODUCTOS</h2>
 
-          <div className="row d-flex justify-content-end">
-            <a href="/producto/nuevo" className="btn btn-primary mr-5">
+          <div className="row d-flex justify-content-end mx-3 mt-4">
+            <a href="/producto/nuevo" className="btn btn-primary">
               Agregar producto
             </a>
+          </div>
+
+          <div className="container">
+            <Searchbar />
           </div>
 
           <div className="container mt-3">

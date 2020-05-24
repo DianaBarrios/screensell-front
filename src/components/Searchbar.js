@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import './Searchbar.css';
+import React, { Component } from "react";
+import "./Searchbar.css";
 
 class Searchbar extends Component {
-    render(){
-        return(
-            <div className="bar">
-                <input type="search" className="searchbar" placeholder="Buscar..." />
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div>
+        <input type="search" className="searchbar" placeholder="Buscar..." onChange={this.props.search} />
+      </div>
+    );
+  }
 }
 
 export default Searchbar;

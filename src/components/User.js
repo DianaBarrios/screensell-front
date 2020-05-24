@@ -182,12 +182,13 @@ class User extends Component {
     return (
       <div className="page-division">
         <Sidebar />
-        <div className="page-content mt-3">
+        <div className="page-content mt-3 px-4">
           <h2 className="page-title">¡Hola {this.state.firstName}! </h2>
-          <div className="row d-flex justify-content-end mr-5">
+          
+          <div className="row d-flex justify-content-end mt-4 mx-3">
             <button
               onClick={this.onClickLogout}
-              className="btn btn-outline-dark"
+              className="btn btn-outline-dark mr-5"
             >
               Cerrar sesión
             </button>
@@ -255,7 +256,7 @@ class User extends Component {
                 </div>
               </div>
 
-              <div className="d-flex justify-content-end">
+              <div className="d-flex justify-content-end my-3">
                 <button
                   type="submit"
                   value="Update User"

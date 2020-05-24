@@ -101,13 +101,21 @@ class CreateProduct extends Component {
         <div className="page-content mt-3 px-4">
           <h2 className="page-title">NUEVO PRODUCTO</h2>
 
-          <div className="row d-flex justify-content-end">
-            <a href="/productos" className="btn btn-outline-dark mr-4">
+          <div className="row d-flex justify-content-between mx-3">
+            <a href="/productos" className="btn btn-outline-dark">
               Regresar
             </a>
+            <button
+              type="submit"
+              value="Create Product"
+              className="btn btn-primary"
+              onClick={this.onSubmit}
+            >
+              Agregar
+            </button>
           </div>
 
-          <div className="container">
+          <div className="container mt-3">
             <form id="create-product-form">
               <div className="row">
                 <div className="col-lg-8">
@@ -134,7 +142,7 @@ class CreateProduct extends Component {
                   </div>
 
                   <div className="row">
-                    <div className="col-lg-5">
+                    <div className="col-lg-6">
                       <FileUpload onImgLink={this.handleImg} />
                     </div>
 
@@ -181,7 +189,7 @@ class CreateProduct extends Component {
                     />
                   </div>
 
-                  <div className="form-group ">
+                  <div className="form-group">
                     <label>Inventario:</label>
                     <input
                       id="inventario"
@@ -194,18 +202,21 @@ class CreateProduct extends Component {
                   </div>
                 </div>
               </div>
-              <div className="d-flex justify-content-end">
-                <button
-                  type="submit"
-                  value="Create Product"
-                  className="btn btn-primary btn-lg"
-                  onClick={this.onSubmit}
-                >
-                  Agregar
-                </button>
-              </div>
             </form>
           </div>
+
+          <div className="row d-flex justify-content-end m-3">
+            
+            <button
+              type="submit"
+              value="Create Product"
+              className="btn btn-primary"
+              onClick={this.onSubmit}
+            >
+              Agregar
+            </button>
+          </div>
+
         </div>
       </div>
     );
