@@ -26,7 +26,7 @@ class Navbar extends Component {
             <div className="navbar-btn-legend">Tienda</div>
           </Link>
           <Link key={3} className={'navbar-btn'} as={Link} to={'/contacto'}>
-            <div className="navbar-btn-legend">contacto</div>
+            <div className="navbar-btn-legend">Cntacto</div>
           </Link>
         </div>
 

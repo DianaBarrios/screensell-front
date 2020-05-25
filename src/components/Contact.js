@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import './Contact.css';
+import Map from './Map';
 class Contact extends Component {
   render() {
     return (
       <div className="main">
-        <h2>TIENES PREGUNTAS?</h2>
+        <h2>Contacto</h2>
         <div className="container">
           <div className="row">
             <div className="col-md-6">
@@ -51,6 +52,7 @@ class Contact extends Component {
                 </form>
               </div>
             </div>
+            <Map></Map>
           </div>
         </div>
       </div>
