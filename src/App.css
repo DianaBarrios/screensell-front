@@ -135,3 +135,38 @@
   width: auto;
   height: 250px;
 }
+
+#search-input {
+  border-radius: 0;
+  border: 1px solid #c4c4c4;
+  width: 40%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 8px;
+}
+
+#search-input:focus {
+  border-radius: 0;
+}
+
+#search-btn {
+  border: 1px solid #c4c4c4;
+  padding: 9px;
+  background-color: white;
+  width: 100px;
+}
+
+#search-btn:hover {
+  color: white;
+  background-color: #292b2c;
+  font-weight: bolder;
+}
+
+#search-select {
+  border-radius: 0;
+  padding: 10px;
+  border: 1px solid #c4c4c4;
+  margin-right: 10px;
+  height: 100%;
+  width: 120px;
+}
