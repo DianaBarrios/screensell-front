@@ -47,8 +47,6 @@ class Login extends Component {
       .then((res) => {
         console.log(res.data.token);
         localStorage.setItem('sessiontoken', res.data.token);
-        //console.log(this.props.history);
-        //this.props.history.push("/");
         this.props.history.push('/');
       })
       .catch((error) => {
@@ -66,7 +64,7 @@ class Login extends Component {
       <div className="login-page">
         <h2>Iniciar sesión</h2>
         <div className="user-form" id="login-user-form">
-          <form onSubmit={this.onSubmit.bind(this)} class="login-form">
+          <form onSubmit={this.onSubmit.bind(this)} className="login-form">
             <input
               id="email"
               type="text"
@@ -103,7 +101,7 @@ class Login extends Component {
             <br />
 
             <button>login</button>
-            <p class="message">
+            <p className="message">
               No tienes cuenta? <a href="/usuario/nuevo">Crear una cuenta</a>
             </p>
           </form>

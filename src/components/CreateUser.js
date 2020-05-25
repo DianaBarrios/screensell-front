@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { withRouter } from "react-router";
-import axios from "axios";
-import "./Login.css";
+import React, { Component } from 'react';
+import { withRouter } from 'react-router';
+import axios from 'axios';
+import './Login.css';
 
 class CreateUser extends Component {
   constructor(props) {
@@ -16,13 +16,13 @@ class CreateUser extends Component {
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      password2: "",
-      address: "",
-      cellphone: ""
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      password2: '',
+      address: '',
+      cellphone: '',
     };
   }
 
@@ -64,35 +64,35 @@ class CreateUser extends Component {
       password: this.state.password,
       password2: this.state.password2,
       address: this.state.address,
-      cellphone: this.state.cellphone
+      cellphone: this.state.cellphone,
     };
 
     axios
-      .post("https://screensell-back.herokuapp.com/user/new", newUser)
-      .then(res => {
-        this.props.history.push("/");
+      .post('https://screensell-back.herokuapp.com/user/new', newUser)
+      .then((res) => {
+        this.props.history.push('/');
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
 
     this.setState({
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      password2: "",
-      address: "",
-      cellphone: ""
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      password2: '',
+      address: '',
+      cellphone: '',
     });
   }
 
   render() {
     return (
-      <div class="register-page">
+      <div className="register-page">
         <h2>Crear cuenta</h2>
-        <div class="user-form" id="register-user-form">
-          <form onSubmit={this.onSubmit} class="login-form">
+        <div className="user-form" id="register-user-form">
+          <form onSubmit={this.onSubmit} className="login-form">
             <div className="row">
               <div className="col-12">
                 <div className="row">
@@ -169,7 +169,7 @@ class CreateUser extends Component {
             />
 
             <button>Crear</button>
-            <p class="message">
+            <p className="message">
               Ya tienes cuenta? <a href="/usuario/login">Inicia sesión</a>
             </p>
           </form>

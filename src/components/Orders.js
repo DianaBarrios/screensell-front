@@ -1,15 +1,15 @@
-import React, { Component } from "react";
-import Sidebar from "./Sidebar";
-import axios from "axios";
+import React, { Component } from 'react';
+import Sidebar from './Sidebar';
+import axios from 'axios';
 
 class Orders extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       orders: [],
       isLoading: false,
-      error: null
-    }
+      error: null,
+    };
     this.handleClickOnOrder = this.handleClickOnOrder.bind(this);
   }
 
@@ -18,18 +18,19 @@ class Orders extends Component {
 
     try {
       const result = await axios.get(
-        "https://screensell-back.herokuapp.com/order/", {
-          headers: { sessiontoken: localStorage.getItem("sessiontoken") }
+        'https://screensell-back.herokuapp.com/order/',
+        {
+          headers: { sessiontoken: localStorage.getItem('sessiontoken') },
         }
       );
       this.setState({
         orders: result.data,
-        isLoading: false
+        isLoading: false,
       });
     } catch (error) {
       this.setState({
         error,
-        isLoading: false
+        isLoading: false,
       });
     }
   }
@@ -67,7 +68,7 @@ class Orders extends Component {
                 </tr>
               </thead>
               <tbody>
-                {orders.map(order => (
+                {orders.map((order) => (
                   <tr
                     key={order.id}
                     id={order.id}

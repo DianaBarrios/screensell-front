@@ -14,7 +14,7 @@ class Navbar extends Component {
   render() {
     return (
       <div className="topnav" id="myTopnav">
-        <a id="icon-nav" class="icon" onClick={this.myFunction}>
+        <a id="icon-nav" className="icon" onClick={this.myFunction}>
           <i className="fa fa-bars"></i>
         </a>
 
@@ -25,17 +25,17 @@ class Navbar extends Component {
           <Link key={2} className={'navbar-btn'} as={Link} to={'/tienda'}>
             <div className="navbar-btn-legend">Tienda</div>
           </Link>
-          <Link key={1} className={'navbar-btn'} as={Link} to={'/contacto'}>
+          <Link key={3} className={'navbar-btn'} as={Link} to={'/contacto'}>
             <div className="navbar-btn-legend">contacto</div>
           </Link>
         </div>
 
         <div className="nav-right">
-          <Link key={1} className={'navbar-btn'} as={Link} to={'/usuario'}>
+          <Link key={4} className={'navbar-btn'} as={Link} to={'/usuario'}>
             Cuenta
           </Link>
-          <Link key={1} className={'navbar-btn'} as={Link} to={'/carrito'}>
-            <i class="fa fa-shopping-cart"></i> Carrito
+          <Link key={5} className={'navbar-btn'} as={Link} to={'/carrito'}>
+            <i className="fa fa-shopping-cart"></i> Carrito
           </Link>
         </div>
       </div>

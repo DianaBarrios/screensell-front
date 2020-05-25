@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import "./Contact.css";
+import React, { Component } from 'react';
+import './Contact.css';
 class Contact extends Component {
   render() {
     return (
@@ -7,30 +7,30 @@ class Contact extends Component {
         <h2>TIENES PREGUNTAS?</h2>
         <div className="container">
           <div className="row">
-            <div class="col-md-6">
+            <div className="col-md-6">
               <div id="contact-form" className="container">
                 <form>
-                  <div class="form-group">
+                  <div className="form-group">
                     <input
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       placeholder="Nombre"
                     />
                   </div>
 
-                  <div class="form-group">
+                  <div className="form-group">
                     <input
                       type="email"
-                      class="form-control"
+                      className="form-control"
                       placeholder="Correo electrónico"
                       id="exampleInputEmail1"
                       aria-describedby="emailHelp"
                     />
                   </div>
 
-                  <div class="form-group">
+                  <div className="form-group">
                     <textarea
-                      class="form-control"
+                      className="form-control"
                       placeholder="Mensaje..."
                       id="exampleFormControlTextarea1"
                       rows="3"
@@ -38,14 +38,14 @@ class Contact extends Component {
                   </div>
 
                   <button
-                    class="btn btn-primary send-button"
+                    className="btn btn-primary send-button"
                     id="submit"
                     type="submit"
                     value="SEND"
                   >
-                    <div class="button">
-                      <i class="fa fa-paper-plane"></i>
-                      <span class="send-text">ENVIAR</span>
+                    <div className="button">
+                      <i className="fa fa-paper-plane"></i>
+                      <span className="send-text">ENVIAR</span>
                     </div>
                   </button>
                 </form>

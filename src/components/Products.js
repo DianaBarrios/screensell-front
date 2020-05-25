@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import Sidebar from "./Sidebar";
-import axios from "axios";
-import Searchbar from "./Searchbar";
+import React, { Component } from 'react';
+import Sidebar from './Sidebar';
+import axios from 'axios';
+import Searchbar from './Searchbar';
 
 class Product extends Component {
   constructor(props) {
@@ -9,7 +9,7 @@ class Product extends Component {
     this.state = {
       products: [],
       isLoading: false,
-      error: null
+      error: null,
     };
     this.handleClickOnProduct = this.handleClickOnProduct.bind(this);
   }
@@ -19,16 +19,16 @@ class Product extends Component {
 
     try {
       const result = await axios.get(
-        "https://screensell-back.herokuapp.com/product/"
+        'https://screensell-back.herokuapp.com/product/'
       );
       this.setState({
         products: result.data,
-        isLoading: false
+        isLoading: false,
       });
     } catch (error) {
       this.setState({
         error,
-        isLoading: false
+        isLoading: false,
       });
     }
   }
@@ -79,7 +79,7 @@ class Product extends Component {
                 </tr>
               </thead>
               <tbody>
-                {products.map(product => (
+                {products.map((product) => (
                   <tr
                     key={product.id}
                     id={product.id}

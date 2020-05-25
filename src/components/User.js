@@ -184,7 +184,7 @@ class User extends Component {
         <Sidebar />
         <div className="page-content mt-3 px-4">
           <h2 className="page-title">¡Hola {this.state.firstName}! </h2>
-          
+
           <div className="row d-flex justify-content-end mt-4 mx-3">
             <button
               onClick={this.onClickLogout}

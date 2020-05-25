@@ -1,20 +1,20 @@
-import React, { Component } from "react";
-import axios from "axios";
-import Sidebar from "./Sidebar";
-import FileUpload from "./FileUpload";
+import React, { Component } from 'react';
+import axios from 'axios';
+import Sidebar from './Sidebar';
+import FileUpload from './FileUpload';
 
 class CreateProduct extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      name: "",
-      description: "",
-      model: "",
-      type: "",
-      price: "",
-      stock: "",
-      img: "../placeholder.png"
+      name: '',
+      description: '',
+      model: '',
+      type: '',
+      price: '',
+      stock: '',
+      img: '../placeholder.png',
     };
     this.onChangeName = this.onChangeName.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
@@ -50,10 +50,10 @@ class CreateProduct extends Component {
     this.setState({ stock: e.target.value });
   }
 
-  handleImg = imgLink => {
-    console.log("inside parent", imgLink);
+  handleImg = (imgLink) => {
+    console.log('inside parent', imgLink);
     this.setState({
-      img: imgLink
+      img: imgLink,
     });
   };
 
@@ -67,30 +67,30 @@ class CreateProduct extends Component {
       type: this.state.type,
       stock: Number(this.state.stock),
       price: Number(this.state.price),
-      img: this.state.img
+      img: this.state.img,
     };
 
     axios
-      .post("https://screensell-back.herokuapp.com/product/new", productObj, {
-        headers: { sessiontoken: localStorage.getItem("sessiontoken") }
+      .post('https://screensell-back.herokuapp.com/product/new', productObj, {
+        headers: { sessiontoken: localStorage.getItem('sessiontoken') },
       })
-      .then(res => {
+      .then((res) => {
         console.log(res.data);
-        this.props.history.push("/productos");
+        this.props.history.push('/productos');
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(productObj);
         console.log(error);
       });
 
     this.setState({
-      name: "",
-      description: "",
-      model: "",
-      type: "",
-      stock: "",
-      price: "",
-      img: ""
+      name: '',
+      description: '',
+      model: '',
+      type: '',
+      stock: '',
+      price: '',
+      img: '',
     });
   }
 
@@ -147,7 +147,7 @@ class CreateProduct extends Component {
                     </div>
 
                     <div className="col-lg-5 img-preview">
-                      <img src={this.state.img} />
+                      <img src={this.state.img} alt={this.state.name} />
                     </div>
                   </div>
                 </div>
@@ -206,7 +206,6 @@ class CreateProduct extends Component {
           </div>
 
           <div className="row d-flex justify-content-end m-3">
-            
             <button
               type="submit"
               value="Create Product"
@@ -216,7 +215,6 @@ class CreateProduct extends Component {
               Agregar
             </button>
           </div>
-
         </div>
       </div>
     );

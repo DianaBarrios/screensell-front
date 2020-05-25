@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { addToCart } from './../scripts/cartReducer';
+import CreateReview from './CreateReview';
+import Review from './Reviews';
 import './AddProductCart.css';
 
 class AddProductCart extends Component {
@@ -96,6 +98,8 @@ class AddProductCart extends Component {
         <button className="btn" onClick={this.onClickSaveCart}>
           Agregar a carrito
         </button>
+        <Review product={this.state.id}></Review>
+        <CreateReview product={this.state.id}></CreateReview>
       </div>
     );
   }
