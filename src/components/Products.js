@@ -10,12 +10,10 @@ class Product extends Component {
       products: [],
       isLoading: false,
       error: null,
-<<<<<<< HEAD
-=======
       query: "",
       select: ""
->>>>>>> added search in products
     };
+    
     this.handleSearchInput = this.handleSearchInput.bind(this);
     this.handleSelectInput = this.handleSelectInput.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
