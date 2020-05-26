@@ -9,16 +9,13 @@ class CreateReview extends Component {
     this.state = {
       reviews: [],
       isLoading: false,
+      noComments: false,
     };
   }
 
   async componentDidMount() {
     this.setState({ isLoading: true });
 
-    console.log('este es el productid', this.props.product);
-    console.log(
-      `https://screensell-back.herokuapp.com/review/byProduct/${this.props.product}`
-    );
     try {
       const result = await axios.get(
         `https://screensell-back.herokuapp.com/review/byProduct/${this.props.product}`,
@@ -26,13 +23,18 @@ class CreateReview extends Component {
           headers: { sessiontoken: localStorage.getItem('sessiontoken') },
         }
       );
-      this.setState({
-        reviews: result.data,
-        isLoading: false,
-      });
+      if (result.data.length == 0) {
+        this.setState({
+          noComments: true,
+          isLoading: false,
+        });
+      } else {
+        this.setState({
+          reviews: result.data,
+          isLoading: false,
+        });
+      }
     } catch (error) {
-      console.log('esta jalando??????');
-
       this.setState({
         isLoading: false,
       });
@@ -40,9 +42,19 @@ class CreateReview extends Component {
   }
 
   render() {
-    const { isLoading, reviews } = this.state;
+    const { isLoading, reviews, noComments } = this.state;
+
     if (isLoading) {
       return <p>Cargando comentarios ... </p>;
+    }
+
+    if (noComments) {
+      return (
+        <p>
+          No existen comentarios para este producto. ¿Ya compraste este producto
+          antes? <strong>Agrega tu comentario.</strong>
+        </p>
+      );
     }
 
     return (
