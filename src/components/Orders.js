@@ -60,10 +60,9 @@ class Orders extends Component {
               <thead>
                 <tr>
                   <th scope="col">ID</th>
-                  <th scope="col">ID usuario</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Apellidos</th>
                   <th scope="col">Status</th>
-                  <th scope="col">ID productos</th>
-                  <th scope="col">Productos</th>
                   <th scope="col">Total</th>
                 </tr>
               </thead>
@@ -75,11 +74,10 @@ class Orders extends Component {
                     onClick={() => this.handleClickOnOrder(order.id)}
                   >
                     <th scope="row">{order.id}</th>
-                    <td key="p">{order.userid}</td>
+                    <td>{order.user.firstName}</td>
+                    <td>{order.user.lastName}</td>
                     <td>{order.status}</td>
-                    <td>{order.pids}</td>
-                    <td>{order.products}</td>
-                    <td>{order.finalPrice}</td>
+                    <td>{order.totalPrice}</td>
                   </tr>
                 ))}
               </tbody>

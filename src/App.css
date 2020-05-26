@@ -71,7 +71,7 @@
 
 .form-control {
   border-radius: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   outline: 0;
   background: #f2f2f2;
   width: 100%;
@@ -80,6 +80,19 @@
   padding: 15px;
   box-sizing: border-box;
   font-size: 14px;
+}
+
+#status {
+  border-radius: 0;
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  box-sizing: border-box;
+  font-size: 14px;
+  padding: 0;
+  padding-left: 15px;
 }
 
 #user-profile-form {
@@ -93,7 +106,7 @@
   position: relative;
 }
 
-.fileContainer [type='file'] {
+.fileContainer [type="file"] {
   cursor: inherit;
   display: block;
   font-size: 999px;
@@ -123,7 +136,7 @@
   border: 1px solid #ffffff;
 }
 
-.fileContainer [type='file'] {
+.fileContainer [type="file"] {
   cursor: pointer;
 }
 

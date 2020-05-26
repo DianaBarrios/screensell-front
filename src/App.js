@@ -1,32 +1,33 @@
-import React, { Component } from 'react';
-import logo from './logo-ss.png';
-import './App.css';
-import axios from 'axios';
+import React, { Component } from "react";
+import logo from "./logo-ss.png";
+import "./App.css";
+import axios from "axios";
 import {
   Route,
   BrowserRouter,
   Switch,
   NavLink,
-  HashRouter,
-} from 'react-router-dom';
-import Topbar from './components/Topbar';
-import Home from './components/Home';
-import Store from './components/Store';
-import Contact from './components/Contact';
-import Cart from './components/Cart';
-import Orders from './components/Orders';
-import Products from './components/Products';
-import Footer from './components/Footer';
-import CreateProduct from './components/CreateProduct';
-import CreateUser from './components/CreateUser';
-import Login from './components/Login';
-import UpdateProduct from './components/UpdateProduct';
-import AddProductCart from './components/AddProductCart';
-import FileUpload from './components/FileUpload';
-import User from './components/User';
-import Checkout from './components/Checkout';
-import { connect } from 'react-redux';
-import { initProducts } from './scripts/cartReducer';
+  HashRouter
+} from "react-router-dom";
+import Topbar from "./components/Topbar";
+import Home from "./components/Home";
+import Store from "./components/Store";
+import Contact from "./components/Contact";
+import Cart from "./components/Cart";
+import Orders from "./components/Orders";
+import Products from "./components/Products";
+import Footer from "./components/Footer";
+import CreateProduct from "./components/CreateProduct";
+import CreateUser from "./components/CreateUser";
+import Login from "./components/Login";
+import UpdateProduct from "./components/UpdateProduct";
+import AddProductCart from "./components/AddProductCart";
+import FileUpload from "./components/FileUpload";
+import User from "./components/User";
+import Checkout from "./components/Checkout";
+import { connect } from "react-redux";
+import { initProducts } from "./scripts/cartReducer";
+import UpdateOrder from "./components/UpdateOrder";
 
 class App extends Component {
   constructor(props) {
@@ -56,6 +57,7 @@ class App extends Component {
             <Route exact path="/contacto" component={Contact} />
             <Route exact path="/carrito" component={Cart} />
             <Route exact path="/ordenes" component={Orders} />
+            <Route exact path="/orden/:orderId" component={UpdateOrder} />
             <Route exact path="/productos" component={Products} />
             <Route exact path="/producto/nuevo" component={CreateProduct} />
             <Route
@@ -77,12 +79,15 @@ class App extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    initProducts: (products) => {
+    initProducts: products => {
       dispatch(initProducts(products));
-    },
+    }
   };
 };
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(
+  null,
+  mapDispatchToProps
+)(App);

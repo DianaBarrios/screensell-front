@@ -1,22 +1,22 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import Sidebar from './Sidebar';
-import FileUpload from './FileUpload';
+import React, { Component } from "react";
+import axios from "axios";
+import Sidebar from "./Sidebar";
+import FileUpload from "./FileUpload";
 
 class UpdateProduct extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: '',
-      name: '',
-      description: '',
-      model: '',
-      type: '',
-      price: '',
-      stock: '',
-      img: '',
+      id: "",
+      name: "",
+      description: "",
+      model: "",
+      type: "",
+      price: "",
+      stock: "",
+      img: "",
       isLoading: false,
-      error: null,
+      error: null
     };
     this.onChangeName = this.onChangeName.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
@@ -47,12 +47,12 @@ class UpdateProduct extends Component {
         price: result.data.price,
         stock: result.data.stock,
         img: result.data.img,
-        isLoading: false,
+        isLoading: false
       });
     } catch (error) {
       this.setState({
         error,
-        isLoading: false,
+        isLoading: false
       });
     }
   }
@@ -81,10 +81,10 @@ class UpdateProduct extends Component {
     this.setState({ stock: e.target.value });
   }
 
-  handleImg = (imgLink) => {
-    console.log('inside parent', imgLink);
+  handleImg = imgLink => {
+    console.log("inside parent", imgLink);
     this.setState({
-      img: imgLink,
+      img: imgLink
     });
   };
 
@@ -102,35 +102,35 @@ class UpdateProduct extends Component {
       type: this.state.type,
       img: this.state.img,
       stock: Number(this.state.stock),
-      price: Number(this.state.price),
+      price: Number(this.state.price)
     };
 
     this.setState({ isLoading: true });
     await axios
-      .get('https://screensell-back.herokuapp.com/user/validate', {
-        headers: { sessiontoken: localStorage.getItem('sessiontoken') },
+      .get("https://screensell-back.herokuapp.com/user/validate", {
+        headers: { sessiontoken: localStorage.getItem("sessiontoken") }
       })
-      .then(async (result) => {
+      .then(async result => {
         await axios
           .patch(
             `https://screensell-back.herokuapp.com/product/${id}`,
             productObj,
             {
-              headers: { sessiontoken: localStorage.getItem('sessiontoken') },
+              headers: { sessiontoken: localStorage.getItem("sessiontoken") }
             }
           )
-          .then((res) => {
+          .then(res => {
             console.log(res.data);
             this.setState({
-              isLoading: false,
+              isLoading: false
             });
-            this.props.history.push('/productos');
+            this.props.history.push("/productos");
           })
-          .catch((error) => {
+          .catch(error => {
             console.log(error);
             this.setState({
               error,
-              isLoading: false,
+              isLoading: false
             });
           });
       });
@@ -140,26 +140,26 @@ class UpdateProduct extends Component {
     const id = this.props.match.params.productId;
     this.setState({ isLoading: true });
     await axios
-      .get('https://screensell-back.herokuapp.com/user/validate', {
-        headers: { sessiontoken: localStorage.getItem('sessiontoken') },
+      .get("https://screensell-back.herokuapp.com/user/validate", {
+        headers: { sessiontoken: localStorage.getItem("sessiontoken") }
       })
-      .then(async (result) => {
+      .then(async result => {
         await axios
           .delete(`https://screensell-back.herokuapp.com/product/${id}`, {
-            headers: { sessiontoken: localStorage.getItem('sessiontoken') },
+            headers: { sessiontoken: localStorage.getItem("sessiontoken") }
           })
-          .then((res) => {
+          .then(res => {
             console.log(res.data);
             this.setState({
-              isLoading: false,
+              isLoading: false
             });
-            this.props.history.push('/productos');
+            this.props.history.push("/productos");
           })
-          .catch((error) => {
+          .catch(error => {
             console.log(error);
             this.setState({
               error,
-              isLoading: false,
+              isLoading: false
             });
           });
       });
