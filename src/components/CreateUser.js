@@ -133,6 +133,7 @@ class CreateUser extends Component {
                       value={this.state.email}
                       onChange={this.onChangeEmail}
                       placeholder="Email"
+                      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                     />
                   </div>
                 </div>

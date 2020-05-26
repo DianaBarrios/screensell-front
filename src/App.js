@@ -24,6 +24,7 @@ import UpdateProduct from './components/UpdateProduct';
 import AddProductCart from './components/AddProductCart';
 import FileUpload from './components/FileUpload';
 import User from './components/User';
+import Checkout from './components/Checkout';
 import { connect } from 'react-redux';
 import { initProducts } from './scripts/cartReducer';
 
@@ -66,6 +67,7 @@ class App extends Component {
             <Route exact path="/usuario/nuevo" component={CreateUser} />
             <Route exact path="/usuario/login" component={Login} />
             <Route exact path="/usuario" component={User} />
+            <Route exact path="/checkout" component={Checkout} />
           </div>
 
           <Footer />

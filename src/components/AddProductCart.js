@@ -76,26 +76,28 @@ class AddProductCart extends Component {
     }
 
     return (
-      <div className="container mt-3">
-        <div className="col-lg-2">
-          <img src={this.state.img} />
+      <div className="product">
+        <div className="product-view">
+          <div className="img-product">
+            <img src={this.state.img}></img>
+          </div>
+          <div>
+            <h2>{this.state.name}</h2>
+            <h4>{this.state.description}</h4>
+            <h4>{this.state.model}</h4>
+            <h4>{this.state.description}</h4>
+            <h4>{this.state.type}</h4>
+            <h4>$ {this.state.price}</h4>
+            <select id="qty" onChange={this.onChangeQty}>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
         </div>
-        <div>
-          <h2>{this.state.name}</h2>
-          <h4>{this.state.description}</h4>
-          <h4>{this.state.model}</h4>
-          <h4>{this.state.description}</h4>
-          <h4>{this.state.type}</h4>
-          <h4>$ {this.state.price}</h4>
-        </div>
-        <select id="qty" onChange={this.onChangeQty}>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
-        <button className="btn" onClick={this.onClickSaveCart}>
+        <button className="btn btn-primary" onClick={this.onClickSaveCart}>
           Agregar a carrito
         </button>
         <Review product={this.state.id}></Review>

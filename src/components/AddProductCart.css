@@ -1,4 +1,11 @@
-img {
-  height: 300px;
-  width: 400px;
+.product-view > img {
+  height: 100%;
+  width: 80%;
+}
+.product-view {
+  display: flex;
+  margin-left: 10%;
+  margin-right: 10%;
+  width: 100%;
+  align-content: center;
 }

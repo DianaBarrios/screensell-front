@@ -70,6 +70,7 @@ class Login extends Component {
               type="text"
               value={this.state.email}
               onChange={this.onChangeEmail}
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
               placeholder="Email"
             />
             <input
