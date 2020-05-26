@@ -22,6 +22,7 @@ class Cart extends Component {
       verifyUpdate: false,
       count: '0',
       checkout: false,
+      err: '',
     };
 
     this.getProducts = this.getProducts.bind(this);
@@ -90,8 +91,19 @@ class Cart extends Component {
     this.setState({ verifyUpdate: !this.state.verifyUpdate });
   }
 
-  gotoCheckout() {
-    this.props.history.push('/checkout');
+  async gotoCheckout() {
+    await axios
+      .get('https://screensell-back.herokuapp.com/user/validate', {
+        headers: { sessiontoken: localStorage.getItem('sessiontoken') },
+      })
+      .then(async (result) => {
+        this.props.history.push('/checkout');
+      })
+      .catch((err) => {
+        this.setState({
+          err: 'Porfavor ingresa a tu cuenta antes de hacer checkout',
+        });
+      });
   }
 
   editElement(id) {
@@ -107,10 +119,15 @@ class Cart extends Component {
   }
 
   render() {
-    const { isLoading, error, count } = this.state;
+    const { isLoading, err, count } = this.state;
 
-    if (error) {
-      return <p>{error.message}</p>;
+    if (err) {
+      return (
+        <div>
+          <p>{err}</p>
+          <a href="/usuario">Ingresar a cuenta</a>
+        </div>
+      );
     }
 
     if (isLoading) {

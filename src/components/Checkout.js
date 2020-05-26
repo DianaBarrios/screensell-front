@@ -89,39 +89,21 @@ class CreateProduct extends Component {
   onSubmit(e) {
     e.preventDefault();
 
-    const productObj = {
-      name: this.state.name,
-      description: this.state.description,
-      model: this.state.model,
-      type: this.state.type,
-      stock: Number(this.state.stock),
-      price: Number(this.state.price),
-      img: this.state.img,
-    };
-
-    axios
-      .post('https://screensell-back.herokuapp.com/product/new', productObj, {
-        headers: { sessiontoken: localStorage.getItem('sessiontoken') },
-      })
-      .then((res) => {
-        console.log(res.data);
-        this.props.history.push('/productos');
-      })
-      .catch((error) => {
-        console.log(productObj);
-        console.log(error);
-      });
-
     this.setState({
       name: '',
-      description: '',
-      model: '',
-      type: '',
-      stock: '',
-      price: '',
-      img: '',
+      email: '',
+      address: '',
+      cellphone: '',
+      nameCard: '',
+      numberCard: '',
+      expMonth: '0',
+      expYear: '0',
+      cvv: '000',
+      verifyUpdate: true,
     });
+    this.goHome();
   }
+
   getProducts() {
     let components = [];
     let finalPrice = 0;
@@ -261,7 +243,7 @@ class CreateProduct extends Component {
             </thead>
             <tbody>{this.getProducts()}</tbody>
           </table>
-          <button className="btn btn-primary" onClick={this.goHome}>
+          <button className="btn btn-primary" onClick={this.onSubmit}>
             Pagar
           </button>
         </div>
