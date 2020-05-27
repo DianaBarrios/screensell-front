@@ -3,6 +3,7 @@ import axios from 'axios';
 import Sidebar from './Sidebar';
 import { Link } from 'react-router-dom';
 import FileUpload from './FileUpload';
+import NotAuthorized from "./NotAuthorized";
 
 class CreateProduct extends Component {
   constructor(props) {
@@ -16,6 +17,8 @@ class CreateProduct extends Component {
       price: '',
       stock: '',
       img: '../placeholder.png',
+      user: '',
+      isLoading: true
     };
     this.onChangeName = this.onChangeName.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
@@ -57,6 +60,20 @@ class CreateProduct extends Component {
       img: imgLink,
     });
   };
+  async componentWillMount() {
+    this.setState({ isLoading: true });
+
+    await axios
+      .get('https://screensell-back.herokuapp.com/user/validate', {
+        headers: { sessiontoken: localStorage.getItem('sessiontoken') },
+      })
+      .then((result) => {
+        this.setState({ user: result.data.type });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   onSubmit(e) {
     e.preventDefault();
@@ -96,6 +113,12 @@ class CreateProduct extends Component {
   }
 
   render() {
+    const { user } = this.state;
+
+    if (user != 'admin') {
+      return <NotAuthorized />;
+    }
+
     return (
       <div className="page-division">
         <Sidebar />
@@ -187,7 +210,7 @@ class CreateProduct extends Component {
                     <input
                       id="precio"
                       type="number"
-                      min="0.00" 
+                      min="0.00"
                       step="0.01"
                       placeholder="$ 0.00"
                       className="form-control"

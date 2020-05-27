@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from "axios";
 import Sidebar from "./Sidebar";
 import FileUpload from "./FileUpload";
+import NotAuthorized from "./NotAuthorized";
+
 
 class UpdateProduct extends Component {
   constructor(props) {
@@ -17,7 +19,8 @@ class UpdateProduct extends Component {
       stock: "",
       img: "",
       isLoading: false,
-      error: null
+      error: null,
+      user: '',
     };
     this.onChangeName = this.onChangeName.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
@@ -34,6 +37,18 @@ class UpdateProduct extends Component {
     const id = this.props.match.params.productId;
 
     this.setState({ isLoading: true });
+
+    await axios
+      .get('https://screensell-back.herokuapp.com/user/validate', {
+        headers: { sessiontoken: localStorage.getItem('sessiontoken') },
+      })
+      .then((result) => {
+        console.log(result);
+        this.setState({ user: result.data.type });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     try {
       const result = await axios.get(
@@ -121,7 +136,6 @@ class UpdateProduct extends Component {
             }
           )
           .then(res => {
-            console.log(res.data);
             this.setState({
               isLoading: false
             });
@@ -167,7 +181,7 @@ class UpdateProduct extends Component {
   }
 
   render() {
-    const { isLoading, error } = this.state;
+    const { isLoading, error, user } = this.state;
 
     if (error) {
       return <p>{error.message}</p>;
@@ -175,6 +189,10 @@ class UpdateProduct extends Component {
 
     if (isLoading) {
       return <p>Cargando productos...</p>;
+    }
+
+    if (user != 'admin') {
+      return <NotAuthorized />
     }
 
     return (

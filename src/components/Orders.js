@@ -125,7 +125,7 @@ class Orders extends Component {
 
         <div className="page-content mt-3 px-4">
           <h2 className="page-title">ORDENES</h2>
-          
+
           <div className="container mt-3">
             <Table rowInfo={rowInfo} columns={columns} data={orders} />
           </div>

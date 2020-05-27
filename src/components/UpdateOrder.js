@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Sidebar from "./Sidebar";
+import NotAuthorized from "./NotAuthorized";
 
 class UpdateOrder extends Component {
   constructor(props) {
@@ -13,7 +14,8 @@ class UpdateOrder extends Component {
       products: [],
       totalPrice: "",
       isLoading: false,
-      error: null
+      error: null,
+      user: ''
     };
     this.onChangeStatus = this.onChangeStatus.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
@@ -29,6 +31,7 @@ class UpdateOrder extends Component {
         headers: { sessiontoken: localStorage.getItem("sessiontoken") }
       })
       .then(async result => {
+        this.setState({ user: result.data.type });
         await axios
           .get(`https://screensell-back.herokuapp.com/order/${id}`, {
             headers: { sessiontoken: localStorage.getItem("sessiontoken") }
@@ -106,7 +109,7 @@ class UpdateOrder extends Component {
   }
 
   render() {
-    const { isLoading, error } = this.state;
+    const { isLoading, error, user } = this.state;
 
     if (error) {
       return <p>{error.message}</p>;
@@ -114,6 +117,10 @@ class UpdateOrder extends Component {
 
     if (isLoading) {
       return <p>Cargando orden...</p>;
+    }
+
+    if (user != 'admin') {
+      return <NotAuthorized />
     }
 
     return (

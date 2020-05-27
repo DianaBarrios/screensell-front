@@ -162,10 +162,8 @@ class Product extends Component {
       return <p>Cargando productos...</p>;
     }
 
-    if (user == 'user') {
-      return (
-        <NotAuthorized />
-      );
+    if (user != 'admin') {
+      return <NotAuthorized />
     }
 
     return (

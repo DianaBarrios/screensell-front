@@ -42,7 +42,7 @@ class App extends Component {
         `https://screensell-back.herokuapp.com/product`
       );
       this.props.initProducts(products_.data);
-    } catch (error) {}
+    } catch (error) { }
   }
 
   render() {
@@ -65,7 +65,6 @@ class App extends Component {
               path="/producto/:productId"
               component={UpdateProduct}
             />
-            <Route exact path="/files" component={FileUpload} />
             <Route exact path="/usuario/nuevo" component={CreateUser} />
             <Route exact path="/usuario/login" component={Login} />
             <Route exact path="/usuario" component={User} />
