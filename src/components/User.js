@@ -205,6 +205,7 @@ class User extends Component {
                     name="firstName"
                     value={this.state.firstName}
                     onChange={this.handleInputChange}
+                    required
                   />
                 </div>
                 <div className="col-lg-6">
@@ -215,6 +216,7 @@ class User extends Component {
                     name="lastName"
                     value={this.state.lastName}
                     onChange={this.handleInputChange}
+                    required
                   />
                 </div>
               </div>
@@ -229,16 +231,18 @@ class User extends Component {
                     value={this.state.email}
                     onChange={this.handleInputChange}
                     readOnly
+                    required
                   />
                 </div>
                 <div className="col-lg-6">
                   <label>Celular</label>
                   <input
-                    type="cellphone"
+                    type="tel"
                     className="form-control"
                     name="cellphone"
                     value={this.state.cellphone}
                     onChange={this.handleInputChange}
+                    required
                   />
                 </div>
               </div>
@@ -252,6 +256,7 @@ class User extends Component {
                     name="address"
                     value={this.state.address}
                     onChange={this.handleInputChange}
+                    required
                   />
                 </div>
               </div>

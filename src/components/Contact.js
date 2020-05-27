@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import './Contact.css';
-import Map from './Map';
+import React, { Component } from "react";
+import "./Contact.css";
+import Map from "./Map";
 class Contact extends Component {
   render() {
     return (
@@ -10,12 +10,16 @@ class Contact extends Component {
           <div className="row">
             <div className="col-md-6">
               <div id="contact-form" className="container">
+                <h4>
+                  Tienes preguntas? <small> Escríbenos </small>
+                </h4>
                 <form>
                   <div className="form-group">
                     <input
                       type="text"
                       className="form-control"
                       placeholder="Nombre"
+                      required
                     />
                   </div>
 
@@ -26,6 +30,7 @@ class Contact extends Component {
                       placeholder="Correo electrónico"
                       id="exampleInputEmail1"
                       aria-describedby="emailHelp"
+                      required
                     />
                   </div>
 
@@ -35,6 +40,7 @@ class Contact extends Component {
                       placeholder="Mensaje..."
                       id="exampleFormControlTextarea1"
                       rows="3"
+                      required
                     ></textarea>
                   </div>
 
@@ -44,15 +50,33 @@ class Contact extends Component {
                     type="submit"
                     value="SEND"
                   >
-                    <div className="button">
-                      <i className="fa fa-paper-plane"></i>
-                      <span className="send-text">ENVIAR</span>
-                    </div>
+                    <a href="mailto:dianabarriosmacias@gmail.com?Subject=Contacto%20Screensell">
+                      <i className="fa fa-paper-plane mr-2"></i>
+                      <span id="send-text">ENVIAR</span>
+                    </a>
                   </button>
                 </form>
               </div>
             </div>
-            <Map />
+            <div className="col-md-6">
+              <div id="contact-info" className="container">
+                <ul id="contact-list">
+                  <li>
+                    <i class="fa fa-phone" aria-hidden="true"></i>
+                    664 638 4869
+                  </li>
+                  <li>
+                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                    screensellsinaloa@gmail.com
+                  </li>
+                  <li>
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    Av. C Niños Héroes, COL. CENTRO, 22000 Tijuana, B.C.
+                  </li>
+                </ul>
+                <Map />
+              </div>
+            </div>
           </div>
         </div>
       </div>

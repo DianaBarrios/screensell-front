@@ -103,6 +103,7 @@ class CreateUser extends Component {
                       value={this.state.firstName}
                       onChange={this.onChangefirstName}
                       placeholder="Nombre"
+                      required
                     />
                   </div>
                   <div className="col-md-6">
@@ -112,6 +113,7 @@ class CreateUser extends Component {
                       value={this.state.lastName}
                       onChange={this.onChangeLastName}
                       placeholder="Apellidos"
+                      required
                     />
                   </div>
                 </div>
@@ -120,20 +122,24 @@ class CreateUser extends Component {
                   <div className="col-md-6">
                     <input
                       id="cellphone"
-                      type="text"
+                      type="tel"
                       value={this.state.cellphone}
                       onChange={this.onChangeCellhone}
                       placeholder="Celular"
+                      pattern="[0-9]{10}" 
+                      maxlength="12"  
+                      required
                     />
                   </div>
                   <div className="col-md-6">
                     <input
                       id="email"
-                      type="text"
+                      type="email"
                       value={this.state.email}
                       onChange={this.onChangeEmail}
                       placeholder="Email"
                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                      required
                     />
                   </div>
                 </div>
@@ -146,6 +152,7 @@ class CreateUser extends Component {
                       value={this.state.password}
                       onChange={this.onChangePassword}
                       placeholder="Contraseña"
+                      required
                     />
                   </div>
                   <div className="col-md-6">
@@ -155,6 +162,7 @@ class CreateUser extends Component {
                       value={this.state.password2}
                       onChange={this.onChangePassword2}
                       placeholder="Repite tu contraseña"
+                      required
                     />
                   </div>
                 </div>
@@ -167,6 +175,7 @@ class CreateUser extends Component {
               value={this.state.address}
               onChange={this.onChangeAddress}
               placeholder="Dirección"
+              required
             />
 
             <button>Crear</button>

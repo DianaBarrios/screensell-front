@@ -127,6 +127,7 @@ class CreateProduct extends Component {
                       className="form-control"
                       value={this.state.name}
                       onChange={this.onChangeName}
+                      required
                     />
                   </div>
 
@@ -138,6 +139,7 @@ class CreateProduct extends Component {
                       rows="4"
                       value={this.state.description}
                       onChange={this.onChangeDescription}
+                      required
                     />
                   </div>
 
@@ -162,6 +164,7 @@ class CreateProduct extends Component {
                       className="form-control"
                       value={this.state.model}
                       onChange={this.onChangeModel}
+                      required
                     />
                   </div>
 
@@ -174,6 +177,7 @@ class CreateProduct extends Component {
                       className="form-control"
                       value={this.state.type}
                       onChange={this.onChangeType}
+                      required
                     />
                   </div>
 
@@ -181,11 +185,14 @@ class CreateProduct extends Component {
                     <label>Precio:</label>
                     <input
                       id="precio"
-                      type="text"
+                      type="number"
+                      min="0.00" 
+                      step="0.01"
                       placeholder="$ 0.00"
                       className="form-control"
                       value={this.state.price}
                       onChange={this.onChangePrice}
+                      required
                     />
                   </div>
 
@@ -193,11 +200,12 @@ class CreateProduct extends Component {
                     <label>Inventario:</label>
                     <input
                       id="inventario"
-                      type="text"
+                      type="number"
                       placeholder="Cantidad"
                       className="form-control"
                       value={this.state.stock}
                       onChange={this.onChangeStock}
+                      required
                     />
                   </div>
                 </div>

@@ -261,6 +261,7 @@ class UpdateOrder extends Component {
                       className="form-control"
                       value={this.state.status}
                       onChange={this.onChangeStatus}
+                      required
                     >
                       <option value="New">Nueva</option>
                       <option value="En proceso">En proceso</option>

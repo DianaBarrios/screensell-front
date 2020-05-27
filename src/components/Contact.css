@@ -6,6 +6,24 @@
   margin-top: 5%;
 }
 
+#contact-form i {
+  color: black;
+}
+
 #contact-info {
   margin-top: 5%;
+}
+
+#contact-list {
+  list-style: none;
+  margin-top: 25px;
+}
+
+#contact-list i {
+  padding-right: 10px;
+  color: black;
+}
+
+#send-text {
+  color: black;
 }

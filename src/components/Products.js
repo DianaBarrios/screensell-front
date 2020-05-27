@@ -164,8 +164,6 @@ class Product extends Component {
           <div className="container mt-3">
             <Table rowInfo={rowInfo} columns={columns} data={products} />
           </div>
-
-          
         </div>
       </div>
     );

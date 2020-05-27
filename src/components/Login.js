@@ -67,11 +67,12 @@ class Login extends Component {
           <form onSubmit={this.onSubmit.bind(this)} className="login-form">
             <input
               id="email"
-              type="text"
+              type="email"
               value={this.state.email}
               onChange={this.onChangeEmail}
               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
               placeholder="Email"
+              required
             />
             <input
               id="password"
@@ -79,6 +80,7 @@ class Login extends Component {
               value={this.state.password}
               onChange={this.onChangePassword}
               placeholder="Contraseña"
+              required
             />
             <label>Tipo de usuario</label>
             <br />
@@ -88,6 +90,7 @@ class Login extends Component {
               name="type-user"
               value="user"
               onChange={this.onChangeType}
+              required
             />
             <label> Cliente</label>
             <br />
