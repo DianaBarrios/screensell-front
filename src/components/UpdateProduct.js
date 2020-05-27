@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom';
 import axios from "axios";
 import Sidebar from "./Sidebar";
 import FileUpload from "./FileUpload";
@@ -183,9 +184,9 @@ class UpdateProduct extends Component {
           <h2 className="page-title">EDITAR PRODUCTO</h2>
 
           <div className="row d-flex justify-content-between page-btns-container mx-3 mt-4">
-            <a href="/productos" className="btn btn-outline-dark">
-              Regresar
-            </a>
+            <Link as={Link} className="btn btn-outline-dark" to={'/productos'}>
+              <div>Regresar</div>
+            </Link>
             <button
               type="submit"
               value="Update Product"

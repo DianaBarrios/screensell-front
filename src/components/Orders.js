@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Sidebar from './Sidebar';
 import axios from 'axios';
 import Table from './Table';
+import NotAuthorized from "./NotAuthorized";
+import { Link } from 'react-router-dom';
+
 
 const columns = [
   {
@@ -49,6 +52,8 @@ class Orders extends Component {
       orders: [],
       isLoading: false,
       error: null,
+      user: '',
+      login: false
     };
     this.handleClickOnOrder = this.handleClickOnOrder.bind(this);
   }
@@ -56,6 +61,16 @@ class Orders extends Component {
   async componentWillMount() {
     this.setState({ isLoading: true });
 
+    await axios
+      .get('https://screensell-back.herokuapp.com/user/validate', {
+        headers: { sessiontoken: localStorage.getItem('sessiontoken') },
+      })
+      .then((result) => {
+        this.setState({ user: result.data.type });
+      })
+      .catch((err) => {
+        this.setState({ login: true });
+      });
     try {
       const result = await axios.get(
         'https://screensell-back.herokuapp.com/order/',
@@ -81,7 +96,16 @@ class Orders extends Component {
   }
 
   render() {
-    const { orders, isLoading, error } = this.state;
+    const { orders, isLoading, error, user, login } = this.state;
+    if (login) {
+      return <div>
+        <p>Necesitas iniciar sesión para poder acceder a las ordenes.</p>
+        <Link as={Link} className="btn btn-outline-dark" to={'/usuario/login'}>
+          <div>Inicia sesión</div>
+        </Link>
+      </div>
+    }
+
 
     if (error) {
       return <p>{error.message}</p>;
@@ -90,6 +114,11 @@ class Orders extends Component {
     if (isLoading) {
       return <p>Cargando productos...</p>;
     }
+
+    if (user == 'user') {
+      return <h1> Ordenes del usuario xd</h1>
+    }
+
     return (
       <div className="page-division">
         <Sidebar />

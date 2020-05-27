@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Sidebar from './Sidebar';
+import { Link } from 'react-router-dom';
 import FileUpload from './FileUpload';
 
 class CreateProduct extends Component {
@@ -102,9 +103,9 @@ class CreateProduct extends Component {
           <h2 className="page-title">NUEVO PRODUCTO</h2>
 
           <div className="row d-flex justify-content-between mx-3">
-            <a href="/productos" className="btn btn-outline-dark">
-              Regresar
-            </a>
+            <Link as={Link} className="btn btn-outline-dark" to={'/productos'}>
+              <div>Regresar</div>
+            </Link>
             <button
               type="submit"
               value="Create Product"

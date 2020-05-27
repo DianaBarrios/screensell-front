@@ -3,7 +3,7 @@ import Sidebar from "./Sidebar";
 import axios from "axios";
 import Searchbar from "./Searchbar";
 import Table from "./Table";
-
+import NotAuthorized from './NotAuthorized';
 const columns = [
   {
     Header: "ID",
@@ -57,7 +57,8 @@ class Product extends Component {
       isLoading: false,
       error: null,
       query: "",
-      select: ""
+      select: "",
+      user: ''
     };
 
     this.handleSearchInput = this.handleSearchInput.bind(this);
@@ -67,6 +68,18 @@ class Product extends Component {
 
   async componentWillMount() {
     this.setState({ isLoading: true });
+
+
+    await axios
+      .get('https://screensell-back.herokuapp.com/user/validate', {
+        headers: { sessiontoken: localStorage.getItem('sessiontoken') },
+      })
+      .then((result) => {
+        this.setState({ user: result.data.type });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     try {
       const result = await axios.get(
@@ -139,7 +152,7 @@ class Product extends Component {
   }
 
   render() {
-    const { products, isLoading, error } = this.state;
+    const { products, isLoading, error, user } = this.state;
 
     if (error) {
       return <p>{error.message}</p>;
@@ -147,6 +160,12 @@ class Product extends Component {
 
     if (isLoading) {
       return <p>Cargando productos...</p>;
+    }
+
+    if (user == 'user') {
+      return (
+        <NotAuthorized />
+      );
     }
 
     return (

@@ -125,7 +125,9 @@ class Cart extends Component {
       return (
         <div>
           <p>{err}</p>
-          <a href="/usuario">Ingresar a cuenta</a>
+          <Link as={Link} to={'/usuario'}>
+            <div>Ingresar a cuenta</div>
+          </Link>
         </div>
       );
     }
