@@ -9,3 +9,8 @@
   width: 100%;
   align-content: center;
 }
+
+#img-product img {
+  width: 300px;
+  height: auto;
+}

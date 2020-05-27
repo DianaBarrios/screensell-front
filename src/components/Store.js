@@ -59,7 +59,7 @@ class Store extends Component {
           <div className="container">
             <div class="card-deck">
               {products.map(product => (
-                <div className="col-lg-4">
+                <div className="col-lg-4 col-md-6">
                   <div key={product.id} id={product.id} class="card mt-4" onClick={() => this.handleClickOnProduct(product.id)}>
                     <div class="card-header"> <i className="fa fa-shopping-cart"></i> </div>
                     <img

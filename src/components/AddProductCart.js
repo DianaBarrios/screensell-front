@@ -78,7 +78,7 @@ class AddProductCart extends Component {
     return (
       <div className="product">
         <div className="product-view">
-          <div className="img-product">
+          <div id="img-product">
             <img src={this.state.img}></img>
           </div>
           <div>
