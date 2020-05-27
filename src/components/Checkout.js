@@ -26,6 +26,8 @@ class CreateProduct extends Component {
     this.onChangeExpYear = this.onChangeExpYear.bind(this);
     this.onChangeExpMonth = this.onChangeExpMonth.bind(this);
     this.onChangeCvv = this.onChangeCvv.bind(this);
+    this.createOrder = this.createOrder.bind(this);
+    this.sendEmail = this.sendEmail.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.goHome = this.goHome.bind(this);
   }
@@ -56,12 +58,58 @@ class CreateProduct extends Component {
       cvv: e.target.value,
     });
   }
+  createOrder() {
+    var jsonProducts = this.props.addedItems;
+    let product = [];
+    let quantity = [];
+
+    for (var i in jsonProducts) {
+      product.push(i);
+      quantity.push(this.props.addedItems[i].quantity);
+    }
+
+    let newOrder = {
+      user: this.state.id,
+      quantity: quantity,
+      products: product,
+    };
+
+    axios
+      .post('https://screensell-back.herokuapp.com/order/new', newOrder, {
+        headers: { sessiontoken: localStorage.getItem('sessiontoken') },
+      })
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  sendEmail() {
+    let mail = {
+      to: this.state.email,
+      subject: 'Confirmación de pedido - Screensell',
+      text:
+        'Gracias por realizar tu pedido. \n ¿Necesitas información adicional? ¡Comunícate con nosotros!.',
+    };
+    axios
+      .post('https://screensell-back.herokuapp.com/mail', mail)
+      .then((result) => {
+        console.log('Email mandado!');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   goHome() {
+    this.sendEmail();
+    this.createOrder();
     window.localStorage.removeItem('cart');
     this.setState({ verifyUpdate: !this.state.verifyUpdate });
     this.props.history.push('/');
   }
+
   async componentWillMount() {
     await axios
       .get('https://screensell-back.herokuapp.com/user/validate', {
@@ -78,6 +126,7 @@ class CreateProduct extends Component {
               cellphone: user.data.cellphone,
               email: user.data.email,
               name: `${user.data.firstName} ${user.data.lastName}`,
+              id: user.data.id,
             });
           });
       })
@@ -88,6 +137,7 @@ class CreateProduct extends Component {
 
   onSubmit(e) {
     e.preventDefault();
+    this.goHome();
 
     this.setState({
       name: '',
@@ -101,7 +151,6 @@ class CreateProduct extends Component {
       cvv: '000',
       verifyUpdate: true,
     });
-    this.goHome();
   }
 
   getProducts() {
