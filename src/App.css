@@ -65,6 +65,19 @@
   color: #000000;
 }
 
+.btn-outline-primary {
+  background-color: #ffffff;
+  border-color: #ffc400;
+  color: #000000;
+}
+
+.btn-outline-primary:hover {
+  background-color: #ffc400;
+  border-color: #ffc400;
+  font-weight: bolder;
+  color: #000000;
+}
+
 .btn-danger:hover {
   font-weight: bolder;
 }
@@ -182,4 +195,11 @@
   margin-right: 10px;
   height: 100%;
   width: 120px;
+}
+
+
+html,
+body {
+  min-height: 100vh;
+  min-width: 100vw;
 }
