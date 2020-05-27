@@ -1,7 +1,47 @@
 import React, { Component } from 'react';
 import Sidebar from './Sidebar';
 import axios from 'axios';
+import Table from './Table';
 
+const columns = [
+  {
+    Header: "ID",
+    accessor: "id"
+  },
+  {
+    Header: "Fecha",
+    accessor: "time",
+    // Use our custom `fuzzyText` filter on this column
+    filter: "fuzzyText"
+  },
+  {
+    Header: "Status",
+    accessor: "status"
+  },
+  {
+    Header: "Total",
+    accessor: "totalPrice"
+  },
+  {
+    Header: "Nombre",
+    accessor: "user.firstName",
+    // Use our custom `fuzzyText` filter on this column
+    filter: "fuzzyText"
+  },
+  {
+    Header: "Apellidos",
+    accessor: "user.lastName",
+    // Use our custom `fuzzyText` filter on this column
+    filter: "fuzzyText"
+  }
+];
+
+const rowInfo = (rowobject) => {
+  console.log(rowobject.original);
+  let id = rowobject.original.id;
+  let newPath = `/orden/${id}`;
+  window.location.href = newPath;
+}
 class Orders extends Component {
   constructor(props) {
     super(props);
@@ -56,32 +96,7 @@ class Orders extends Component {
         <div className="page-content mt-3 px-4">
           <h2 className="page-title">ORDENES</h2>
           <div className="container mt-3">
-            <table className="table table-hover px-3">
-              <thead>
-                <tr>
-                  <th scope="col">ID</th>
-                  <th scope="col">Nombre</th>
-                  <th scope="col">Apellidos</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Total</th>
-                </tr>
-              </thead>
-              <tbody>
-                {orders.map((order) => (
-                  <tr
-                    key={order.id}
-                    id={order.id}
-                    onClick={() => this.handleClickOnOrder(order.id)}
-                  >
-                    <th scope="row">{order.id}</th>
-                    <td>{order.user.firstName}</td>
-                    <td>{order.user.lastName}</td>
-                    <td>{order.status}</td>
-                    <td>{order.totalPrice}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <Table rowInfo={rowInfo} columns={columns} data={orders} />
           </div>
         </div>
       </div>

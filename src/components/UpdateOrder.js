@@ -41,6 +41,7 @@ class UpdateOrder extends Component {
               time: data.time,
               status: data.status,
               user: data.user,
+              products: data.products,
               totalPrice: data.totalPrice,
               isLoading: false
             });
@@ -67,7 +68,7 @@ class UpdateOrder extends Component {
     const orderObj = {
       id: this.state.id,
       time: this.state.time,
-      prodducts: this.state.products,
+      products: this.state.products,
       user: this.state.name,
       status: this.state.status,
       totalPrice: Number(this.state.price)
@@ -151,16 +152,30 @@ class UpdateOrder extends Component {
                     />
                   </div>
 
-                  <div className="form-group">
-                    <label>Fecha:</label>
-                    <input
-                      id="date"
-                      name="fecha"
-                      type="text"
-                      className="form-control"
-                      value={this.state.time}
-                      readOnly
-                    />
+                  <div className="row">
+                    <div className="col-sm-6 form-group">
+                      <label>Fecha:</label>
+                      <input
+                        id="date"
+                        name="fecha"
+                        type="text"
+                        className="form-control"
+                        value={this.state.time}
+                        readOnly
+                      />
+                    </div>
+
+                    <div className="col-sm-6 form-group">
+                      <label>Precio Total:</label>
+                      <input
+                        id="total"
+                        name="total"
+                        type="text"
+                        className="form-control"
+                        value={this.state.totalPrice}
+                        readOnly
+                      />
+                    </div>
                   </div>
 
                   <div className="row">
@@ -189,16 +204,51 @@ class UpdateOrder extends Component {
                     </div>
                   </div>
 
+                  <div className="row">
+                    <div className="col-sm-6 form-group">
+                      <label>Email:</label>
+                      <input
+                        id="email"
+                        name="email"
+                        type="text"
+                        className="form-control"
+                        value={this.state.user.email}
+                        readOnly
+                      />
+                    </div>
+
+                    <div className="col-sm-6 form-group">
+                      <label>Celular:</label>
+                      <input
+                        id="celular"
+                        name="celular"
+                        type="text"
+                        className="form-control"
+                        value={this.state.user.cellphone}
+                        readOnly
+                      />
+                    </div>
+                  </div>
+
                   <div className="form-group">
-                    <label>Precio total:</label>
+                    <label>Dirección:</label>
                     <input
-                      id="total"
-                      name="total"
+                      id="direccion"
+                      name="direccion"
                       type="text"
                       className="form-control"
-                      value={this.state.totalPrice}
+                      value={this.state.user.address}
                       readOnly
                     />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Productos:</label>
+                    <ol>
+                      {this.state.products.map((product, index) => (
+                        <li> {product}</li>
+                      ))}
+                    </ol>
                   </div>
                 </div>
                 <div className="col-md-4">
@@ -212,11 +262,11 @@ class UpdateOrder extends Component {
                       value={this.state.status}
                       onChange={this.onChangeStatus}
                     >
-                    <option value="new">Nueva</option>
-                    <option value="en proceso">En proceso</option>
-                    <option value="enviada">Enviada</option>
-                    <option value="recibida">Recibida</option>
-                    <option value="cancelada">Cancelada</option>
+                      <option value="New">Nueva</option>
+                      <option value="En proceso">En proceso</option>
+                      <option value="Enviada">Enviada</option>
+                      <option value="Recibida">Recibida</option>
+                      <option value="Cancelada">Cancelada</option>
                     </select>
                   </div>
                 </div>

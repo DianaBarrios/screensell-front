@@ -52,7 +52,7 @@ class Contact extends Component {
                 </form>
               </div>
             </div>
-            <Map></Map>
+            <Map />
           </div>
         </div>
       </div>

@@ -1,8 +1,54 @@
-import React, { Component } from 'react';
-import Sidebar from './Sidebar';
-import axios from 'axios';
-import Searchbar from './Searchbar';
+import React, { Component } from "react";
+import Sidebar from "./Sidebar";
+import axios from "axios";
+import Searchbar from "./Searchbar";
+import Table from "./Table";
 
+const columns = [
+  {
+    Header: "ID",
+    accessor: "id"
+  },
+  {
+    Header: "Nombre",
+    accessor: "name",
+    // Use our custom `fuzzyText` filter on this column
+    filter: "fuzzyText"
+  },
+  {
+    Header: "Inventario",
+    accessor: "stock"
+  },
+  {
+    Header: "Precio",
+    accessor: "price"
+  },
+  {
+    Header: "Tipo",
+    accessor: "type",
+    // Use our custom `fuzzyText` filter on this column
+    filter: "fuzzyText"
+  },
+  {
+    Header: "Modelo",
+    accessor: "model",
+    // Use our custom `fuzzyText` filter on this column
+    filter: "fuzzyText"
+  },
+  {
+    Header: "Descripcion",
+    accessor: "description",
+    // Use our custom `fuzzyText` filter on this column
+    filter: "fuzzyText"
+  }
+];
+
+const rowInfo = (rowobject) => {
+  console.log(rowobject.original);
+  let id = rowobject.original.id;
+  let newPath = `/producto/${id}`;
+  window.location.href = newPath;
+}
 class Product extends Component {
   constructor(props) {
     super(props);
@@ -13,11 +59,10 @@ class Product extends Component {
       query: "",
       select: ""
     };
-    
+
     this.handleSearchInput = this.handleSearchInput.bind(this);
     this.handleSelectInput = this.handleSelectInput.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
-    this.handleClickOnProduct = this.handleClickOnProduct.bind(this);
   }
 
   async componentWillMount() {
@@ -25,16 +70,16 @@ class Product extends Component {
 
     try {
       const result = await axios.get(
-        'https://screensell-back.herokuapp.com/product/'
+        "https://screensell-back.herokuapp.com/product/"
       );
       this.setState({
         products: result.data,
-        isLoading: false,
+        isLoading: false
       });
     } catch (error) {
       this.setState({
         error,
-        isLoading: false,
+        isLoading: false
       });
     }
   }
@@ -43,61 +88,54 @@ class Product extends Component {
     this.setState({ query: e.target.value });
   }
 
-  handleSelectInput(e){
+  handleSelectInput(e) {
     this.setState({ select: e.target.value });
   }
 
-async handleSearch(e) {
+  async handleSearch(e) {
     e.preventDefault();
     let option = this.refs.searchOption.value;
     let q = this.state.query;
-    console.log("query:",q);
-    console.log("option:",option);
+    console.log("query:", q);
+    console.log("option:", option);
 
-    if(option == "nombre"){
-     /* /:name */
-     this.setState({ isLoading: true });
+    if (option == "nombre") {
+      /* /:name */
+      this.setState({ isLoading: true });
 
-    try {
-      const result = await axios.get(
-        `https://screensell-back.herokuapp.com/product/${q}`
-      );
-      this.setState({
-        products: result.data,
-        isLoading: false
-      });
-    } catch (error) {
-      this.setState({
-        error,
-        isLoading: false
-      });
-    }
-      
+      try {
+        const result = await axios.get(
+          `https://screensell-back.herokuapp.com/product/${q}`
+        );
+        this.setState({
+          products: result.data,
+          isLoading: false
+        });
+      } catch (error) {
+        this.setState({
+          error,
+          isLoading: false
+        });
+      }
     } else {
       /* /getid/:id */
-    this.setState({ isLoading: true });
+      this.setState({ isLoading: true });
 
-    try {
-      const result = await axios.get(
-        `https://screensell-back.herokuapp.com/product/getid/${q}`
-      );
-      this.setState({
-        products: [result.data],
-        isLoading: false
-      });
-    } catch (error) {
-      this.setState({
-        error,
-        isLoading: false
-      });
+      try {
+        const result = await axios.get(
+          `https://screensell-back.herokuapp.com/product/getid/${q}`
+        );
+        this.setState({
+          products: result.data,
+          isLoading: false
+        });
+      } catch (error) {
+        this.setState({
+          error,
+          isLoading: false
+        });
+      }
     }
-    
-  }
-}
-
-  handleClickOnProduct(id) {
-    let newPath = `/producto/${id}`;
-    window.location.href = newPath;
   }
 
   render() {
@@ -123,7 +161,29 @@ async handleSearch(e) {
             </a>
           </div>
 
-          <form id="search-product-form" className="form-inline my-2 my-lg-0">
+          <div className="container mt-3">
+            <Table rowInfo={rowInfo} columns={columns} data={products} />
+          </div>
+
+          
+        </div>
+      </div>
+    );
+  }
+}
+
+export default Product;
+
+/*
+ handleClickOnProduct(id) {
+    let newPath = `/producto/${id}`;
+    window.location.href = newPath;
+  }
+
+
+
+
+ <form id="search-product-form" className="form-inline my-2 my-lg-0">
             <input
               id="search-input"
               type="search"
@@ -131,11 +191,11 @@ async handleSearch(e) {
               onChange={this.handleSearchInput}
               placeholder="Buscar por nombre o id"
             />
-            <select 
+            <select
               id="search-select"
               ref="searchOption"
               value={this.state.select}
-              onChange={this.handleSelectInput} 
+              onChange={this.handleSelectInput}
             >
               <option value="nombre">Nombre</option>
               <option value="id">ID</option>
@@ -160,7 +220,7 @@ async handleSearch(e) {
                 </tr>
               </thead>
               <tbody>
-                {products.map((product) => (
+                {products.map(product => (
                   <tr
                     key={product.id}
                     id={product.id}
@@ -178,10 +238,4 @@ async handleSearch(e) {
               </tbody>
             </table>
           </div>
-        </div>
-      </div>
-    );
-  }
-}
-
-export default Product;
+*/
