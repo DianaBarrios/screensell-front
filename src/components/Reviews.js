@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import './Review.css'
+import "./Review.css";
 
 class CreateReview extends Component {
   constructor(props) {
@@ -60,9 +60,17 @@ class CreateReview extends Component {
     return (
       <div>
         {reviews.map(review => (
-          <div className="container review-container" key={review.id} id={review.id}>
-            <p id="author-comment" className="mb-0">{review.comment}</p>
-            <p id="author">{review.user.firstName} {review.user.lastName} </p>
+          <div
+            className="container review-container"
+            key={review.id}
+            id={review.id}
+          >
+            <p id="author-comment" className="mb-0">
+              {review.comment}
+            </p>
+            <p id="author">
+              {review.user.firstName} {review.user.lastName}{" "}
+            </p>
           </div>
         ))}
       </div>
