@@ -178,7 +178,7 @@ class CreateUser extends Component {
               required
             />
 
-            <button>Crear</button>
+            <button type="submit">Crear</button>
             <p className="message">
               Ya tienes cuenta? <a href="/usuario/login">Inicia sesión</a>
             </p>

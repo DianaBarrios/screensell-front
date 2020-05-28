@@ -55,7 +55,6 @@ class Orders extends Component {
       user: '',
       login: false
     };
-    this.handleClickOnOrder = this.handleClickOnOrder.bind(this);
   }
 
   async componentWillMount() {
@@ -88,11 +87,6 @@ class Orders extends Component {
         isLoading: false,
       });
     }
-  }
-
-  handleClickOnOrder(id) {
-    let newPath = `/orden/${id}`;
-    window.location.href = newPath;
   }
 
   render() {

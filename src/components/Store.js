@@ -17,23 +17,45 @@ class Store extends Component {
     this.handleClickOnProduct = this.handleClickOnProduct.bind(this);
   }
 
-  async componentWillMount() {
+  async fetchAllProducts(){
     this.setState({ isLoading: true });
+      try {
+        const result = await axios.get(
+          "https://screensell-back.herokuapp.com/product/"
+        );
+        this.setState({
+          products: result.data,
+          isLoading: false
+        });
+        console.log("after fetch:", this.state.products);
+      } catch (error) {
+        this.setState({
+          error,
+          isLoading: false
+        });
+      }
+  }
 
-    try {
-      const result = await axios.get(
-        "https://screensell-back.herokuapp.com/product/"
-      );
-      this.setState({
-        products: result.data,
-        isLoading: false
-      });
-    } catch (error) {
-      this.setState({
-        error,
-        isLoading: false
-      });
+  async componentDidMount() {
+    console.log("component mount: ", this.state.products);
+    if (typeof this.props.location.state !== "undefined") {
+      if(typeof this.props.history.location.state !== "undefined"){
+        console.log("los dos son defined")
+        console.log("state de store antes del set: ",this.state.products) 
+        this.setState({
+          products: this.props.location.state.products
+        });
+        //console.log("state de store despues del set: ",this.state.products)
+        
+      } else {
+        console.log("location-state esta defnido pero history location no")
+        this.fetchAllProducts();
+      }   
+    } else {
+      console.log("los dos son undefined")
+      this.fetchAllProducts();
     }
+    console.log("state de store despues del set: ",this.state.products)
   }
 
   handleClickOnProduct(id) {
@@ -60,8 +82,16 @@ class Store extends Component {
             <div class="card-deck">
               {products.map(product => (
                 <div className="col-lg-4 col-md-6">
-                  <div key={product.id} id={product.id} class="card mt-4" onClick={() => this.handleClickOnProduct(product.id)}>
-                    <div class="card-header"> <i className="fa fa-shopping-cart"></i> </div>
+                  <div
+                    key={product.id}
+                    id={product.id}
+                    className="card mt-4"
+                    onClick={() => this.handleClickOnProduct(product.id)}
+                  >
+                    <div class="card-header">
+                      {" "}
+                      <i className="fa fa-shopping-cart"></i>{" "}
+                    </div>
                     <img
                       src={product.img}
                       alt={product.name}
@@ -74,14 +104,16 @@ class Store extends Component {
                         <small class="text-muted">{product.description}</small>
                       </p>
                       <p>
-                      <Link
-                      key={product.id}
-                      className={'navbar-btn'}
-                      as={Link}
-                      to={'/ver/' + product.id}
-                    >
-                      <button className="btn btn-outline-primary">Ver más</button>
-                    </Link>
+                        <Link
+                          key={product.id}
+                          className={"navbar-btn"}
+                          as={Link}
+                          to={"/ver/" + product.id}
+                        >
+                          <button className="btn btn-outline-primary">
+                            Ver más
+                          </button>
+                        </Link>
                       </p>
                     </div>
                   </div>
@@ -95,27 +127,4 @@ class Store extends Component {
   }
 }
 
-
 export default Store;
-
-/*In container mt-3
-<div className="row">
-              {products.map((product) => (
-                <div className="card">
-                  <img src={product.img} alt={product.name}></img>
-                  <h1>{product.name}</h1>
-                  <p className="price">${product.price}</p>
-                  <p>
-                    <Link
-                      key={product.id}
-                      className={'navbar-btn'}
-                      as={Link}
-                      to={'/ver/' + product.id}
-                    >
-                      <button>Ver más</button>
-                    </Link>
-                  </p>
-                </div>
-              ))}
-            </div>
- */

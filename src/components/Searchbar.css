@@ -1,4 +1,6 @@
 .bar {
+  margin: 0 auto;
+  width: 70%;
   border-radius: 0;
   border: 1px solid #dcdcdc;
   background-color: white;
@@ -6,9 +8,35 @@
 
 .searchbar {
   height: 45px;
+  border: none;
+  width: 65%;
   font-size: 16px;
   outline: none;
-  border: 1px solid #dcdcdc;
+}
+
+@media screen and (min-width: 600px) {
+  .bar {
+    width: 50%;
+  }
+
+  .searchbar {
+    width: 45%;
+  }
+}
+
+#search-btn {
+  height: 50px;
+  padding: 0;
+  padding-bottom: 0px;
+  width: 48px;
+  background: 0 0;
+  border: none;
+  font-size: 22px;
+  color: #666;
+  line-height: 1em;
+}
+
+#search-btn:hover {
   background-color: white;
-  border-radius: 0;
+  color: rgb(36, 36, 36);
 }

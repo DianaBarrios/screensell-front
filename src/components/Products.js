@@ -60,15 +60,10 @@ class Product extends Component {
       select: "",
       user: ''
     };
-
-    this.handleSearchInput = this.handleSearchInput.bind(this);
-    this.handleSelectInput = this.handleSelectInput.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
   }
 
   async componentWillMount() {
     this.setState({ isLoading: true });
-
 
     await axios
       .get('https://screensell-back.herokuapp.com/user/validate', {
@@ -94,60 +89,6 @@ class Product extends Component {
         error,
         isLoading: false
       });
-    }
-  }
-
-  handleSearchInput(e) {
-    this.setState({ query: e.target.value });
-  }
-
-  handleSelectInput(e) {
-    this.setState({ select: e.target.value });
-  }
-
-  async handleSearch(e) {
-    e.preventDefault();
-    let option = this.refs.searchOption.value;
-    let q = this.state.query;
-    console.log("query:", q);
-    console.log("option:", option);
-
-    if (option == "nombre") {
-      /* /:name */
-      this.setState({ isLoading: true });
-
-      try {
-        const result = await axios.get(
-          `https://screensell-back.herokuapp.com/product/${q}`
-        );
-        this.setState({
-          products: result.data,
-          isLoading: false
-        });
-      } catch (error) {
-        this.setState({
-          error,
-          isLoading: false
-        });
-      }
-    } else {
-      /* /getid/:id */
-      this.setState({ isLoading: true });
-
-      try {
-        const result = await axios.get(
-          `https://screensell-back.herokuapp.com/product/getid/${q}`
-        );
-        this.setState({
-          products: result.data,
-          isLoading: false
-        });
-      } catch (error) {
-        this.setState({
-          error,
-          isLoading: false
-        });
-      }
     }
   }
 
