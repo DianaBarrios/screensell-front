@@ -65,6 +65,20 @@
   color: #000000;
 }
 
+.btn-primary:active {
+  background-color: #ffc400;
+  border-color: #ffc400;
+  font-weight: bolder;
+  color: #000000;
+}
+
+.btn-primary:visited {
+  background-color: #ffc400;
+  border-color: #ffc400;
+  font-weight: bolder;
+  color: #000000;
+}
+
 .btn-outline-primary {
   background-color: #ffffff;
   border-color: #ffc400;

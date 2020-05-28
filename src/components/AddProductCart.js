@@ -5,6 +5,7 @@ import { addToCart } from "./../scripts/cartReducer";
 import CreateReview from "./CreateReview";
 import Review from "./Reviews";
 import "./AddProductCart.css";
+import { Link } from "react-router-dom";
 
 class AddProductCart extends Component {
   constructor(props) {
@@ -79,27 +80,39 @@ class AddProductCart extends Component {
 
     return (
       <div>
-        <div className="container">
+        <div className="container mt-3">
+          <div className="row d-flex justify-content-start mb-2">
+            <Link as={Link} className="btn btn-outline-dark" to={"/tienda"}>
+              <div>Regresar</div>
+            </Link>
+          </div>
+
           <div className="row">
-            <div className="col-lg-4">
+            <div className="col-md-6">
               <img id="product-img-desc" src={this.state.img} />
             </div>
-            <div className="col-lg-8">
+            <div id="product-desc-col" className="col-md-6">
               <h1>{this.state.name}</h1>
               <h2>$ {this.state.price}</h2>
-              <div id="prodduct-description">
+
+              <div id="product-description my-3">
                 <p>{this.state.description}</p>
-                <p>Modelo: {this.state.model}</p>
-                <p>Tipo: {this.state.type}</p>
+                <div id="specifications">
+                  <span>{this.state.model}</span>
+                  <span>{this.state.type}</span>
+                </div>
               </div>
 
-              <select id="qty" onChange={this.onChangeQty}>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select>
+              <div class="form-group my-3">
+                <label>Cantidad:</label>
+                <select id="qty" onChange={this.onChangeQty} className="mx-3">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+              </div>
               <button
                 className="btn btn-primary"
                 onClick={this.onClickSaveCart}
@@ -109,12 +122,16 @@ class AddProductCart extends Component {
             </div>
           </div>
         </div>
-        <div className="container">
-          <Review product={this.state.id}></Review>
-          <CreateReview
-            product={this.state.id}
-            id={this.state.idoficial}
-          ></CreateReview>
+        <div id="reviews-container" className="container">
+          <h4>Opiniones sobre {this.state.name}</h4>
+          <div className="row">
+            <div className="col-lg-7">
+              <Review product={this.state.id} />
+            </div>
+            <div id="create-review-container" className="col-lg-5">
+              <CreateReview product={this.state.id} id={this.state.idoficial} />
+            </div>
+          </div>
         </div>
       </div>
     );

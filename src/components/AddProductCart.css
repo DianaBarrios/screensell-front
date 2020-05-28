@@ -1,3 +1,35 @@
 #product-img-desc {
-  width: 100%;
+  width: auto;
+  height: 380px;
 }
+
+#product-desc-col {
+  text-align: center;
+  margin-top: 50px;
+}
+
+@media screen and (min-width: 760px) {
+  #product-desc-col {
+    text-align: left;
+  }
+}
+
+#specifications span {
+  margin: 5px;
+  width: auto;
+  background: #dedede;
+  padding: 4px 7px;
+  border-radius: 2px;
+  font-weight: 100;
+  cursor: pointer;
+}
+#specifications span:hover {
+  background: #aaaaaa;
+}
+
+#reviews-container {
+  text-align: left;
+  margin-top: 80px;
+}
+
+

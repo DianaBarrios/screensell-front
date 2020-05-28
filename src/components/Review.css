@@ -1,0 +1,14 @@
+#author {
+  font-size: 14px;
+  font-weight: lighter;
+  color: grey;
+}
+
+#author-comment {
+  font-size: 18px;
+  padding: 5px;
+}
+
+.review-container {
+    border-top: 0.5px solid rgb(219, 219, 219);
+}
