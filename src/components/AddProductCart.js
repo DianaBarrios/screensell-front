@@ -20,6 +20,7 @@ class AddProductCart extends Component {
       price: '',
       img: '',
       qty: 1,
+      idoficial: ''
     };
     this.onClickSaveCart = this.onClickSaveCart.bind(this);
     this.onChangeQty = this.onChangeQty.bind(this);
@@ -44,6 +45,7 @@ class AddProductCart extends Component {
         stock: result.data.stock,
         img: result.data.img,
         isLoading: false,
+        idoficial: result.data._id
       });
     } catch (error) {
       this.setState({
@@ -101,7 +103,7 @@ class AddProductCart extends Component {
           Agregar a carrito
         </button>
         <Review product={this.state.id}></Review>
-        <CreateReview product={this.state.id}></CreateReview>
+        <CreateReview product={this.state.id} id={this.state.idoficial}></CreateReview>
       </div>
     );
   }

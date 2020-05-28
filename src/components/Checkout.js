@@ -122,7 +122,7 @@ class CreateProduct extends Component {
     } else {
       for (var i in aux) {
         var id = auxOwns.indexOf(aux[i]);
-        if (!id) {
+        if (id == -1) {
           auxOwns.push(aux[i]);
         }
       }
@@ -133,8 +133,6 @@ class CreateProduct extends Component {
       owns: this.state.owns,
       id: this.state.id
     }
-    console.log(this.state.id, "id");
-    console.log(this.state.email);
 
     axios.patch(`https://screensell-back.herokuapp.com/user/${this.state.id}/owns`, newProducts, {
       headers: { sessiontoken: localStorage.getItem('sessiontoken') },
@@ -179,6 +177,7 @@ class CreateProduct extends Component {
       .catch((err) => {
         console.log(err);
       });
+    console.log(this.state.owns);
   }
 
   onSubmit(e) {
