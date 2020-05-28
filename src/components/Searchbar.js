@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./Searchbar.css";
-import { Switch, NavLink, Redirect } from "react-router-dom";
 import { withRouter } from "react-router";
-import Store from "./Store";
 
 class Searchbar extends Component {
   constructor(props) {
@@ -32,26 +30,11 @@ class Searchbar extends Component {
 
     let q = this.state.query;
 
-    try {
-      const result = await axios.get(
-        `https://screensell-back.herokuapp.com/product/getResult/${q}`
-      );
-      this.setState({
-        products: result.data,
-        isLoading: false
-      });
-      this.props.history.push({
-        pathname: "/tienda",
-        state: { products: this.state.products }
-      });
-      window.location.reload();
-      this.resetComponent();
-    } catch (error) {
-      this.setState({
-        error,
-        isLoading: false
-      });
-    }
+    this.props.history.push({
+      pathname: "/tienda",
+      search: `q=${q}`
+    });
+    window.location.reload();
   }
 
   render() {
@@ -75,3 +58,34 @@ class Searchbar extends Component {
 }
 
 export default withRouter(Searchbar);
+
+/*
+  async onSubmit(e) {
+    e.preventDefault();
+
+    this.setState({ isLoading: true });
+
+    let q = this.state.query;
+
+    try {
+      const result = await axios.get(
+        `https://screensell-back.herokuapp.com/product/getResult/${q}`
+      );
+      this.setState({
+        products: result.data,
+        isLoading: false
+      });
+      this.props.history.push({
+        pathname: "/tienda",
+        state: { products: this.state.products }
+      });
+      window.location.reload();
+      this.resetComponent();
+    } catch (error) {
+      this.setState({
+        error,
+        isLoading: false
+      });
+    }
+  }
+*/

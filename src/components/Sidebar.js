@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import "./Sidebar.css";
 
 class Sidebar extends Component {
@@ -8,17 +8,17 @@ class Sidebar extends Component {
       <div className="sidebar">
         <ul>
           <li>
-            <Link as={Link} to={'/usuario'}>
+            <Link as={Link} to={"/usuario"}>
               <div>Mi perfil</div>
             </Link>
           </li>
           <li>
-            <Link as={Link} to={'/ordenes'}>
+            <Link as={Link} to={"/ordenes"}>
               <div>Ordenes</div>
             </Link>
           </li>
           <li>
-            <Link as={Link} to={'/productos'}>
+            <Link as={Link} to={"/productos"}>
               <div>Productos</div>
             </Link>
           </li>
