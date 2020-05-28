@@ -15,7 +15,7 @@ class UpdateOrder extends Component {
       totalPrice: "",
       isLoading: false,
       error: null,
-      user: ''
+      typeUser: ''
     };
     this.onChangeStatus = this.onChangeStatus.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
@@ -31,7 +31,7 @@ class UpdateOrder extends Component {
         headers: { sessiontoken: localStorage.getItem("sessiontoken") }
       })
       .then(async result => {
-        this.setState({ user: result.data.type });
+        this.setState({ typeUser: result.data.type });
         await axios
           .get(`https://screensell-back.herokuapp.com/order/${id}`, {
             headers: { sessiontoken: localStorage.getItem("sessiontoken") }
@@ -109,7 +109,7 @@ class UpdateOrder extends Component {
   }
 
   render() {
-    const { isLoading, error, user } = this.state;
+    const { isLoading, error, typeUser } = this.state;
 
     if (error) {
       return <p>{error.message}</p>;
@@ -119,7 +119,7 @@ class UpdateOrder extends Component {
       return <p>Cargando orden...</p>;
     }
 
-    if (user != 'admin') {
+    if (typeUser != 'admin') {
       return <NotAuthorized />
     }
 

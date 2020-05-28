@@ -146,10 +146,10 @@ class CreateProduct extends Component {
   }
 
   goHome() {
-    // this.sendEmail();
+    this.sendEmail();
     this.addProductsToUser();
     this.createOrder();
-    //window.localStorage.removeItem('cart');
+    window.localStorage.removeItem('cart');
     this.setState({ verifyUpdate: !this.state.verifyUpdate });
     this.props.history.push('/');
   }
@@ -160,6 +160,7 @@ class CreateProduct extends Component {
         headers: { sessiontoken: localStorage.getItem('sessiontoken') },
       })
       .then(async (result) => {
+        this.setState({ typeUser: result.data.type });
         await axios
           .get(`https://screensell-back.herokuapp.com/user/${result.data.id}`, {
             headers: { sessiontoken: localStorage.getItem('sessiontoken') },
@@ -171,7 +172,7 @@ class CreateProduct extends Component {
               email: user.data.email,
               name: `${user.data.firstName} ${user.data.lastName}`,
               id: user.data.id,
-
+              owns: user.data.owns
             });
           });
       })
