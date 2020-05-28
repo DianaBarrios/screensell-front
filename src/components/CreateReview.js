@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
+import Alert from './Alert';
 
 import axios from 'axios';
 
@@ -18,7 +19,8 @@ class CreateReview extends Component {
       owns: [],
       productReview: false,
       errComment: false,
-      errReview: false
+      errReview: false,
+      successMessage: "false"
     };
   }
   async userOwns() {
@@ -64,7 +66,6 @@ class CreateReview extends Component {
             comment: this.state.comment,
             product: this.props.product,
           };
-          console.log(newReview, 'this');
           await axios
             .post(
               'https://screensell-back.herokuapp.com/review/new',
@@ -83,6 +84,7 @@ class CreateReview extends Component {
         .catch((err) => {
           console.log(err);
         });
+      this.setState({ successMessage: "true" })
       this.setState({
         comment: '',
       });
@@ -98,9 +100,15 @@ class CreateReview extends Component {
   }
 
   render() {
-
+    if (!this.state.productReview) {
+      return (<div>
+        <p>Para poder comentar sobre este producto, necesitas haberlo comprado previamente </p>
+        <p>¿Ya lo habías comprado antes? Ingresa a tu cuenta para poder comentar.</p>
+      </div>)
+    }
     return (
       <div>
+        <p>Agrega tu comentario aquí: </p>
         <input type="textarea" onChange={this.onChangeComment}></input>
         <a className="btn" onClick={this.onSubmit}>
           {' '}
