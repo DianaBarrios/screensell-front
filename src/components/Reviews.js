@@ -51,9 +51,7 @@ class CreateReview extends Component {
 
     if (noComments) {
       return (
-        <p>
-          <strong> No existen comentarios para este producto.</strong>
-        </p>
+        <p className="text-muted">No existen opiniones para este producto.</p>
       );
     }
 

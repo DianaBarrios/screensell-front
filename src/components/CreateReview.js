@@ -111,13 +111,17 @@ class CreateReview extends Component {
     if (!this.state.productReview) {
       return (
         <div>
-          <p>
+          <p className="text-muted">
             Para poder comentar sobre este producto, necesitas haberlo comprado
             previamente{" "}
           </p>
-          <p>
-            ¿Ya lo habías comprado antes? Ingresa a tu cuenta para poder
-            comentar.
+          <p className="text-muted">
+            ¿Ya lo habías comprado antes?{" "}
+            <Link as={Link} to={"/usuario/login"}>
+              {" "}
+              <span> Ingresa a tu cuenta</span>{" "}
+            </Link>{" "}
+            para poder comentar.
           </p>
         </div>
       );
