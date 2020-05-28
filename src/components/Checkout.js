@@ -20,11 +20,13 @@ class CreateProduct extends Component {
       expYear: '0',
       cvv: '000',
       verifyUpdate: true,
+      owns: []
     };
     this.onChangeNumberCard = this.onChangeNumberCard.bind(this);
+    this.addProductsToUser = this.addProductsToUser.bind(this);
     this.onChangeNameCard = this.onChangeNameCard.bind(this);
-    this.onChangeExpYear = this.onChangeExpYear.bind(this);
     this.onChangeExpMonth = this.onChangeExpMonth.bind(this);
+    this.onChangeExpYear = this.onChangeExpYear.bind(this);
     this.onChangeCvv = this.onChangeCvv.bind(this);
     this.createOrder = this.createOrder.bind(this);
     this.sendEmail = this.sendEmail.bind(this);
@@ -102,10 +104,52 @@ class CreateProduct extends Component {
       });
   }
 
+  addProductsToUser() {
+    let auxOwns = this.state.owns;
+    let aux = [];
+
+    for (let index in this.props.products) {
+      let product = this.props.products[index];
+      if (this.props.addedItems.hasOwnProperty(product.id)) {
+        aux.push(product._id);
+      }
+    }
+
+    if (auxOwns.length == 0) {
+      for (var i in aux) {
+        auxOwns.push(aux[i]);
+      }
+    } else {
+      for (var i in aux) {
+        var id = auxOwns.indexOf(aux[i]);
+        if (!id) {
+          auxOwns.push(aux[i]);
+        }
+      }
+    }
+
+    this.setState({ owns: auxOwns });
+    let newProducts = {
+      owns: this.state.owns,
+      id: this.state.id
+    }
+    console.log(this.state.id, "id");
+    console.log(this.state.email);
+
+    axios.patch(`https://screensell-back.herokuapp.com/user/${this.state.id}/owns`, newProducts, {
+      headers: { sessiontoken: localStorage.getItem('sessiontoken') },
+    }).then(result => {
+      console.log(result);
+    }).catch(err => {
+      console.log(err);
+    });
+  }
+
   goHome() {
-    this.sendEmail();
+    // this.sendEmail();
+    this.addProductsToUser();
     this.createOrder();
-    window.localStorage.removeItem('cart');
+    //window.localStorage.removeItem('cart');
     this.setState({ verifyUpdate: !this.state.verifyUpdate });
     this.props.history.push('/');
   }
@@ -127,6 +171,7 @@ class CreateProduct extends Component {
               email: user.data.email,
               name: `${user.data.firstName} ${user.data.lastName}`,
               id: user.data.id,
+
             });
           });
       })
