@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import { connect } from 'react-redux';
-import { addToCart } from './../scripts/cartReducer';
-import CreateReview from './CreateReview';
-import Review from './Reviews';
-import './AddProductCart.css';
+import React, { Component } from "react";
+import axios from "axios";
+import { connect } from "react-redux";
+import { addToCart } from "./../scripts/cartReducer";
+import CreateReview from "./CreateReview";
+import Review from "./Reviews";
+import "./AddProductCart.css";
 
 class AddProductCart extends Component {
   constructor(props) {
@@ -12,15 +12,15 @@ class AddProductCart extends Component {
     this.state = {
       isLoading: false,
       error: null,
-      id: '',
-      name: '',
-      description: '',
-      model: '',
-      type: '',
-      price: '',
-      img: '',
+      id: "",
+      name: "",
+      description: "",
+      model: "",
+      type: "",
+      price: "",
+      img: "",
       qty: 1,
-      idoficial: ''
+      idoficial: ""
     };
     this.onClickSaveCart = this.onClickSaveCart.bind(this);
     this.onChangeQty = this.onChangeQty.bind(this);
@@ -50,19 +50,19 @@ class AddProductCart extends Component {
     } catch (error) {
       this.setState({
         error,
-        isLoading: false,
+        isLoading: false
       });
     }
   }
 
   onClickSaveCart() {
     this.props.addToCart(this.state.id, this.state.qty);
-    alert('Agregado Existosamente!');
+    alert("Agregado Existosamente!");
   }
 
   onChangeQty(e) {
     this.setState({
-      qty: e.target.value,
+      qty: e.target.value
     });
   }
 
@@ -78,43 +78,58 @@ class AddProductCart extends Component {
     }
 
     return (
-      <div className="product">
-        <div className="product-view">
-          <div id="img-product">
-            <img src={this.state.img}></img>
-          </div>
-          <div>
-            <h2>{this.state.name}</h2>
-            <h4>{this.state.description}</h4>
-            <h4>{this.state.model}</h4>
-            <h4>{this.state.description}</h4>
-            <h4>{this.state.type}</h4>
-            <h4>$ {this.state.price}</h4>
-            <select id="qty" onChange={this.onChangeQty}>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
+      <div>
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-4">
+              <img id="product-img-desc" src={this.state.img} />
+            </div>
+            <div className="col-lg-8">
+              <h1>{this.state.name}</h1>
+              <h2>$ {this.state.price}</h2>
+              <div id="prodduct-description">
+                <p>{this.state.description}</p>
+                <p>Modelo: {this.state.model}</p>
+                <p>Tipo: {this.state.type}</p>
+              </div>
+
+              <select id="qty" onChange={this.onChangeQty}>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+              <button
+                className="btn btn-primary"
+                onClick={this.onClickSaveCart}
+              >
+                Agregar a carrito
+              </button>
+            </div>
           </div>
         </div>
-        <button className="btn btn-primary" onClick={this.onClickSaveCart}>
-          Agregar a carrito
-        </button>
-        <Review product={this.state.id}></Review>
-        <CreateReview product={this.state.id} id={this.state.idoficial}></CreateReview>
+        <div className="container">
+          <Review product={this.state.id}></Review>
+          <CreateReview
+            product={this.state.id}
+            id={this.state.idoficial}
+          ></CreateReview>
+        </div>
       </div>
     );
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     addToCart: (id, quantity) => {
       dispatch(addToCart(id, quantity));
-    },
+    }
   };
 };
 
-export default connect(null, mapDispatchToProps)(AddProductCart);
+export default connect(
+  null,
+  mapDispatchToProps
+)(AddProductCart);

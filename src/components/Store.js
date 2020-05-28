@@ -24,7 +24,8 @@ class Store extends Component {
       );
       this.setState({
         products: result.data,
-        isLoading: false
+        isLoading: false,
+        error: null
       });
     } catch (error) {
       this.setState({
@@ -43,7 +44,8 @@ class Store extends Component {
       );
       this.setState({
         products: result.data,
-        isLoading: false
+        isLoading: false,
+        error: null
       });
     } catch (error) {
       this.setState({
@@ -54,8 +56,8 @@ class Store extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log("after: ",prevProps);
-    console.log("now: ",this.props)
+    console.log("after: ", prevProps);
+    console.log("now: ", this.props);
     if (this.props.location.search !== prevProps.location.search) {
       if (this.props.location.search == "") {
         this.fetchAllProducts();
@@ -86,7 +88,23 @@ class Store extends Component {
     const { products, isLoading, error } = this.state;
 
     if (error) {
-      return <p>{error.message}</p>;
+      return (
+        <div className="page-division row">
+          <div className="col-lg-3 mx-0">
+            <Filter />
+          </div>
+          <div className="col-lg-9">
+            <div className="page-content mt-3">
+            <h1>Lo sentimos,</h1>
+            <h3>Por el momento no contamos con este producto</h3>
+            <p>Sigue explorando nuestra tienda online!</p>
+            <Link as={Link} className="btn btn-outline-dark" to={'/tienda'}>
+              <div>Regresar</div>
+            </Link>
+            </div>
+          </div>
+        </div>
+      );
     }
 
     if (isLoading) {
