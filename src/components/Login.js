@@ -105,7 +105,7 @@ class Login extends Component {
 
             <button>login</button>
             <p className="message">
-              No tienes cuenta? <a href="/usuario/nuevo">Crear una cuenta</a>
+              ¿No tienes cuenta? <a href="/usuario/nuevo">Crear una cuenta</a>
             </p>
           </form>
         </div>

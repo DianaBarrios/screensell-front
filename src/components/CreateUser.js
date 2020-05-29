@@ -181,7 +181,7 @@ class CreateUser extends Component {
 
             <button type="submit">Crear</button>
             <p className="message">
-              Ya tienes cuenta? <a href="/usuario/login">Inicia sesión</a>
+              ¿Ya tienes cuenta? <a href="/usuario/login">Inicia sesión</a>
             </p>
           </form>
         </div>

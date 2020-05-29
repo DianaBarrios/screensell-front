@@ -62,7 +62,7 @@ class Contact extends Component {
             <div className="col-md-6">
               <div id="contact-form" className="container mt-5">
                 <h4>
-                  Tienes preguntas? <small> Escríbenos </small>
+                  ¿Tienes preguntas? <small> Escríbenos </small>
                 </h4>
                 <form>
                   <div className="form-group">
