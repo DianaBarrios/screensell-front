@@ -7,7 +7,7 @@ class Home extends Component {
     return (
       <div>
         <div className="container">
-          <div className="row">
+          <div className="row mx-auto">
             <Carousel />
           </div>
 
