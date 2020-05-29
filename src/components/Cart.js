@@ -57,7 +57,6 @@ class Cart extends Component {
               <div className="col-md-3 my-auto">
                 <h5>{product.name}</h5>
                 <p className="text-muted">{product.description}</p>
-
               </div>
               <div className="col-md-1 my-auto">
                 <select
@@ -71,10 +70,12 @@ class Cart extends Component {
                   <option value="4">4</option>
                   <option value="5">5</option>
                 </select>
-
               </div>
               <div className="col-md-2 my-auto">
-                <p> <strong>${product.qty * product.price}</strong></p>
+                <p>
+                  {" "}
+                  <strong>${product.qty * product.price}</strong>
+                </p>
               </div>
               <div className="col-md-1 my-auto">
                 <button onClick={() => this.deleteElement(product.id)}>
@@ -105,7 +106,7 @@ class Cart extends Component {
       })
       .catch(err => {
         this.setState({
-          err: "Porfavor ingresa a tu cuenta antes de hacer checkout"
+          err: "Por favor ingresa a tu cuenta antes de hacer checkout."
         });
       });
   }
@@ -128,10 +129,14 @@ class Cart extends Component {
     if (err) {
       return (
         <div>
-          <p>{err}</p>
-          <Link as={Link} to={"/usuario"}>
-            <div>Ingresar a cuenta</div>
-          </Link>
+          <div className="page-content container mt-5">
+            <h3>
+              {err}
+              <Link as={Link} to={"/usuario"} className="text-warning">
+                <strong> Ingresar a cuenta</strong>
+              </Link>
+            </h3>
+          </div>
         </div>
       );
     }
@@ -143,13 +148,18 @@ class Cart extends Component {
     if (count == 0) {
       return (
         <div>
-          <p>
-            Por el momento no hay productos en el carrito, ¿Quieres agregar
-            alguno?
-          </p>
-          <Link key={10} as={Link} to={"/tienda"}>
-            <div className="navbar-btn-legend">Ir a tienda</div>
-          </Link>
+          <div className="page-content container mt-5">
+            <h3>
+              Por el momento no hay productos en el carrito, ¿Quieres agregar
+              alguno?
+              <Link key={10} as={Link} to={"/tienda"} className="text-warning">
+                <div className="navbar-btn-legend">
+                  {" "}
+                  <strong>Ir a tienda </strong>
+                </div>
+              </Link>
+            </h3>
+          </div>
         </div>
       );
     }
@@ -162,7 +172,9 @@ class Cart extends Component {
             <div className="row">
               <div className="col-lg-9">{this.getProducts()}</div>
               <div className="col-lg-3 mt-3">
-                <p>Precio Total: <h3>$ {this.state.finalPrice}</h3></p>
+                <p>
+                  Precio Total: <h3>$ {this.state.finalPrice}</h3>
+                </p>
                 <button className="btn btn-primary" onClick={this.gotoCheckout}>
                   Proceder al pago
                 </button>

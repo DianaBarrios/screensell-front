@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import Sidebar from './Sidebar';
-import { Link } from 'react-router-dom';
-import FileUpload from './FileUpload';
+import React, { Component } from "react";
+import axios from "axios";
+import Sidebar from "./Sidebar";
+import { Link } from "react-router-dom";
+import FileUpload from "./FileUpload";
 import NotAuthorized from "./NotAuthorized";
 
 class CreateProduct extends Component {
@@ -10,14 +10,14 @@ class CreateProduct extends Component {
     super(props);
 
     this.state = {
-      name: '',
-      description: '',
-      model: '',
-      type: '',
-      price: '',
-      stock: '',
-      img: '../placeholder.png',
-      user: '',
+      name: "",
+      description: "",
+      model: "",
+      type: "",
+      price: "",
+      stock: "",
+      img: "../placeholder.png",
+      user: "",
       isLoading: true
     };
     this.onChangeName = this.onChangeName.bind(this);
@@ -54,23 +54,23 @@ class CreateProduct extends Component {
     this.setState({ stock: e.target.value });
   }
 
-  handleImg = (imgLink) => {
-    console.log('inside parent', imgLink);
+  handleImg = imgLink => {
+    console.log("inside parent", imgLink);
     this.setState({
-      img: imgLink,
+      img: imgLink
     });
   };
   async componentWillMount() {
     this.setState({ isLoading: true });
 
     await axios
-      .get('https://screensell-back.herokuapp.com/user/validate', {
-        headers: { sessiontoken: localStorage.getItem('sessiontoken') },
+      .get("https://screensell-back.herokuapp.com/user/validate", {
+        headers: { sessiontoken: localStorage.getItem("sessiontoken") }
       })
-      .then((result) => {
+      .then(result => {
         this.setState({ user: result.data.type });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   }
@@ -85,48 +85,51 @@ class CreateProduct extends Component {
       type: this.state.type,
       stock: Number(this.state.stock),
       price: Number(this.state.price),
-      img: this.state.img,
+      img: this.state.img
     };
 
     axios
-      .post('https://screensell-back.herokuapp.com/product/new', productObj, {
-        headers: { sessiontoken: localStorage.getItem('sessiontoken') },
+      .post("https://screensell-back.herokuapp.com/product/new", productObj, {
+        headers: { sessiontoken: localStorage.getItem("sessiontoken") }
       })
-      .then((res) => {
+      .then(res => {
         console.log(res.data);
-        this.props.history.push('/productos');
+        this.props.history.push("/productos");
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(productObj);
         console.log(error);
       });
 
     this.setState({
-      name: '',
-      description: '',
-      model: '',
-      type: '',
-      stock: '',
-      price: '',
-      img: '',
+      name: "",
+      description: "",
+      model: "",
+      type: "",
+      stock: "",
+      price: "",
+      img: ""
     });
   }
 
   render() {
     const { user } = this.state;
 
-    if (user != 'admin') {
+    if (user != "admin") {
       return <NotAuthorized />;
     }
 
     return (
-      <div className="page-division">
-        <Sidebar user={user} />
-        <div className="page-content mt-3 px-4">
+      <div className="row">
+        <div className="col-lg-2">
+          <Sidebar user={user} />
+        </div>
+
+        <div className="page-content col-lg-10 px-4">
           <h2 className="page-title">NUEVO PRODUCTO</h2>
 
           <div className="row d-flex justify-content-between mx-3">
-            <Link as={Link} className="btn btn-outline-dark" to={'/productos'}>
+            <Link as={Link} className="btn btn-outline-dark" to={"/productos"}>
               <div>Regresar</div>
             </Link>
             <button

@@ -15,9 +15,9 @@ class UpdateOrder extends Component {
       totalPrice: "",
       isLoading: false,
       error: null,
-      typeUser: '',
-      message: '',
-      statusBeforeUpdate: ''
+      typeUser: "",
+      message: "",
+      statusBeforeUpdate: ""
     };
     this.onChangeStatus = this.onChangeStatus.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
@@ -62,19 +62,22 @@ class UpdateOrder extends Component {
       });
   }
   sendEmail(status) {
-
     let mail = {
       to: this.state.user.email,
-      subject: 'Cambio de estado del pedio de pedido - Screensell',
-      text: `¡Hola ${this.state.user.firstName}!` + "\n Te informamos que el status actual de tu orden " + this.state.id + `. \n La orden esta:  ${status}`
-        + "\n Para más información ingresa a nuestro sitio web. \n Que tengas un buen día, \n Screensell",
+      subject: "Cambio de estado del pedio de pedido - Screensell",
+      text:
+        `¡Hola ${this.state.user.firstName}!` +
+        "\n Te informamos que el status actual de tu orden " +
+        this.state.id +
+        `. \n La orden esta:  ${status}` +
+        "\n Para más información ingresa a nuestro sitio web. \n Que tengas un buen día, \n Screensell"
     };
     axios
-      .post('https://screensell-back.herokuapp.com/mail', mail)
-      .then((result) => {
-        console.log('Email mandado!');
+      .post("https://screensell-back.herokuapp.com/mail", mail)
+      .then(result => {
+        console.log("Email mandado!");
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   }
@@ -90,7 +93,7 @@ class UpdateOrder extends Component {
       this.sendEmail(this.state.status);
     }
     const id = this.props.match.params.orderId;
-    
+
     console.log(this.state.status);
 
     const orderObj = {
@@ -144,12 +147,14 @@ class UpdateOrder extends Component {
       return <p>Cargando orden...</p>;
     }
 
-
-    if (typeUser == 'user') {
+    if (typeUser == "user") {
       return (
-        <div className="page-division">
-          <Sidebar />
-          <div className="page-content mt-3 px-4">
+        <div className="row">
+          <div className="col-lg-2">
+            <Sidebar user={typeUser}/>
+          </div>
+
+          <div className="page-content col-lg-10 px-4">
             <h2 className="page-title">VER ORDEN</h2>
 
             <div className="row d-flex justify-content-between page-btns-container mx-3 mt-4">
@@ -161,7 +166,7 @@ class UpdateOrder extends Component {
             <div className="container mt-3">
               <form onSubmit={this.handleUpdate} id="update-order-form">
                 <div className="row">
-                  <div className="col-md-8">
+                  <div className="col-lg-8">
                     <div className="form-group">
                       <label>ID:</label>
                       <input
@@ -263,7 +268,8 @@ class UpdateOrder extends Component {
                         readOnly
                       />
                     </div>
-
+                  </div>
+                  <div className="col-lg-4">
                     <div className="form-group">
                       <label>Productos:</label>
                       <ol>
@@ -273,7 +279,6 @@ class UpdateOrder extends Component {
                       </ol>
                     </div>
                   </div>
-
                 </div>
               </form>
             </div>
@@ -283,9 +288,12 @@ class UpdateOrder extends Component {
     }
 
     return (
-      <div className="page-division">
-        <Sidebar />
-        <div className="page-content mt-3 px-4">
+      <div className="row">
+        <div className="col-lg-2">
+          <Sidebar />
+        </div>
+
+        <div className="page-content col-lg-10 px-4">
           <h2 className="page-title">ACTUALIZAR ORDEN</h2>
 
           <div className="row d-flex justify-content-between page-btns-container mx-3 mt-4">

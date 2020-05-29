@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import axios from "axios";
 import Sidebar from "./Sidebar";
 import FileUpload from "./FileUpload";
 import NotAuthorized from "./NotAuthorized";
-
 
 class UpdateProduct extends Component {
   constructor(props) {
@@ -20,7 +19,7 @@ class UpdateProduct extends Component {
       img: "",
       isLoading: false,
       error: null,
-      user: '',
+      user: ""
     };
     this.onChangeName = this.onChangeName.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
@@ -39,14 +38,14 @@ class UpdateProduct extends Component {
     this.setState({ isLoading: true });
 
     await axios
-      .get('https://screensell-back.herokuapp.com/user/validate', {
-        headers: { sessiontoken: localStorage.getItem('sessiontoken') },
+      .get("https://screensell-back.herokuapp.com/user/validate", {
+        headers: { sessiontoken: localStorage.getItem("sessiontoken") }
       })
-      .then((result) => {
+      .then(result => {
         console.log(result);
         this.setState({ user: result.data.type });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
 
@@ -191,18 +190,21 @@ class UpdateProduct extends Component {
       return <p>Cargando productos...</p>;
     }
 
-    if (user != 'admin') {
-      return <NotAuthorized />
+    if (user != "admin") {
+      return <NotAuthorized />;
     }
 
     return (
-      <div className="page-division">
-        <Sidebar />
-        <div className="page-content mt-3 px-4">
+      <div className="row">
+        <div className="col-lg-2">
+          <Sidebar />
+        </div>
+
+        <div className="page-content col-lg-10 px-4">
           <h2 className="page-title">EDITAR PRODUCTO</h2>
 
           <div className="row d-flex justify-content-between page-btns-container mx-3 mt-4">
-            <Link as={Link} className="btn btn-outline-dark" to={'/productos'}>
+            <Link as={Link} className="btn btn-outline-dark" to={"/productos"}>
               <div>Regresar</div>
             </Link>
             <button

@@ -3,7 +3,7 @@ import Sidebar from "./Sidebar";
 import axios from "axios";
 import Searchbar from "./Searchbar";
 import Table from "./Table";
-import NotAuthorized from './NotAuthorized';
+import NotAuthorized from "./NotAuthorized";
 const columns = [
   {
     Header: "ID",
@@ -43,12 +43,12 @@ const columns = [
   }
 ];
 
-const rowInfo = (rowobject) => {
+const rowInfo = rowobject => {
   console.log(rowobject.original);
   let id = rowobject.original.id;
   let newPath = `/producto/${id}`;
   window.location.href = newPath;
-}
+};
 class Product extends Component {
   constructor(props) {
     super(props);
@@ -58,7 +58,7 @@ class Product extends Component {
       error: null,
       query: "",
       select: "",
-      user: ''
+      user: ""
     };
   }
 
@@ -66,13 +66,13 @@ class Product extends Component {
     this.setState({ isLoading: true });
 
     await axios
-      .get('https://screensell-back.herokuapp.com/user/validate', {
-        headers: { sessiontoken: localStorage.getItem('sessiontoken') },
+      .get("https://screensell-back.herokuapp.com/user/validate", {
+        headers: { sessiontoken: localStorage.getItem("sessiontoken") }
       })
-      .then((result) => {
+      .then(result => {
         this.setState({ user: result.data.type });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
 
@@ -103,14 +103,17 @@ class Product extends Component {
       return <p>Cargando productos...</p>;
     }
 
-    if (user != 'admin') {
-      return <NotAuthorized />
+    if (user != "admin") {
+      return <NotAuthorized />;
     }
 
     return (
-      <div className="page-division">
-        <Sidebar user={user} />
-        <div className="page-content mt-3 px-4">
+      <div className="row">
+        <div className="col-lg-2">
+          <Sidebar user={user} />
+        </div>
+
+        <div className="page-content col-lg-10 px-4">
           <h2 className="page-title">PRODUCTOS</h2>
 
           <div className="row d-flex justify-content-end mx-3 my-4">
