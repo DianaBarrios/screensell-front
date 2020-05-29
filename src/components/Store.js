@@ -105,7 +105,11 @@ class Store extends Component {
     }
 
     if (isLoading) {
-      return <p>Cargando productos...</p>;
+      return (
+        <div className="page-content">
+          <p>Cargando...</p>
+        </div>
+      );
     }
 
     return (
@@ -114,7 +118,7 @@ class Store extends Component {
           <div className="page-content mt-3 mb-5">
             <div className="container">
               <p className="text-right">
-              {this.state.products.length} resultados...
+                {this.state.products.length} resultados...
               </p>
               <div class="card-deck">
                 {products.map(product => (

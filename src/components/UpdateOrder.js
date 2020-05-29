@@ -144,14 +144,18 @@ class UpdateOrder extends Component {
     }
 
     if (isLoading) {
-      return <p>Cargando orden...</p>;
+      return (
+        <div className="page-content">
+          <p>Cargando...</p>
+        </div>
+      );
     }
 
     if (typeUser == "user") {
       return (
         <div className="row">
           <div className="col-lg-2">
-            <Sidebar user={typeUser}/>
+            <Sidebar user={typeUser} />
           </div>
 
           <div className="page-content col-lg-10 px-4">

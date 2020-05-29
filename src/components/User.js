@@ -178,7 +178,11 @@ class User extends Component {
     }
 
     if (isLoading) {
-      return <p>Cargando usuario...</p>;
+      return (
+        <div className="page-content">
+          <p>Cargando usuario...</p>
+        </div>
+      );
     }
 
     return (

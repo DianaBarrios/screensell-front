@@ -100,7 +100,11 @@ class Product extends Component {
     }
 
     if (isLoading) {
-      return <p>Cargando productos...</p>;
+      return (
+        <div className="page-content">
+          <p>Cargando usuario...</p>
+        </div>
+      );
     }
 
     if (user != "admin") {

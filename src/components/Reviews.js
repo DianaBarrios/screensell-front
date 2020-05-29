@@ -46,7 +46,11 @@ class CreateReview extends Component {
     const { isLoading, reviews, noComments } = this.state;
 
     if (isLoading) {
-      return <p>Cargando comentarios ... </p>;
+      return (
+        <div className="page-content">
+          <p>Cargando...</p>
+        </div>
+      );
     }
 
     if (noComments) {
@@ -77,4 +81,3 @@ class CreateReview extends Component {
 }
 
 export default withRouter(CreateReview);
-

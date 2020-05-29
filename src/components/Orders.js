@@ -11,13 +11,13 @@ const columnsAdmin = [
     accessor: "id"
   },
   {
+    Header: "Status",
+    accessor: "status"
+  },
+  {
     Header: "Fecha",
     accessor: "time",
     filter: "fuzzyText"
-  },
-  {
-    Header: "Status",
-    accessor: "status"
   },
   {
     Header: "Total",
@@ -150,7 +150,11 @@ class Orders extends Component {
     }
 
     if (isLoading) {
-      return <p>Cargando productos...</p>;
+      return (
+        <div className="page-content">
+          <p>Cargando...</p>
+        </div>
+      );
     }
 
     if (user == "user") {
