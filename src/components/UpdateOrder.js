@@ -15,10 +15,13 @@ class UpdateOrder extends Component {
       totalPrice: "",
       isLoading: false,
       error: null,
-      typeUser: ''
+      typeUser: '',
+      message: '',
+      statusBeforeUpdate: ''
     };
     this.onChangeStatus = this.onChangeStatus.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
+    this.sendEmail = this.sendEmail.bind(this);
   }
 
   async componentWillMount() {
@@ -43,6 +46,7 @@ class UpdateOrder extends Component {
               id: data.id,
               time: data.time,
               status: data.status,
+              statusBeforeUpdate: data.status,
               user: data.user,
               products: data.products,
               totalPrice: data.totalPrice,
@@ -57,6 +61,23 @@ class UpdateOrder extends Component {
           });
       });
   }
+  sendEmail(status) {
+
+    let mail = {
+      to: this.state.user.email,
+      subject: 'Cambio de estado del pedio de pedido - Screensell',
+      text: `¡Hola ${this.state.user.firstName}!` + "\n Te informamos que el status actual de tu orden " + this.state.id + `. \n La orden esta:  ${status}`
+        + "\n Para más información ingresa a nuestro sitio web. \n Que tengas un buen día, \n Screensell",
+    };
+    axios
+      .post('https://screensell-back.herokuapp.com/mail', mail)
+      .then((result) => {
+        console.log('Email mandado!');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   onChangeStatus(e) {
     this.setState({ status: e.target.value });
@@ -65,6 +86,9 @@ class UpdateOrder extends Component {
   async handleUpdate(e) {
     e.preventDefault();
 
+    if (this.state.statusBeforeUpdate != this.state.status) {
+      this.sendEmail(this.state.status);
+    }
     const id = this.props.match.params.orderId;
     //console.log(id)
 
@@ -278,7 +302,7 @@ class UpdateOrder extends Component {
           </div>
 
           <div className="container mt-3">
-            <form onSubmit={this.handleUpdate} id="update-order-form">
+            <form id="update-order-form">
               <div className="row">
                 <div className="col-md-8">
                   <div className="form-group">
@@ -404,7 +428,7 @@ class UpdateOrder extends Component {
                       onChange={this.onChangeStatus}
                       required
                     >
-                      <option value="New">Nueva</option>
+                      <option value="Nueva">Nueva</option>
                       <option value="En proceso">En proceso</option>
                       <option value="Enviada">Enviada</option>
                       <option value="Recibida">Recibida</option>
@@ -412,16 +436,6 @@ class UpdateOrder extends Component {
                     </select>
                   </div>
                 </div>
-              </div>
-
-              <div className="d-flex justify-content-end my-3">
-                <button
-                  type="submit"
-                  value="Update Order"
-                  className="btn btn-primary"
-                >
-                  Guardar
-                </button>
               </div>
             </form>
           </div>

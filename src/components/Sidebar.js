@@ -8,7 +8,6 @@ class Sidebar extends Component {
 
   }
   render() {
-    { console.log(this.props.user, "siii") }
     if (this.props.user == 'user') {
       return (
         <div className="sidebar">
