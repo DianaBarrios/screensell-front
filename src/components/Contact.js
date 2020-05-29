@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Contact.css";
 import Map from "./Map";
+import { Link } from "react-router-dom";
 class Contact extends Component {
   render() {
     return (
@@ -9,7 +10,7 @@ class Contact extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-6">
-              <div id="contact-form" className="container">
+              <div id="contact-form" className="container mt-5">
                 <h4>
                   Tienes preguntas? <small> Escríbenos </small>
                 </h4>
@@ -62,12 +63,15 @@ class Contact extends Component {
               <div id="contact-info" className="container">
                 <ul id="contact-list">
                   <li>
-                    <i class="fa fa-phone" aria-hidden="true"></i>
-                    664 638 4869
-                  </li>
-                  <li>
                     <i class="fa fa-envelope" aria-hidden="true"></i>
                     screensellsinaloa@gmail.com
+                  </li>
+                  <li>
+                    <a href="http://www.facebook.com/screensell">@screensell</a>
+                  </li>
+                  <li>
+                    <i class="fa fa-phone" aria-hidden="true"></i>
+                    664 638 4869
                   </li>
                   <li>
                     <i class="fa fa-map-marker" aria-hidden="true"></i>
