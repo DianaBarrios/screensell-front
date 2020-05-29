@@ -40,7 +40,7 @@ class Cart extends Component {
 
   getProducts() {
     let components = [];
-    //let finalPrice = 0;
+    this.state.finalPrice = 0;
 
     for (let index in this.props.products) {
       let product = this.props.products[index];
@@ -57,7 +57,7 @@ class Cart extends Component {
               <div className="col-md-3 my-auto">
                 <h5>{product.name}</h5>
                 <p className="text-muted">{product.description}</p>
-                
+
               </div>
               <div className="col-md-1 my-auto">
                 <select
@@ -71,10 +71,10 @@ class Cart extends Component {
                   <option value="4">4</option>
                   <option value="5">5</option>
                 </select>
-                
+
               </div>
               <div className="col-md-2 my-auto">
-              <p> <strong>${product.qty * product.price}</strong></p>
+                <p> <strong>${product.qty * product.price}</strong></p>
               </div>
               <div className="col-md-1 my-auto">
                 <button onClick={() => this.deleteElement(product.id)}>

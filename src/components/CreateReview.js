@@ -115,14 +115,6 @@ class CreateReview extends Component {
             Para poder comentar sobre este producto, necesitas haberlo comprado
             previamente{" "}
           </p>
-          <p className="text-muted">
-            ¿Ya lo habías comprado antes?{" "}
-            <Link as={Link} to={"/usuario/login"}>
-              {" "}
-              <span> Ingresa a tu cuenta</span>{" "}
-            </Link>{" "}
-            para poder comentar.
-          </p>
         </div>
       );
     }

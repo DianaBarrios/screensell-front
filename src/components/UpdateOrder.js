@@ -119,8 +119,142 @@ class UpdateOrder extends Component {
       return <p>Cargando orden...</p>;
     }
 
-    if (typeUser != 'admin') {
-      return <NotAuthorized />
+
+    if (typeUser == 'user') {
+      return (
+        <div className="page-division">
+          <Sidebar />
+          <div className="page-content mt-3 px-4">
+            <h2 className="page-title">VER ORDEN</h2>
+
+            <div className="row d-flex justify-content-between page-btns-container mx-3 mt-4">
+              <a href="/ordenes" className="btn btn-outline-dark">
+                Regresar
+              </a>
+            </div>
+
+            <div className="container mt-3">
+              <form onSubmit={this.handleUpdate} id="update-order-form">
+                <div className="row">
+                  <div className="col-md-8">
+                    <div className="form-group">
+                      <label>ID:</label>
+                      <input
+                        id="orderId"
+                        name="id"
+                        type="text"
+                        className="form-control"
+                        value={this.state.id}
+                        readOnly
+                      />
+                    </div>
+
+                    <div className="row">
+                      <div className="col-sm-6 form-group">
+                        <label>Fecha:</label>
+                        <input
+                          id="date"
+                          name="fecha"
+                          type="text"
+                          className="form-control"
+                          value={this.state.time}
+                          readOnly
+                        />
+                      </div>
+
+                      <div className="col-sm-6 form-group">
+                        <label>Precio Total:</label>
+                        <input
+                          id="total"
+                          name="total"
+                          type="text"
+                          className="form-control"
+                          value={this.state.totalPrice}
+                          readOnly
+                        />
+                      </div>
+                    </div>
+
+                    <div className="row">
+                      <div className="col-sm-6 form-group">
+                        <label>Nombre:</label>
+                        <input
+                          id="firstName"
+                          name="nombres"
+                          type="text"
+                          className="form-control"
+                          value={this.state.user.firstName}
+                          readOnly
+                        />
+                      </div>
+
+                      <div className="col-sm-6 form-group">
+                        <label>Apellidos:</label>
+                        <input
+                          id="lastName"
+                          name="apellidos"
+                          type="text"
+                          className="form-control"
+                          value={this.state.user.lastName}
+                          readOnly
+                        />
+                      </div>
+                    </div>
+
+                    <div className="row">
+                      <div className="col-sm-6 form-group">
+                        <label>Email:</label>
+                        <input
+                          id="email"
+                          name="email"
+                          type="text"
+                          className="form-control"
+                          value={this.state.user.email}
+                          readOnly
+                        />
+                      </div>
+
+                      <div className="col-sm-6 form-group">
+                        <label>Celular:</label>
+                        <input
+                          id="celular"
+                          name="celular"
+                          type="text"
+                          className="form-control"
+                          value={this.state.user.cellphone}
+                          readOnly
+                        />
+                      </div>
+                    </div>
+
+                    <div className="form-group">
+                      <label>Dirección:</label>
+                      <input
+                        id="direccion"
+                        name="direccion"
+                        type="text"
+                        className="form-control"
+                        value={this.state.user.address}
+                        readOnly
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label>Productos:</label>
+                      <ol>
+                        {this.state.products.map((product, index) => (
+                          <li> {product}</li>
+                        ))}
+                      </ol>
+                    </div>
+                  </div>
+
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      );
     }
 
     return (

@@ -78,17 +78,3 @@ class CreateReview extends Component {
 
 export default withRouter(CreateReview);
 
-/*
-<table className="table table-hover ">
-          <tbody>
-            {reviews.map((review) => (
-              <tr key={review.id} id={review.id}>
-                <td>
-                  {review.user.firstName} {review.user.lastName}
-                </td>
-                <td>{review.comment}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-*/
