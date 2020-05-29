@@ -229,3 +229,29 @@ body {
   width: auto;
   padding: 25px;
 }
+
+.home-link {
+  color: #2b2d42;
+  font-size: 16px;
+}
+
+.home-link:hover {
+  color: #ffc400;
+  font-weight: bolder;
+}
+
+#row-variedad-marcas img {
+  filter: brightness(50%);
+  height: 100%;
+  object-fit: cover;
+}
+
+.home-card-link {
+  color: white;
+}
+
+.home-card-link:hover {
+  color: white;
+  font-weight: bolder;
+  object-fit: cover;
+}

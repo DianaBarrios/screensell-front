@@ -113,10 +113,10 @@ class Store extends Component {
 
     return (
       <div className="page-division row">
-        <div className="col-lg-3 mx-0">
+        <div className="col-lg-2 mx-0">
           <Filter />
         </div>
-        <div className="col-lg-9">
+        <div className="col-lg-10">
           <div className="page-content mt-3">
             <div className="container">
               <div class="card-deck">

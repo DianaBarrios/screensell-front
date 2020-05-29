@@ -90,7 +90,8 @@ class UpdateOrder extends Component {
       this.sendEmail(this.state.status);
     }
     const id = this.props.match.params.orderId;
-    //console.log(id)
+    
+    console.log(this.state.status);
 
     const orderObj = {
       id: this.state.id,

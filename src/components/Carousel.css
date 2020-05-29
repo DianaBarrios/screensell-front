@@ -1,0 +1,16 @@
+.homepage-carousel img {
+  width: auto;
+  height: 360px;
+  object-fit: cover;
+  filter: brightness(65%);
+}
+
+.carousel-caption h3:hover {
+  color: #ffc400;
+  font-weight: bolder;
+}
+
+.carousel-caption p:hover {
+    color: #ffc400;
+    font-weight: bolder;
+}
