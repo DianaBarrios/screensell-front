@@ -235,7 +235,7 @@ class UpdateProduct extends Component {
                   </div>
 
                   <div className="form-group">
-                    <label>Descripcion:</label>
+                    <label>Descripción:</label>
                     <textarea
                       id="productDescription"
                       name="descripcion"

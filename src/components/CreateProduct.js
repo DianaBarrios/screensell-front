@@ -159,7 +159,7 @@ class CreateProduct extends Component {
                   </div>
 
                   <div className="form-group">
-                    <label>Descripcion:</label>
+                    <label>Descripción:</label>
                     <textarea
                       id="descripcion"
                       className="form-control"

@@ -36,7 +36,7 @@ const columns = [
     filter: "fuzzyText"
   },
   {
-    Header: "Descripcion",
+    Header: "Descripción",
     accessor: "description",
     // Use our custom `fuzzyText` filter on this column
     filter: "fuzzyText"

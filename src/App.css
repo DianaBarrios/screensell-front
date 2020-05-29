@@ -257,3 +257,7 @@ body {
   font-weight: bolder;
   object-fit: cover;
 }
+
+a {
+  color: black;
+}
