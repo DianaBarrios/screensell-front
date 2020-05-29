@@ -89,18 +89,15 @@ class Store extends Component {
 
     if (error) {
       return (
-        <div className="page-division row">
-          <div className="col-lg-3 mx-0">
-            <Filter />
-          </div>
-          <div className="col-lg-9">
+        <div className="page-divisionrow">
+          <div className="col-lg-12">
             <div className="page-content mt-3">
-            <h1>Lo sentimos,</h1>
-            <h3>Por el momento no contamos con este producto</h3>
-            <p>Sigue explorando nuestra tienda online!</p>
-            <Link as={Link} className="btn btn-outline-dark" to={'/tienda'}>
-              <div>Regresar</div>
-            </Link>
+              <h1>Lo sentimos,</h1>
+              <h3>Por el momento no contamos con este producto</h3>
+              <p>Sigue explorando nuestra tienda online!</p>
+              <Link as={Link} className="btn btn-outline-dark" to={"/tienda"}>
+                <div>Regresar</div>
+              </Link>
             </div>
           </div>
         </div>
@@ -113,12 +110,12 @@ class Store extends Component {
 
     return (
       <div className="page-division row">
-        <div className="col-lg-2 mx-0">
-          <Filter />
-        </div>
-        <div className="col-lg-10">
-          <div className="page-content mt-3">
+        <div className="col-lg-12">
+          <div className="page-content mt-3 mb-5">
             <div className="container">
+              <p className="text-right">
+              {this.state.products.length} resultados...
+              </p>
               <div class="card-deck">
                 {products.map(product => (
                   <div className="col-lg-4 col-md-6">

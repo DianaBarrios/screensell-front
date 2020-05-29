@@ -38,6 +38,7 @@
 
 .page-content {
   flex-grow: 5;
+  min-height: 500px;
 }
 
 #create-product-form {

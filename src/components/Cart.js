@@ -158,7 +158,7 @@ class Cart extends Component {
       <div>
         <div className="container">
           <h2 className="page-title">CARRITO</h2>
-          <div className="container">
+          <div className="page-content container">
             <div className="row">
               <div className="col-lg-9">{this.getProducts()}</div>
               <div className="col-lg-3 mt-3">

@@ -86,7 +86,7 @@ class Home extends Component {
           </div>
 
           <div className="row">
-            <div id="row-variedad-marcas" className="card-deck mt-3 mb-4">
+            <div id="row-variedad-marcas" className="card-deck mt-3 mb-5">
               <div className="card bg-light text-white">
                 <img
                   src="https://screensell-bucket.s3.amazonaws.com/img3.jpeg"
