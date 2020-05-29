@@ -19,6 +19,7 @@ class User extends Component {
       isLoading: false,
       error: null,
       login: false,
+      userType: ''
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.onChangeFirstName = this.onChangeFirstName.bind(this);
@@ -100,9 +101,9 @@ class User extends Component {
         await axios
           .patch(
             'https://screensell-back.herokuapp.com/' +
-              result.data.type +
-              '/' +
-              result.data.id,
+            result.data.type +
+            '/' +
+            result.data.id,
             userObj,
             {
               headers: { sessiontoken: localStorage.getItem('sessiontoken') },
@@ -136,12 +137,13 @@ class User extends Component {
         headers: { sessiontoken: localStorage.getItem('sessiontoken') },
       })
       .then(async (result) => {
+        this.setState({ userType: result.data.type });
         await axios
           .get(
             'https://screensell-back.herokuapp.com/' +
-              result.data.type +
-              '/' +
-              result.data.id,
+            result.data.type +
+            '/' +
+            result.data.id,
             {
               headers: { sessiontoken: localStorage.getItem('sessiontoken') },
             }
@@ -169,7 +171,7 @@ class User extends Component {
   }
 
   render() {
-    const { isLoading, error, user } = this.state;
+    const { isLoading, error, userType } = this.state;
 
     if (error) {
       return <Login />;
@@ -181,7 +183,7 @@ class User extends Component {
 
     return (
       <div className="page-division">
-        <Sidebar />
+        <Sidebar user={userType} />
         <div className="page-content mt-3 px-4">
           <h2 className="page-title">¡Hola {this.state.firstName}! </h2>
 

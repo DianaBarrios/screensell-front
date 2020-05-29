@@ -154,7 +154,7 @@ class Orders extends Component {
     if (user == 'user') {
       return (
         <div className="page-division">
-          <Sidebar />
+          <Sidebar user={user} />
 
           <div className="page-content mt-3 px-4">
             <h2 className="page-title">ORDENES</h2>
@@ -169,7 +169,7 @@ class Orders extends Component {
 
     return (
       <div className="page-division">
-        <Sidebar />
+        <Sidebar user={user} />
 
         <div className="page-content mt-3 px-4">
           <h2 className="page-title">ORDENES</h2>

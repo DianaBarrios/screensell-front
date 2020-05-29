@@ -69,6 +69,7 @@ class App extends Component {
             <Route exact path="/usuario/login" component={Login} />
             <Route exact path="/usuario" component={User} />
             <Route exact path="/checkout" component={Checkout} />
+            <Route exact path="/file" component={FileUpload} />
           </div>
 
           <Footer />

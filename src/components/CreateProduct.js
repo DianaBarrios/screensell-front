@@ -121,7 +121,7 @@ class CreateProduct extends Component {
 
     return (
       <div className="page-division">
-        <Sidebar />
+        <Sidebar user={user} />
         <div className="page-content mt-3 px-4">
           <h2 className="page-title">NUEVO PRODUCTO</h2>
 
