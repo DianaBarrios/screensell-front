@@ -45,7 +45,6 @@ class Login extends Component {
         newSession
       )
       .then((res) => {
-        console.log(res.data.token);
         localStorage.setItem('sessiontoken', res.data.token);
         this.props.history.push('/');
       })
