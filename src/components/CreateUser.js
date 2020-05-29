@@ -70,6 +70,7 @@ class CreateUser extends Component {
     axios
       .post('https://screensell-back.herokuapp.com/user/new', newUser)
       .then((res) => {
+        localStorage.setItem('sessiontoken', res.data.token);
         this.props.history.push('/');
       })
       .catch((error) => {
@@ -126,8 +127,8 @@ class CreateUser extends Component {
                       value={this.state.cellphone}
                       onChange={this.onChangeCellhone}
                       placeholder="Celular"
-                      pattern="[0-9]{10}" 
-                      maxlength="12"  
+                      pattern="[0-9]{10}"
+                      maxlength="12"
                       required
                     />
                   </div>
