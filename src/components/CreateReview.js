@@ -131,7 +131,6 @@ class CreateReview extends Component {
       <div>
         <form>
           <div className="form-group">
-            <label>Agrega tu comentario aquí: </label>
             <textarea
               className="form-control"
               rows="3"

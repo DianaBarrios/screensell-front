@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import './AddProductCart.css';
-import { FaTrashAlt } from 'react-icons/fa';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import Checkout from './Checkout';
+import React, { Component } from "react";
+import axios from "axios";
+import "./AddProductCart.css";
+import { FaTrashAlt } from "react-icons/fa";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import Checkout from "./Checkout";
 
 import {
   types,
   changeQty,
   removeItem,
-  clearCart,
-} from '../scripts/cartReducer';
+  clearCart
+} from "../scripts/cartReducer";
 
 class Cart extends Component {
   constructor(props) {
@@ -20,9 +20,10 @@ class Cart extends Component {
     this.state = {
       products: [],
       verifyUpdate: false,
-      count: '0',
+      count: "0",
       checkout: false,
-      err: '',
+      err: "",
+      finalPrice: 0
     };
 
     this.getProducts = this.getProducts.bind(this);
@@ -39,50 +40,53 @@ class Cart extends Component {
 
   getProducts() {
     let components = [];
-    let finalPrice = 0;
+    //let finalPrice = 0;
 
     for (let index in this.props.products) {
       let product = this.props.products[index];
       if (this.props.addedItems.hasOwnProperty(product.id)) {
         product.qty = this.props.addedItems[product.id].quantity;
-        finalPrice += product.qty * product.price;
+        this.state.finalPrice += product.qty * product.price;
+
         components.push(
-          <tr key={product.id} id={product.id}>
-            <td key="p">{product.name}</td>
-            <td>{product.description}</td>
-            <td>{product.price}</td>
-            <td>
-              <select
-                id={product.id}
-                value={product.qty}
-                onChange={this.onChangeQty}
-              >
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select>
-            </td>
-            <td>{product.qty * product.price}</td>
-            <td>
-              <button onClick={() => this.deleteElement(product.id)}>
-                <FaTrashAlt />
-              </button>
-            </td>
-          </tr>
+          <div className="carrito-container" key={product.id} id={product.id}>
+            <div className="row">
+              <div className="col-md-4">
+                <img src={product.img} alt="Image of product" />
+              </div>
+              <div className="col-md-3 my-auto">
+                <h5>{product.name}</h5>
+                <p className="text-muted">{product.description}</p>
+                
+              </div>
+              <div className="col-md-1 my-auto">
+                <select
+                  id={product.id}
+                  value={product.qty}
+                  onChange={this.onChangeQty}
+                >
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+                
+              </div>
+              <div className="col-md-2 my-auto">
+              <p> <strong>${product.qty * product.price}</strong></p>
+              </div>
+              <div className="col-md-1 my-auto">
+                <button onClick={() => this.deleteElement(product.id)}>
+                  <FaTrashAlt />
+                </button>
+              </div>
+            </div>
+          </div>
         );
       }
     }
-    components.push(
-      <tr key={123} id={123}>
-        <td key="p"></td>
-        <td></td>
-        <td></td>
-        <td>Total</td>
-        <td>{finalPrice}</td>
-      </tr>
-    );
+    //components.push(<div className="container">{finalPrice}</div>);
     return components;
   }
 
@@ -93,22 +97,22 @@ class Cart extends Component {
 
   async gotoCheckout() {
     await axios
-      .get('https://screensell-back.herokuapp.com/user/validate', {
-        headers: { sessiontoken: localStorage.getItem('sessiontoken') },
+      .get("https://screensell-back.herokuapp.com/user/validate", {
+        headers: { sessiontoken: localStorage.getItem("sessiontoken") }
       })
-      .then(async (result) => {
-        this.props.history.push('/checkout');
+      .then(async result => {
+        this.props.history.push("/checkout");
       })
-      .catch((err) => {
+      .catch(err => {
         this.setState({
-          err: 'Porfavor ingresa a tu cuenta antes de hacer checkout',
+          err: "Porfavor ingresa a tu cuenta antes de hacer checkout"
         });
       });
   }
 
   editElement(id) {
-    let productos = JSON.parse(localStorage.getItem('cart'));
-    const index = productos.findIndex((x) => x.product === id);
+    let productos = JSON.parse(localStorage.getItem("cart"));
+    const index = productos.findIndex(x => x.product === id);
     console.log(index);
   }
 
@@ -125,7 +129,7 @@ class Cart extends Component {
       return (
         <div>
           <p>{err}</p>
-          <Link as={Link} to={'/usuario'}>
+          <Link as={Link} to={"/usuario"}>
             <div>Ingresar a cuenta</div>
           </Link>
         </div>
@@ -143,7 +147,7 @@ class Cart extends Component {
             Por el momento no hay productos en el carrito, ¿Quieres agregar
             alguno?
           </p>
-          <Link key={10} as={Link} to={'/tienda'}>
+          <Link key={10} as={Link} to={"/tienda"}>
             <div className="navbar-btn-legend">Ir a tienda</div>
           </Link>
         </div>
@@ -152,46 +156,47 @@ class Cart extends Component {
 
     return (
       <div>
-        <table className="table table-hover px-3">
-          <thead>
-            <tr>
-              <th scope="col">Nombre</th>
-              <th scope="col">Modelo</th>
-              <th scope="col">Precio</th>
-              <th scope="col">Cantidad</th>
-              <th scope="col">Total</th>
-              <th scope="col">Eliminar</th>
-            </tr>
-          </thead>
-          <tbody>{this.getProducts()}</tbody>
-        </table>
-        <button className="btn btn-primary" onClick={this.gotoCheckout}>
-          Proceder al pago
-        </button>
+        <div className="container">
+          <h2 className="page-title">CARRITO</h2>
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-9">{this.getProducts()}</div>
+              <div className="col-lg-3 mt-3">
+                <p>Precio Total: <h3>$ {this.state.finalPrice}</h3></p>
+                <button className="btn btn-primary" onClick={this.gotoCheckout}>
+                  Proceder al pago
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     products: state.products,
-    addedItems: state.addedItems,
+    addedItems: state.addedItems
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     changeQty: (id, quantity) => {
       dispatch(changeQty(id, quantity));
     },
-    removeItem: (id) => {
+    removeItem: id => {
       dispatch(removeItem(id));
     },
     clearCart: () => {
       dispatch(clearCart());
-    },
+    }
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Cart);
